@@ -17,6 +17,9 @@ namespace Quotidian
             InitializeComponent();
         }
 
+        int highlightcount = 0;
+        HelperObjects.Highlight highlight1;
+
         private void quoteBtn_Click(object sender, EventArgs e)
         {
             richTextBox1.SelectionBackColor = Color.Yellow;
@@ -29,6 +32,8 @@ namespace Quotidian
                 richTextBox2.AppendText(Environment.NewLine);
                 richTextBox2.AppendText(richTextBox1.SelectedText);
             }
+            highlight1 = new HelperObjects.Highlight(highlightcount, 1, true, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
+            highlightcount++;
         }
 
 
@@ -54,8 +59,8 @@ namespace Quotidian
                 richTextBox3.AppendText(Environment.NewLine);
                 richTextBox3.AppendText(richTextBox1.SelectedText);
             }
-
-
+            highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
+            highlightcount++;
         }
     }
 }
