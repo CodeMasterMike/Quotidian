@@ -16,12 +16,6 @@ namespace Quotidian
         /*string str = DatabaseInterface.databaseConnectionStr;
         using (SqlConnection con = new SqlConnection(str))
         {
-            lineList = DatabaseInterface.loadLinesFromDB(con);
-            sectionList = DatabaseInterface.loadSectionsFromDB(con, lineList);
-            blockList = DatabaseInterface.loadBlocksFromDB(con, lineList);
-            switchList = DatabaseInterface.loadSwitchesFromDB(con, blockList);
-            DatabaseInterface.updateBlocksNextPrevious(lineList);
-            }
         }*/
 
 
