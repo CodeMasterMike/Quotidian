@@ -75,6 +75,11 @@
     <Compile Include="HelperObjects\ReadingTag.cs" />
     <Compile Include="HelperObjects\Reading.cs" />
     <Compile Include="HelperObjects\Project.cs" />
+    <Compile Include="LocalDatabaseDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalDatabaseDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -89,6 +94,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="LocalDatabaseDataSet.xsc">
+      <DependentUpon>LocalDatabaseDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="LocalDatabaseDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LocalDatabaseDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="LocalDatabaseDataSet.xss">
+      <DependentUpon>LocalDatabaseDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
