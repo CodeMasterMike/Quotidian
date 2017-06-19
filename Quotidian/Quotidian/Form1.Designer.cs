@@ -36,7 +36,7 @@
             this.tagBtn = new System.Windows.Forms.Button();
             this.textBtn = new System.Windows.Forms.Button();
             this.quoteBtn = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.readingDoc = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -139,18 +139,18 @@
             this.quoteBtn.UseVisualStyleBackColor = true;
             this.quoteBtn.Click += new System.EventHandler(this.quoteBtn_Click);
             // 
-            // richTextBox1
+            // readingDoc
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.readingDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Location = new System.Drawing.Point(457, 35);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(744, 1028);
-            this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.Click += new System.EventHandler(this.richTextBox1_Click);
-            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            this.readingDoc.Location = new System.Drawing.Point(457, 35);
+            this.readingDoc.Name = "readingDoc";
+            this.readingDoc.Size = new System.Drawing.Size(744, 1028);
+            this.readingDoc.TabIndex = 5;
+            this.readingDoc.Text = "";
+            this.readingDoc.Click += new System.EventHandler(this.richTextBox1_Click);
+            this.readingDoc.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // Form1
             // 
@@ -158,7 +158,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1494, 1089);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.readingDoc);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.groupBox1);
@@ -182,7 +182,7 @@
         private System.Windows.Forms.Button tagBtn;
         private System.Windows.Forms.Button textBtn;
         private System.Windows.Forms.Button quoteBtn;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox readingDoc;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBox3;
     }
