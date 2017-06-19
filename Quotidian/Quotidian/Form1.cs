@@ -28,6 +28,7 @@ namespace Quotidian
         {
             String authorPage = getAuthorPage(richTextBox1.SelectionStart);
             richTextBox1.SelectionBackColor = Color.Yellow;
+            int numLines = richTextBox1.Lines.Count();
 
             if (!String.IsNullOrEmpty(richTextBox2.Text))
             {
@@ -42,7 +43,7 @@ namespace Quotidian
         //this function returns a formatted string [Author, pageNum] to be appended onto quote
         private String getAuthorPage(int charNum)
         {
-            String s = "[" + reading.author + ", " + (int)(charNum / reading.linesPerPage) + "]";
+            String s = "[" + reading.author + ", " + (int)(charNum / reading.linesPerPage + 1) + "]";
             return s;
         }
 
@@ -83,7 +84,7 @@ namespace Quotidian
         //this info will be used to automatically create the reference for the user
         private void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            reading = new Reading(1, 1, "The Art of the Peel", "Gabriel Wells", "");
         }
     }
 }
