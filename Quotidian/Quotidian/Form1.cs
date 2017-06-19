@@ -16,7 +16,9 @@ namespace Quotidian
         public Form1()
         {
             InitializeComponent();
+            reading = new Reading(-1, -1, "Title Unknown", "Author Unknown", "");
         }
+
 
         Reading reading;
         int highlightcount = 0;
@@ -24,21 +26,27 @@ namespace Quotidian
 
         private void quoteBtn_Click(object sender, EventArgs e)
         {
+            String authorPage = getAuthorPage(richTextBox1.SelectionStart);
             richTextBox1.SelectionBackColor = Color.Yellow;
-            if (String.IsNullOrEmpty(richTextBox2.Text))
-            {
-                richTextBox2.AppendText(richTextBox1.SelectedText);
-            }
-            else
+
+            if (!String.IsNullOrEmpty(richTextBox2.Text))
             {
                 richTextBox2.AppendText(Environment.NewLine);
-                richTextBox2.AppendText(richTextBox1.SelectedText);
             }
+            richTextBox2.AppendText("\"" + richTextBox1.SelectedText + "\" " + authorPage);
+            
             highlight1 = new HelperObjects.Highlight(highlightcount, 1, true, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
             highlightcount++;
         }
 
+        //this function returns a formatted string [Author, pageNum] to be appended onto quote
+        private String getAuthorPage(int charNum)
+        {
+            String s = "[" + reading.author + ", " + (int)(charNum / reading.linesPerPage) + "]";
+            return s;
+        }
 
+        //TODO: This should probably bring up a new reading screen??
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -52,15 +60,11 @@ namespace Quotidian
         private void textBtn_Click(object sender, EventArgs e)
         {
             richTextBox1.SelectionBackColor = Color.LightSkyBlue;
-            if (String.IsNullOrEmpty(richTextBox3.Text))
-            {
-                richTextBox3.AppendText(richTextBox1.SelectedText);
-            }
-            else
+            if (!String.IsNullOrEmpty(richTextBox3.Text))
             {
                 richTextBox3.AppendText(Environment.NewLine);
-                richTextBox3.AppendText(richTextBox1.SelectedText);
             }
+            richTextBox3.AppendText(richTextBox1.SelectedText);
             highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
             highlightcount++;
         }
@@ -75,6 +79,8 @@ namespace Quotidian
 
         }
 
+        //should allow user to populate information for the readig
+        //this info will be used to automatically create the reference for the user
         private void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
