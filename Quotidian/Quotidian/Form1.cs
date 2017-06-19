@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quotidian.HelperObjects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,7 @@ namespace Quotidian
             InitializeComponent();
         }
 
+        Reading reading;
         int highlightcount = 0;
         HelperObjects.Highlight highlight1;
 
@@ -61,6 +63,21 @@ namespace Quotidian
             }
             highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
             highlightcount++;
+        }
+
+        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
