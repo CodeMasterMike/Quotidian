@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Quotidian.HelperObjects;
 
 namespace Quotidian
 {
@@ -61,6 +62,16 @@ namespace Quotidian
             }
             highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
             highlightcount++;
+        }
+
+        private void Test1_Click(object sender, EventArgs e)
+        {
+            //test inserting project
+            Project project1 = DatabaseInterface.createProject("TestProject123");
+            Reading reading1 = DatabaseInterface.createReading(1, "Test Reading", "Jim Thorpe", "Jimmy T was a class act. His legend is undeniable.");
+            Highlight highlight1 = DatabaseInterface.createHighlight(1, true, 1, 10);
+
+            int tester = -1;
         }
     }
 }

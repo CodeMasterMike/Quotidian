@@ -14,6 +14,8 @@ namespace Quotidian.HelperObjects
         public String author { get; set; }
         public String text { get; set; }
 
+        public List<Highlight> highlights;
+
         public Reading(int id, int pId, String t, String a, String txt)
         {
             readingId = id;
@@ -21,6 +23,8 @@ namespace Quotidian.HelperObjects
             title = t;
             author = a;
             text = txt;
+
+            highlights = new List<Highlight>();
         }
     }
 }
