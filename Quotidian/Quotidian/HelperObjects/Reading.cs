@@ -9,7 +9,7 @@ namespace Quotidian.HelperObjects
     class Reading
     {
         public int? readingId { get; set; }
-        public int? highlightId { get; set; }
+        //public int? highlightId { get; set; }
         private readonly int LPP = 60;
         public int projectId { get; set; }
         public int linesPerPage { get; set; }
@@ -34,7 +34,7 @@ namespace Quotidian.HelperObjects
         public Reading(int? rId, int? hId, int pId, String t, String firstName, String middleName, String lastName, String txt, String month, int day, int year, String publisher)
         {
             readingId = rId;
-            highlightId = hId;
+            //highlightId = hId;
             projectId = pId;
             title = t;
             first = firstName;
