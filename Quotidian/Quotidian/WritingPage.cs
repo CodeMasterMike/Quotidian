@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Quotidian
 {
-    public partial class Form2 : Form
+    public partial class WritingPage : Form
     {
-        public Form2()
+        public WritingPage()
         {
             InitializeComponent();
         }
