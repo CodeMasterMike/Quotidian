@@ -84,12 +84,14 @@ namespace Quotidian
             this.newReadingToolStripMenuItem.Name = "newReadingToolStripMenuItem";
             this.newReadingToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.newReadingToolStripMenuItem.Text = "New Reading";
+            this.newReadingToolStripMenuItem.Click += new System.EventHandler(this.newReadingToolStripMenuItem_Click);
             // 
             // openReadingToolStripMenuItem
             // 
             this.openReadingToolStripMenuItem.Name = "openReadingToolStripMenuItem";
             this.openReadingToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.openReadingToolStripMenuItem.Text = "Open Reading";
+            this.openReadingToolStripMenuItem.Click += new System.EventHandler(this.openReadingToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
