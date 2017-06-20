@@ -32,5 +32,15 @@ namespace Quotidian
         {
             throw new NotImplementedException();
         }
+
+        public virtual void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void openReadingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
