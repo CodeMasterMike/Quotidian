@@ -13,17 +13,18 @@ namespace Quotidian
 {
     public partial class Form1 : Form
     {
-        public Form1(Reading r, Form3 f)
+        public Form1(Project p, Reading r, Form3 f)
         {
             InitializeComponent();
+            project = p;
             reading = r;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
             readingDoc.Text = reading.text;
             citationForm = f;
         }
 
-
-        Reading reading;
-        Form3 citationForm;
+        public Project project;
+        public Reading reading;
+        public Form3 citationForm;
         int highlightcount = 0;
         HelperObjects.Highlight highlight1;
 
@@ -73,6 +74,16 @@ namespace Quotidian
             highlightcount++;
         }
 
+        private void Test1_Click(object sender, EventArgs e)
+        {
+            //test inserting project
+            Project project1 = DatabaseInterface.createProject("TestProject123");
+            Reading reading1 = DatabaseInterface.createReading(1, "Test Reading", "Jim Thorpe", "Jimmy T was a class act. His legend is undeniable.");
+            Highlight highlight1 = DatabaseInterface.createHighlight(1, true, 1, 10);
+
+            int tester = -1;
+		}	
+			
         private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -93,8 +104,20 @@ namespace Quotidian
 
         private void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 newForm = new Quotidian.Form3();
+            Form3 newForm = new Quotidian.Form3(project);
             newForm.Show();
+        }
+
+        private void openReadingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SelectReading selectReading = new SelectReading(project, this);
+        }
+
+        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            OpenProject openProject = new OpenProject();
         }
     }
 }
