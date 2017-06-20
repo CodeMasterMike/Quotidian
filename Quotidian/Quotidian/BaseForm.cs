@@ -10,14 +10,27 @@ using System.Windows.Forms;
 
 namespace Quotidian
 {
-    abstract public partial class BaseForm : Form
+    public partial class BaseForm : SubBaseForm
     {
         public BaseForm()
         {
             InitializeComponent();
         }
 
-        abstract public void addDetailsToolStripMenuItem_Click(object sender, EventArgs e);
+        //public void addDetailsToolStripMenuItem_Click(object sender, EventArgs e);
+        public virtual void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
+        public virtual void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

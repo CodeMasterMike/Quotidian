@@ -25,7 +25,7 @@ namespace Quotidian
         public Project project;
         public Reading reading;
         public ReadingInfo citationForm;
-        int highlightcount = 0;
+        int highlightCount = 0;
         HelperObjects.Highlight highlight1;
 
         private void quoteBtn_Click(object sender, EventArgs e)
@@ -40,13 +40,13 @@ namespace Quotidian
             }
             richTextBox2.AppendText("\"" + readingDoc.SelectedText + "\" " + authorPage);
             
-            highlight1 = new HelperObjects.Highlight(highlightcount, 1, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
-            highlightcount++;
+            highlight1 = new HelperObjects.Highlight(highlightCount, 1, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
+            highlightCount++;
         }
 
         public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Console.WriteLine("In the reading form");
+            Console.WriteLine("Overridden");
         }
 
         //this function returns a formatted string [Author, pageNum] to be appended onto quote
@@ -75,8 +75,8 @@ namespace Quotidian
                 richTextBox3.AppendText(Environment.NewLine);
             }
             richTextBox3.AppendText(readingDoc.SelectedText);
-            highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
-            highlightcount++;
+            highlight1 = new HelperObjects.Highlight(highlightCount, 1, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
+            highlightCount++;
         }
 
         private void Test1_Click(object sender, EventArgs e)
