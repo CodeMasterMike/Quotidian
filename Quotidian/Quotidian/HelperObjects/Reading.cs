@@ -10,7 +10,10 @@ namespace Quotidian.HelperObjects
     {
         public int? readingId { get; set; }
         public int? highlightId { get; set; }
+        private readonly int LPP = 60;
         public int projectId { get; set; }
+        public int linesPerPage { get; set; }
+        public String style { get; set; }
         public String title { get; set; }
         public String first { get; set; }
         public String middle { get; set; }
@@ -20,6 +23,12 @@ namespace Quotidian.HelperObjects
         public int dateDay { get; set; }
         public int dateYear { get; set; }
         public String publisherName { get; set; }
+        
+        public String sectionTitle { get; set; }
+        public String[] editors { get; set; }
+        public String city { get; set; }
+        public int yearPublished { get; set; }
+
 
         public Reading(int? rId, int? hId, int pId, String t, String firstName, String middleName, String lastName, String txt, String month, int day, int year, String publisher)
         {
@@ -35,6 +44,12 @@ namespace Quotidian.HelperObjects
             dateDay = day;
             dateYear = year;
             publisherName = publisher;
+            linesPerPage = LPP;
+            style = "MLA";
         }
+
+        //MLA styling standard is currently 
+        //in line: [Author, pageNum]
+        //full citation: Last, First M. "Section Title." Book/Anthology. Ed. First M. Last. City: Publisher, Year Published. Page(s). Print.
     }
 }
