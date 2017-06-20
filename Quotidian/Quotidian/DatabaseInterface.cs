@@ -166,7 +166,6 @@ namespace Quotidian
                         if(reading.readingId == highlight.readingId)
                         {
                             reading.highlights.Add(highlight);
-                            break;
                         }
                     }
                 }

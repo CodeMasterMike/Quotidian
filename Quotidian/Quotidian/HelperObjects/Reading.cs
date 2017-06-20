@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quotidian.HelperObjects
 {
-    class Reading
+    public class Reading
     {
         public int? readingId { get; set; }
         //public int? highlightId { get; set; }
@@ -53,7 +53,9 @@ namespace Quotidian.HelperObjects
 
         public String createCitation()
         {
-            return "poop";
+            String c = "";
+
+            return c;
         }
 
         //MLA styling standard is currently 

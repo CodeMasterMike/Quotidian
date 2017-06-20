@@ -14,14 +14,17 @@ namespace Quotidian
 {
     public partial class Form1 : Form
     {
-        public Form1()
+        public Form1(Reading r, Form3 f)
         {
             InitializeComponent();
-            reading = new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
+            reading = r;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
+            readingDoc.Text = reading.text;
+            citationForm = f;
         }
 
 
         Reading reading;
+        Form3 citationForm;
         int highlightcount = 0;
         HelperObjects.Highlight highlight1;
 
@@ -96,6 +99,7 @@ namespace Quotidian
         private void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //reading = new Reading(1, 1, "The Art of the Peel", "Gabriel Wells", "");
+            citationForm.Show();
         }
     }
 }
