@@ -91,8 +91,8 @@ namespace Quotidian
                         String title = reader.GetString(2);
                         String author = reader.GetString(3);
                         String text = reader.GetString(4);
-                        Reading reading = new Reading(readingId, projectId, title, author, text);
-                        project.readings.Add(reading);
+                        //Reading reading = new Reading(readingId, projectId, title, author, text);
+                        //project.readings.Add(reading);
                     }
                 }
                 reader.Close();

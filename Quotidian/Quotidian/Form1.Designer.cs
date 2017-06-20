@@ -102,7 +102,7 @@
             this.richTextBox3.Location = new System.Drawing.Point(12, 10);
             this.richTextBox3.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(302, 404);
+            this.richTextBox3.Size = new System.Drawing.Size(302, 405);
             this.richTextBox3.TabIndex = 7;
             this.richTextBox3.Text = "";
             // 
@@ -113,7 +113,7 @@
             this.panel1.Controls.Add(this.tagBtn);
             this.panel1.Controls.Add(this.textBtn);
             this.panel1.Controls.Add(this.quoteBtn);
-            this.panel1.Location = new System.Drawing.Point(932, 35);
+            this.panel1.Location = new System.Drawing.Point(1338, 50);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(186, 826);
@@ -164,7 +164,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.readingDoc.Location = new System.Drawing.Point(457, 35);
             this.readingDoc.Name = "readingDoc";
-            this.readingDoc.Size = new System.Drawing.Size(744, 1028);
+            this.readingDoc.Size = new System.Drawing.Size(795, 1028);
             this.readingDoc.TabIndex = 5;
             this.readingDoc.Text = "";
             this.readingDoc.Click += new System.EventHandler(this.richTextBox1_Click);
@@ -179,7 +179,7 @@
             this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1120, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(1545, 33);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -197,20 +197,20 @@
             // newProjectToolStripMenuItem
             // 
             this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(200, 30);
             this.newProjectToolStripMenuItem.Text = "New Project";
             this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
             // 
             // openProjectToolStripMenuItem
             // 
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(200, 30);
             this.openProjectToolStripMenuItem.Text = "Open Project";
             // 
             // saveProjectToolStripMenuItem
             // 
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(200, 30);
             this.saveProjectToolStripMenuItem.Text = "Save Project";
             // 
             // editToolStripMenuItem
@@ -224,7 +224,7 @@
             // addDetailsToolStripMenuItem
             // 
             this.addDetailsToolStripMenuItem.Name = "addDetailsToolStripMenuItem";
-            this.addDetailsToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.addDetailsToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
             this.addDetailsToolStripMenuItem.Text = "Add Details";
             this.addDetailsToolStripMenuItem.Click += new System.EventHandler(this.addDetailsToolStripMenuItem_Click);
             // 
@@ -233,8 +233,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-
-            this.ClientSize = new System.Drawing.Size(1494, 1089);
+            this.ClientSize = new System.Drawing.Size(1545, 1089);
             this.Controls.Add(this.readingDoc);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel1);
