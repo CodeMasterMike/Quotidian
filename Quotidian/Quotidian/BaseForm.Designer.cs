@@ -1,4 +1,6 @@
-﻿namespace Quotidian
+﻿using System;
+
+namespace Quotidian
 {
     partial class BaseForm
     {
@@ -75,6 +77,7 @@
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
             this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(242, 30);
             this.saveProjectToolStripMenuItem.Text = "Save Project";
+            this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.saveProjectToolStripMenuItem_Click);
             // 
             // newReadingToolStripMenuItem
             // 
@@ -99,7 +102,7 @@
             // addDetailsToolStripMenuItem
             // 
             this.addDetailsToolStripMenuItem.Name = "addDetailsToolStripMenuItem";
-            this.addDetailsToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.addDetailsToolStripMenuItem.Size = new System.Drawing.Size(185, 30);
             this.addDetailsToolStripMenuItem.Text = "Edit Details";
             this.addDetailsToolStripMenuItem.Click += new System.EventHandler(this.addDetailsToolStripMenuItem_Click);
             // 
@@ -118,6 +121,8 @@
             this.PerformLayout();
 
         }
+
+        
 
         #endregion
 

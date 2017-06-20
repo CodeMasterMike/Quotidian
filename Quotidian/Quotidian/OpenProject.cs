@@ -55,13 +55,15 @@ namespace Quotidian
         private void newProjectButton_Click(object sender, EventArgs e)
         {
             selectedProject = DatabaseInterface.createProject(newProjectNameTextBox.Text);
-            openNextPage();
+            openNewProjectPage();
         }
 
-        public void openNextPage()
+        private void openNewProjectPage()
         {
+            //ideally this will open project summary page
+            //var nextPage = new ProjectSummary();
             var nextPage = new ReadingPage(selectedProject, new Reading(-1,-1,-1,"No Reading Selected","","","","No Reading Selected","",-1,-1,""), new ReadingInfo(selectedProject));
-            this.Hide();
+            this.Hide();    
             nextPage.Show();
         }
     }
