@@ -16,7 +16,7 @@ namespace Quotidian
         public Form1()
         {
             InitializeComponent();
-            reading = new Reading(-1, -1, "Title Unknown", "Author Unknown", "");
+            reading = new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
         }
 
 
@@ -26,7 +26,7 @@ namespace Quotidian
 
         private void quoteBtn_Click(object sender, EventArgs e)
         {
-            String authorPage = getAuthorPage(richTextBox1.SelectionStart);
+            String authorPage = getAuthorPage(readingDoc.SelectionStart);
             readingDoc.SelectionBackColor = Color.Yellow;
             int numLines = readingDoc.Lines.Count();
 
@@ -34,7 +34,7 @@ namespace Quotidian
             {
                 richTextBox2.AppendText(Environment.NewLine);
             }
-            richTextBox2.AppendText("\"" + richTextBox1.SelectedText + "\" " + authorPage);
+            richTextBox2.AppendText("\"" + readingDoc.SelectedText + "\" " + authorPage);
             
             highlight1 = new HelperObjects.Highlight(highlightcount, 1, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
             highlightcount++;
@@ -43,7 +43,7 @@ namespace Quotidian
         //this function returns a formatted string [Author, pageNum] to be appended onto quote
         private String getAuthorPage(int charNum)
         {
-            String s = "[" + reading.author + ", " + (int)(charNum / reading.linesPerPage + 1) + "]";
+            String s = "[" + reading.last + ", " + (int)(charNum / reading.linesPerPage + 1) + "]";
             return s;
         }
 
@@ -65,7 +65,7 @@ namespace Quotidian
             {
                 richTextBox3.AppendText(Environment.NewLine);
             }
-            richTextBox3.AppendText(richTextBox1.SelectedText);
+            richTextBox3.AppendText(readingDoc.SelectedText);
             highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
             highlightcount++;
         }
@@ -84,7 +84,7 @@ namespace Quotidian
         //this info will be used to automatically create the reference for the user
         private void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            reading = new Reading(1, 1, "The Art of the Peel", "Gabriel Wells", "");
+            //reading = new Reading(1, 1, "The Art of the Peel", "Gabriel Wells", "");
         }
     }
 }
