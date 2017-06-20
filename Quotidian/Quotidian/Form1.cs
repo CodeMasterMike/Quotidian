@@ -27,8 +27,8 @@ namespace Quotidian
         private void quoteBtn_Click(object sender, EventArgs e)
         {
             String authorPage = getAuthorPage(richTextBox1.SelectionStart);
-            richTextBox1.SelectionBackColor = Color.Yellow;
-            int numLines = richTextBox1.Lines.Count();
+            readingDoc.SelectionBackColor = Color.Yellow;
+            int numLines = readingDoc.Lines.Count();
 
             if (!String.IsNullOrEmpty(richTextBox2.Text))
             {
@@ -36,7 +36,7 @@ namespace Quotidian
             }
             richTextBox2.AppendText("\"" + richTextBox1.SelectedText + "\" " + authorPage);
             
-            highlight1 = new HelperObjects.Highlight(highlightcount, 1, true, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
+            highlight1 = new HelperObjects.Highlight(highlightcount, 1, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
             highlightcount++;
         }
 
@@ -55,18 +55,18 @@ namespace Quotidian
 
         private void richTextBox1_Click(object sender, EventArgs e)
         {
-            richTextBox1.SelectionBackColor = Color.White;
+            readingDoc.SelectionBackColor = Color.White;
         }
 
         private void textBtn_Click(object sender, EventArgs e)
         {
-            richTextBox1.SelectionBackColor = Color.LightSkyBlue;
+            readingDoc.SelectionBackColor = Color.LightSkyBlue;
             if (!String.IsNullOrEmpty(richTextBox3.Text))
             {
                 richTextBox3.AppendText(Environment.NewLine);
             }
             richTextBox3.AppendText(richTextBox1.SelectedText);
-            highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, richTextBox1.SelectionStart, richTextBox1.SelectedText.Length);
+            highlight1 = new HelperObjects.Highlight(highlightcount, 1, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
             highlightcount++;
         }
 
