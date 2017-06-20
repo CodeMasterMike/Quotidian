@@ -48,6 +48,11 @@ namespace Quotidian.HelperObjects
             style = "MLA";
         }
 
+        public String createCitation()
+        {
+            return "poop";
+        }
+
         //MLA styling standard is currently 
         //in line: [Author, pageNum]
         //full citation: Last, First M. "Section Title." Book/Anthology. Ed. First M. Last. City: Publisher, Year Published. Page(s). Print.
