@@ -25,7 +25,7 @@ namespace Quotidian.HelperObjects
         public String publisherName { get; set; }
         
         public String sectionTitle { get; set; }
-        public String[] editors { get; set; }
+        public List<String> editors { get; set; }
         public String city { get; set; }
         public int yearPublished { get; set; }
 
@@ -49,13 +49,65 @@ namespace Quotidian.HelperObjects
             style = "MLA";
 			
 			highlights = new List<Highlight>();
+            editors = new List<String>();
         }
 
         public String createCitation()
         {
             String c = "";
 
+            switch(style) {
+                case "MLA":
+                    c = getMLACitation();
+                    break;
+                default:
+                    c = "No citation style found";
+                    break;
+            }
+
             return c;
+        }
+
+        private String getMLACitation()
+        {
+            String c = "";
+            c += formatName();
+            if(sectionTitle != null)
+            {
+                c += "\"" + sectionTitle + ".\"";
+            }
+            c += title + ".";
+            if(editors.Count() > 0)
+            {
+                c += "Ed. ";
+                foreach(String e in editors)
+                {
+                    c += e;
+                }
+            }
+            if(city != null)
+            {
+                c += city + ": ";
+            }
+            c += publisherName + ", " + yearPublished + ".";
+            c += "Print.";
+            return c;
+        }
+
+        //This function doesnt account for a missing first or last name
+        //Can be expanded in the future to do so
+        private String formatName()
+        {
+            String name = "";
+            if(middle == null)
+            {
+                name += last + ", " + first + ".";
+            }
+            else
+            {
+                name += last + ", " + first + " " + middle + ".";
+            }
+            return name;
         }
 
         //MLA styling standard is currently 
