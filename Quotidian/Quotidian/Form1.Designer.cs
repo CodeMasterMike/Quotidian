@@ -44,6 +44,7 @@
             this.saveProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newReadingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -102,7 +103,7 @@
             this.richTextBox3.Location = new System.Drawing.Point(12, 10);
             this.richTextBox3.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(302, 405);
+            this.richTextBox3.Size = new System.Drawing.Size(302, 406);
             this.richTextBox3.TabIndex = 7;
             this.richTextBox3.Text = "";
             // 
@@ -188,7 +189,8 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newProjectToolStripMenuItem,
             this.openProjectToolStripMenuItem,
-            this.saveProjectToolStripMenuItem});
+            this.saveProjectToolStripMenuItem,
+            this.newReadingToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(50, 29);
             this.fileToolStripMenuItem.Text = "File";
@@ -197,20 +199,20 @@
             // newProjectToolStripMenuItem
             // 
             this.newProjectToolStripMenuItem.Name = "newProjectToolStripMenuItem";
-            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(200, 30);
+            this.newProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.newProjectToolStripMenuItem.Text = "New Project";
             this.newProjectToolStripMenuItem.Click += new System.EventHandler(this.newProjectToolStripMenuItem_Click);
             // 
             // openProjectToolStripMenuItem
             // 
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(200, 30);
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.openProjectToolStripMenuItem.Text = "Open Project";
             // 
             // saveProjectToolStripMenuItem
             // 
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(200, 30);
+            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
             this.saveProjectToolStripMenuItem.Text = "Save Project";
             // 
             // editToolStripMenuItem
@@ -227,6 +229,13 @@
             this.addDetailsToolStripMenuItem.Size = new System.Drawing.Size(189, 30);
             this.addDetailsToolStripMenuItem.Text = "Add Details";
             this.addDetailsToolStripMenuItem.Click += new System.EventHandler(this.addDetailsToolStripMenuItem_Click);
+            // 
+            // newReadingToolStripMenuItem
+            // 
+            this.newReadingToolStripMenuItem.Name = "newReadingToolStripMenuItem";
+            this.newReadingToolStripMenuItem.Size = new System.Drawing.Size(211, 30);
+            this.newReadingToolStripMenuItem.Text = "New Reading";
+            this.newReadingToolStripMenuItem.Click += new System.EventHandler(this.newReadingToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -274,6 +283,7 @@
         private System.Windows.Forms.ToolStripMenuItem saveProjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addDetailsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newReadingToolStripMenuItem;
     }
 }
 

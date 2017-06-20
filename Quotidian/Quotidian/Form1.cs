@@ -90,5 +90,11 @@ namespace Quotidian
             //reading = new Reading(1, 1, "The Art of the Peel", "Gabriel Wells", "");
             citationForm.Show();
         }
+
+        private void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 newForm = new Quotidian.Form3();
+            newForm.Show();
+        }
     }
 }
