@@ -50,7 +50,7 @@ namespace Quotidian
             String month = datePublished.ToString("MMMM");
             int day = datePublished.Day;
             int year = datePublished.Year;
-            var nextPage = new Form4(docTitle, authorFirst, authorMiddle, authorLast, month, day, year, publisher);
+            var nextPage = new Form4(docTitle, authorFirst, authorMiddle, authorLast, month, day, year, publisher, this);
             this.Hide();
             nextPage.Show();
            // Regex dateRegex = new Regex();

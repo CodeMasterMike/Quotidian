@@ -20,8 +20,9 @@ namespace Quotidian
         public int dateDay { get; set; }
         public int dateYear { get; set; }
         public String publisherName { get; set; }
+        private Form3 form;
 
-        public Form4(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher)
+        public Form4(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, Form3 f)
         {
             title = docTitle;
             first = firstName;
@@ -31,6 +32,7 @@ namespace Quotidian
             dateDay = day;
             dateYear = year;
             publisherName = publisher;
+            form = f;
             InitializeComponent();
         }
 
@@ -43,6 +45,14 @@ namespace Quotidian
         {
             String text = readingText.Text;
             HelperObjects.Reading reading1 = new HelperObjects.Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
+            var readingPage = new Form1(reading1, form);
+            generatedLabel.Text = reading1.createCitation();
+            readingPage.Show();
+        }
+
+        private void generatedLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
