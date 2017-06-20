@@ -10,16 +10,14 @@ using System.Windows.Forms;
 
 namespace Quotidian
 {
-    public partial class WritingPage : BaseForm
+    abstract public partial class BaseForm : Form
     {
-        public WritingPage()
+        public BaseForm()
         {
             InitializeComponent();
         }
 
-        public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        abstract public void addDetailsToolStripMenuItem_Click(object sender, EventArgs e);
+
     }
 }

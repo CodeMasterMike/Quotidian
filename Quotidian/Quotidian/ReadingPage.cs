@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Quotidian
 {
-    public partial class ReadingPage : Form
+    public partial class ReadingPage : BaseForm
     {
         public ReadingPage(Project p, Reading r, ReadingInfo f)
         {
@@ -42,6 +42,11 @@ namespace Quotidian
             
             highlight1 = new HelperObjects.Highlight(highlightcount, 1, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
             highlightcount++;
+        }
+
+        public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Console.WriteLine("In the reading form");
         }
 
         //this function returns a formatted string [Author, pageNum] to be appended onto quote
@@ -92,14 +97,6 @@ namespace Quotidian
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
-        }
-
-        //should allow user to populate information for the readig
-        //this info will be used to automatically create the reference for the user
-        private void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //reading = new Reading(1, 1, "The Art of the Peel", "Gabriel Wells", "");
-            citationForm.Show();
         }
 
         private void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
