@@ -45,7 +45,15 @@ namespace Quotidian
             String authorMiddle = middleBox.Text;
             String authorLast = lastBox.Text;
             String publisher = publisherBox.Text;
-            DateTime datePublished = Convert.ToDateTime(dateBox.Text);
+            DateTime datePublished = new DateTime();
+            try
+            {
+                datePublished = Convert.ToDateTime(dateBox.Text);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
             String tags = tagsBox.Text;
             String month = datePublished.ToString("MMMM");
             int day = datePublished.Day;
