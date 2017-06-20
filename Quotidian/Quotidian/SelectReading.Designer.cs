@@ -62,6 +62,7 @@
             this.Controls.Add(this.selectReadingListBox);
             this.Name = "SelectReading";
             this.Text = "Select Reading";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SelectReading_FormClosed);
             this.Load += new System.EventHandler(this.SelectReading_Load);
             this.ResumeLayout(false);
 

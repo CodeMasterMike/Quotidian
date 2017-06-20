@@ -18,12 +18,15 @@ namespace Quotidian
         public Reading selectedReading;
         public Form1 callingForm;
 
-        public SelectReading(Project project, Form1 callingForm)
+        public SelectReading(Project project, Form1 caller)
         {
             InitializeComponent();
+            this.Show();
             selectedProject = project;
+            selectedReading = caller.reading;
             readings = project.readings;
-            initializeProjectListBox();
+            callingForm = caller;
+            initializeReadingListBox();
         }
 
         private void SelectReading_Load(object sender, EventArgs e)
@@ -31,7 +34,7 @@ namespace Quotidian
 
         }
 
-        public void initializeProjectListBox()
+        public void initializeReadingListBox()
         {
             selectReadingListBox.DataSource = readings;
             selectReadingListBox.DisplayMember = "title";
@@ -46,14 +49,22 @@ namespace Quotidian
             }
             else
             {
-                callingForm.reading = selectedReading;
                 this.Hide();
+                var readingPage = new Form1(selectedProject, selectedReading, callingForm.citationForm);
+                readingPage.Show();
             }
         }
 
         private void selectReadingListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-             selectedReading = (Reading)((ComboBox)sender).SelectedItem;
+             selectedReading = (Reading)((ListBox)sender).SelectedItem;
+        }
+
+        private void SelectReading_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //this.Hide();
+            var readingPage = new Form1(selectedProject, selectedReading, callingForm.citationForm);
+            readingPage.Show();
         }
     }
 }

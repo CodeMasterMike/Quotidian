@@ -15,11 +15,15 @@ namespace Quotidian
     {
         public List<Project> projects;
         public Project selectedProject;
+        public Form callingForm;
 
-        public OpenProject()
+        public OpenProject(Form caller = null, Project currProj = null)
         {
             InitializeComponent();
+            this.Show();
             projects = DatabaseInterface.getProjects();
+            callingForm = caller;
+            selectedProject = currProj;
             initializeProjectListBox();
         }
 
@@ -32,7 +36,7 @@ namespace Quotidian
 
         private void selectProjectListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedProject = (Project)((ComboBox)sender).SelectedItem;
+            selectedProject = (Project)((ListBox)sender).SelectedItem;
         }
 
         private void openProjectButton_Click(object sender, EventArgs e)
@@ -44,18 +48,19 @@ namespace Quotidian
             else
             {
                 selectedProject = DatabaseInterface.loadProject(selectedProject);
+                var nextPage = new Form1(selectedProject, new Reading(-1, -1, -1, "No Reading Selected", "", "", "", "No Reading Selected", "", -1, -1, ""), null);
             }
         }
 
         private void newProjectButton_Click(object sender, EventArgs e)
         {
-            DatabaseInterface.createProject(newProjectNameTextBox.Text);
+            selectedProject = DatabaseInterface.createProject(newProjectNameTextBox.Text);
             openNextPage();
         }
 
         public void openNextPage()
         {
-            var nextPage = new Form1(new Reading(-1,-1,-1,"No Reading Selected","","","","No Reading Selected","",-1,-1,""), null);
+            var nextPage = new Form1(selectedProject, new Reading(-1,-1,-1,"No Reading Selected","","","","No Reading Selected","",-1,-1,""), null);
             this.Hide();
             nextPage.Show();
         }

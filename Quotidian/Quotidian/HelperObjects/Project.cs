@@ -16,6 +16,9 @@ namespace Quotidian.HelperObjects
 
         public Project(int id, String n)
         {
+            readings = new List<Reading>();
+            writings = new List<Writing>();
+
             projectId = id;
             name = n;
         }

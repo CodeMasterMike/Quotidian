@@ -8,23 +8,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Quotidian.HelperObjects;
 
 namespace Quotidian
 {
     public partial class Form1 : Form
     {
-        public Form1(Reading r, Form3 f)
+        public Form1(Project p, Reading r, Form3 f)
         {
             InitializeComponent();
+            project = p;
             reading = r;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
             readingDoc.Text = reading.text;
             citationForm = f;
         }
 
-
+        public Project project;
         public Reading reading;
-        Form3 citationForm;
+        public Form3 citationForm;
         int highlightcount = 0;
         HelperObjects.Highlight highlight1;
 
@@ -104,8 +104,20 @@ namespace Quotidian
 
         private void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 newForm = new Quotidian.Form3();
+            Form3 newForm = new Quotidian.Form3(project);
             newForm.Show();
+        }
+
+        private void openReadingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            SelectReading selectReading = new SelectReading(project, this);
+        }
+
+        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            OpenProject openProject = new OpenProject();
         }
     }
 }

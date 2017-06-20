@@ -8,13 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Quotidian.HelperObjects;
 
 namespace Quotidian
 {
     public partial class Form3 : Form
     {
-        public Form3()
+        public Project selectedProject;
+
+        public Form3(Project p)
         {
+            selectedProject = p;
             InitializeComponent();
         }
 

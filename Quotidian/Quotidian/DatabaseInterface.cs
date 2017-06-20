@@ -45,10 +45,12 @@ namespace Quotidian
                 catch(Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
                     return null;
                 }
                 con.Close();
-                return new Project(projectId, projectName);
+                Project newProject = new Project(projectId, projectName);
+                return newProject;
             }
         }
 
@@ -73,6 +75,7 @@ namespace Quotidian
                 catch (Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
                     return null;
                 }
                 con.Close();
@@ -100,6 +103,7 @@ namespace Quotidian
                 catch (Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
                     return null;
                 }
                 con.Close();

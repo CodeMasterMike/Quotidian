@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Quotidian.HelperObjects;
 
 namespace Quotidian
 {
     public partial class Form4 : Form
     {
+        public Project currentProject;
+
         public String title { get; set; }
         public String first { get; set; }
         public String middle { get; set; }
@@ -24,6 +27,8 @@ namespace Quotidian
 
         public Form4(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, Form3 f)
         {
+            currentProject = f.selectedProject;
+
             title = docTitle;
             first = firstName;
             middle = middleName;
@@ -44,9 +49,12 @@ namespace Quotidian
         private void citationBtn_Click(object sender, EventArgs e)
         {
             String text = readingText.Text;
-            HelperObjects.Reading reading1 = new HelperObjects.Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
-            var readingPage = new Form1(reading1, form);
+            Reading reading1 = new Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
+            currentProject.readings.Add(reading1);
+            var newReading = DatabaseInterface.createReading(currentProject.projectId, title, last, text);
+            var readingPage = new Form1(currentProject, reading1, form);
             generatedLabel.Text = reading1.createCitation();
+            
             readingPage.Show();
         }
 
