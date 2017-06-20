@@ -12,11 +12,11 @@ using Quotidian.HelperObjects;
 
 namespace Quotidian
 {
-    public partial class Form3 : Form
+    public partial class ReadingInfo : Form
     {
         public Project selectedProject;
 
-        public Form3(Project p)
+        public ReadingInfo(Project p)
         {
             selectedProject = p;
             InitializeComponent();
@@ -62,7 +62,7 @@ namespace Quotidian
             String month = datePublished.ToString("MMMM");
             int day = datePublished.Day;
             int year = datePublished.Year;
-            var nextPage = new Form4(docTitle, authorFirst, authorMiddle, authorLast, month, day, year, publisher, this);
+            var nextPage = new ReadingTextPage(docTitle, authorFirst, authorMiddle, authorLast, month, day, year, publisher, this);
             this.Hide();
             nextPage.Show();
            // Regex dateRegex = new Regex();

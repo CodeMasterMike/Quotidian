@@ -1,6 +1,6 @@
 ﻿namespace Quotidian
 {
-    partial class Form1
+    partial class ReadingPage
     {
         /// <summary>
         /// Required designer variable.
@@ -37,20 +37,11 @@
             this.textBtn = new System.Windows.Forms.Button();
             this.quoteBtn = new System.Windows.Forms.Button();
             this.readingDoc = new System.Windows.Forms.RichTextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveProjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newReadingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openReadingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -172,74 +163,6 @@
             this.readingDoc.Click += new System.EventHandler(this.richTextBox1_Click);
             this.readingDoc.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.AccessibleRole = System.Windows.Forms.AccessibleRole.TitleBar;
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.editToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1373, 28);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openProjectToolStripMenuItem,
-            this.saveProjectToolStripMenuItem,
-            this.newReadingToolStripMenuItem,
-            this.openReadingToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.fileToolStripMenuItem.Text = "File";
-            this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
-            // 
-            // openProjectToolStripMenuItem
-            // 
-            this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(206, 26);
-            this.openProjectToolStripMenuItem.Text = "New/Open Project";
-            this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
-            // 
-            // saveProjectToolStripMenuItem
-            // 
-            this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.saveProjectToolStripMenuItem.Text = "Save Project";
-            // 
-            // newReadingToolStripMenuItem
-            // 
-            this.newReadingToolStripMenuItem.Name = "newReadingToolStripMenuItem";
-            this.newReadingToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.newReadingToolStripMenuItem.Text = "New Reading";
-            this.newReadingToolStripMenuItem.Click += new System.EventHandler(this.newReadingToolStripMenuItem_Click);
-            // 
-            // openReadingToolStripMenuItem
-            // 
-            this.openReadingToolStripMenuItem.Name = "openReadingToolStripMenuItem";
-            this.openReadingToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.openReadingToolStripMenuItem.Text = "Open Reading";
-            this.openReadingToolStripMenuItem.Click += new System.EventHandler(this.openReadingToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addDetailsToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(47, 24);
-            this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // addDetailsToolStripMenuItem
-            // 
-            this.addDetailsToolStripMenuItem.Name = "addDetailsToolStripMenuItem";
-            this.addDetailsToolStripMenuItem.Size = new System.Drawing.Size(162, 26);
-            this.addDetailsToolStripMenuItem.Text = "Add Details";
-            this.addDetailsToolStripMenuItem.Click += new System.EventHandler(this.addDetailsToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -247,12 +170,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1373, 871);
             this.Controls.Add(this.readingDoc);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.groupBox1);
             this.ForeColor = System.Drawing.Color.Black;
-            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Quotidian";
@@ -262,8 +183,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -279,14 +198,6 @@
         private System.Windows.Forms.RichTextBox readingDoc;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBox3;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openProjectToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveProjectToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem addDetailsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newReadingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openReadingToolStripMenuItem;
     }
 }
 
