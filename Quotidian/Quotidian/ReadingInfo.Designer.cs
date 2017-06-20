@@ -1,6 +1,6 @@
 ﻿namespace Quotidian
 {
-    partial class Form3
+    partial class ReadingInfo
     {
         /// <summary>
         /// Required designer variable.

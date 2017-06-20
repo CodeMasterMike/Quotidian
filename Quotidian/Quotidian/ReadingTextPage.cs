@@ -11,7 +11,7 @@ using Quotidian.HelperObjects;
 
 namespace Quotidian
 {
-    public partial class Form4 : Form
+    public partial class ReadingTextPage : Form
     {
         public Project currentProject;
 
@@ -23,9 +23,9 @@ namespace Quotidian
         public int dateDay { get; set; }
         public int dateYear { get; set; }
         public String publisherName { get; set; }
-        private Form3 form;
+        private ReadingInfo form;
 
-        public Form4(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, Form3 f)
+        public ReadingTextPage(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, ReadingInfo f)
         {
             currentProject = f.selectedProject;
 
@@ -52,7 +52,7 @@ namespace Quotidian
             Reading reading1 = new Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
             currentProject.readings.Add(reading1);
             var newReading = DatabaseInterface.createReading(currentProject.projectId, title, last, text);
-            var readingPage = new Form1(currentProject, reading1, form);
+            var readingPage = new ReadingPage(currentProject, reading1, form);
             generatedLabel.Text = reading1.createCitation();
             
             readingPage.Show();

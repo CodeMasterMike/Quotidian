@@ -16,9 +16,9 @@ namespace Quotidian
         public Project selectedProject;
         public List<Reading> readings;
         public Reading selectedReading;
-        public Form1 callingForm;
+        public ReadingPage callingForm;
 
-        public SelectReading(Project project, Form1 caller)
+        public SelectReading(Project project, ReadingPage caller)
         {
             InitializeComponent();
             this.Show();
@@ -50,7 +50,7 @@ namespace Quotidian
             else
             {
                 this.Hide();
-                var readingPage = new Form1(selectedProject, selectedReading, callingForm.citationForm);
+                var readingPage = new ReadingPage(selectedProject, selectedReading, callingForm.citationForm);
                 readingPage.Show();
             }
         }
@@ -63,7 +63,7 @@ namespace Quotidian
         private void SelectReading_FormClosed(object sender, FormClosedEventArgs e)
         {
             //this.Hide();
-            var readingPage = new Form1(selectedProject, selectedReading, callingForm.citationForm);
+            var readingPage = new ReadingPage(selectedProject, selectedReading, callingForm.citationForm);
             readingPage.Show();
         }
     }
