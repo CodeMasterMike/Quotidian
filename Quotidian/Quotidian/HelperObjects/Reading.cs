@@ -29,7 +29,7 @@ namespace Quotidian.HelperObjects
         public String city { get; set; }
         public int yearPublished { get; set; }
 
-        public List<Highlight> highlights;
+        public List<Highlight> highlights { get; set; }
 
         public Reading(int? rId, int? hId, int pId, String t, String firstName, String middleName, String lastName, String txt, String month, int day, int year, String publisher)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quotidian.HelperObjects
 {
-    class Highlight
+    public class Highlight
     {
         public int highlightId { get; set; }
         public int readingId { get; set; }

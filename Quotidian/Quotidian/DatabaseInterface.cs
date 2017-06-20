@@ -130,7 +130,6 @@ namespace Quotidian
                 SqlCommand read = new SqlCommand("SELECT * FROM Projects");
                 read.CommandType = CommandType.Text;
                 read.Connection = con;
-                con.Open();
                 SqlDataReader reader = read.ExecuteReader();
                 while (reader.Read())
                 {

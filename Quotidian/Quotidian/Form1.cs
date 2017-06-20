@@ -23,7 +23,7 @@ namespace Quotidian
         }
 
 
-        Reading reading;
+        public Reading reading;
         Form3 citationForm;
         int highlightcount = 0;
         HelperObjects.Highlight highlight1;

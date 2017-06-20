@@ -62,7 +62,7 @@ namespace Quotidian
         [STAThread]
         static void Main()
         {
-            Application.Run(new Form3());
+            Application.Run(new OpenProject());
         }
     }
 }
