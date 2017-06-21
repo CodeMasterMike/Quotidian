@@ -52,7 +52,7 @@ namespace Quotidian
             Reading reading1 = new Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
             currentProject.readings.Add(reading1);
             var newReading = DatabaseInterface.createReading(currentProject.projectId, title, last, text);
-            var readingPage = new ReadingPage(currentProject, reading1, form);
+            var readingPage = new ReadingPage(currentProject, reading1);
             generatedLabel.Text = reading1.createCitation();
             
             readingPage.Show();

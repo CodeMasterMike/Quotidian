@@ -113,5 +113,19 @@ namespace Quotidian.HelperObjects
         //MLA styling standard is currently 
         //in line: [Author, pageNum]
         //full citation: Last, First M. "Section Title." Book/Anthology. Ed. First M. Last. City: Publisher, Year Published. Page(s). Print.
+
+        public String getDateString()
+        {
+            String dayStr = dateDay.ToString();
+            if (dayStr.Length == 1)
+                dayStr = "0" + dayStr;
+            String monthStr = dateMonth;
+            monthStr = Convert.ToDateTime(monthStr + " 01, 1900").Month.ToString();
+            if (monthStr.Length == 1)
+                monthStr = "0" + monthStr;
+            String yearStr = dateYear.ToString();
+
+            return monthStr + "/" + dayStr + "/" + yearStr;
+        }
     }
 }

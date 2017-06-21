@@ -13,18 +13,16 @@ namespace Quotidian
 {
     public partial class ReadingPage : BaseForm
     {
-        public ReadingPage(Project p, Reading r, ReadingInfo f)
+        public ReadingPage(Project p, Reading r)
         {
             InitializeComponent();
             project = p;
             reading = r;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
             readingDoc.Text = reading.text;
-            citationForm = f;
         }
 
         public Project project;
         public Reading reading;
-        public ReadingInfo citationForm;
         int highlightCount = 0;
         HelperObjects.Highlight highlight1;
 
@@ -87,31 +85,31 @@ namespace Quotidian
             Highlight highlight1 = DatabaseInterface.createHighlight(1, true, 1, 10);
 
             int tester = -1;
-		}	
-			
-        private void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
+		}
+
+        public void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        public void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
+        public override void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReadingInfo newForm = new Quotidian.ReadingInfo(project);
+            ReadingInfo newForm = new Quotidian.ReadingInfo(project, new Reading(-1,-1,project.projectId,"","","","","","",0,0,""), true);
             newForm.Show();
         }
 
-        private void openReadingToolStripMenuItem_Click(object sender, EventArgs e)
+        public override void openReadingToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
             SelectReading selectReading = new SelectReading(project, this);
         }
 
-        private void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        public override void openProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
             OpenProject openProject = new OpenProject();
