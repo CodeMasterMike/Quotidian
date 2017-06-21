@@ -185,12 +185,13 @@ namespace Quotidian
         {
             List<Reading> readings = new List<Reading>();
             //first load readings
+            String projectIdStr = projectId_input.ToString();
             SqlCommand read = new SqlCommand("SELECT * " +
-                "FROM Readings" +
+                "FROM Readings " +
                 "WHERE Readings.ProjectId = " + projectId_input.ToString());
             read.CommandType = CommandType.Text;
             read.Connection = con;
-            con.Open();
+            //con.Open();
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
@@ -208,7 +209,7 @@ namespace Quotidian
                 }
             }
             reader.Close();
-            con.Close();
+            //con.Close();
             return readings;
         }
 
@@ -217,25 +218,28 @@ namespace Quotidian
         public static List<Highlight> getHighlights(int projectId, int? readingId_input, SqlConnection con)
         {
             List<Highlight> highlights = new List<Highlight>();
-            SqlCommand read = new SqlCommand("SELECT Highlights.HighlightId AS HighlightId, Readings.ReadingId AS ReadingId, Highlights.IsQuote AS IsQuote, Highlights.CharNum AS CharNum, Highlights.CharCount AS CharCount" +
-                "FROM Readings LEFT JOIN Highlights" +
+            SqlCommand read = new SqlCommand("SELECT Highlights.HighlightId AS HighlightId, Readings.ReadingId AS ReadingId, Highlights.IsQuote AS IsQuote, Highlights.CharNum AS CharNum, Highlights.CharCount AS CharCount " +
+                "FROM Readings LEFT JOIN Highlights ON Readings.ReadingId = Highlights.ReadingId " +
                 "WHERE Readings.ProjectId = " + projectId.ToString());
             read.CommandType = CommandType.Text;
             read.Connection = con;
-            con.Open();
+            //con.Open();
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
-                int highlightId = (int)reader["HighlightId"];
-                int readingId = (int)reader["ReadingId"];
-                Boolean isQuote = (Boolean)reader["IsQuote"];
-                int charNum = (int)reader["CharNum"];
-                int charCount = (int)reader["CharCount"];
-                Highlight highlight = new Highlight(highlightId, readingId, isQuote, charNum, charCount);
-                highlights.Add(highlight);
+                if(reader["HighlightId"] == null)
+                {
+                    int highlightId = (int)reader["HighlightId"];
+                    int readingId = (int)reader["ReadingId"];
+                    Boolean isQuote = (Boolean)reader["IsQuote"];
+                    int charNum = (int)reader["CharNum"];
+                    int charCount = (int)reader["CharCount"];
+                    Highlight highlight = new Highlight(highlightId, readingId, isQuote, charNum, charCount);
+                    highlights.Add(highlight);
+                }
             }
             reader.Close();
-            con.Close();
+            //con.Close();
 
             return highlights;
         }
