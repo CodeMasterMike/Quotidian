@@ -48,7 +48,7 @@ namespace Quotidian
             else
             {
                 selectedProject = DatabaseInterface.loadProject(selectedProject);
-                var nextPage = new ReadingPage(selectedProject, new Reading(-1, -1, -1, "No Reading Selected", "", "", "", "No Reading Selected", "", -1, -1, ""), null);
+                var nextPage = new ReadingPage(selectedProject, new Reading(-1, -1, -1, "No Reading Selected", "", "", "", "No Reading Selected", "", -1, -1, ""));
             }
         }
 
@@ -62,7 +62,7 @@ namespace Quotidian
         {
             //ideally this will open project summary page
             //var nextPage = new ProjectSummary();
-            var nextPage = new ReadingPage(selectedProject, new Reading(-1,-1,-1,"No Reading Selected","","","","No Reading Selected","",-1,-1,""), new ReadingInfo(selectedProject));
+            var nextPage = new ReadingPage(selectedProject, new Reading(-1,-1,-1,"No Reading Selected","","","","No Reading Selected","",-1,-1,""));
             this.Hide();    
             nextPage.Show();
         }

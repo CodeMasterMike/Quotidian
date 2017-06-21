@@ -80,10 +80,10 @@
             // 
             this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.richTextBox2.Location = new System.Drawing.Point(11, 20);
+            this.richTextBox2.Location = new System.Drawing.Point(11, 54);
             this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(269, 329);
+            this.richTextBox2.Size = new System.Drawing.Size(269, 295);
             this.richTextBox2.TabIndex = 6;
             this.richTextBox2.Text = "";
             // 
@@ -94,7 +94,7 @@
             this.richTextBox3.Location = new System.Drawing.Point(11, 8);
             this.richTextBox3.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(269, 329);
+            this.richTextBox3.Size = new System.Drawing.Size(269, 333);
             this.richTextBox3.TabIndex = 7;
             this.richTextBox3.Text = "";
             // 
@@ -163,7 +163,7 @@
             this.readingDoc.Click += new System.EventHandler(this.richTextBox1_Click);
             this.readingDoc.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
-            // Form1
+            // ReadingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -175,9 +175,13 @@
             this.Controls.Add(this.groupBox1);
             this.ForeColor = System.Drawing.Color.Black;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.Name = "Form1";
+            this.Name = "ReadingPage";
             this.Text = "Quotidian";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Controls.SetChildIndex(this.groupBox1, 0);
+            this.Controls.SetChildIndex(this.splitContainer1, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Controls.SetChildIndex(this.readingDoc, 0);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

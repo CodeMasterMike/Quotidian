@@ -15,26 +15,25 @@ namespace Quotidian
     public partial class ReadingInfo : Form
     {
         public Project selectedProject;
+        public Reading selectedReading;
 
-        public ReadingInfo(Project p)
+        public ReadingInfo(Project p, Reading r, bool isNew)
         {
             selectedProject = p;
+            selectedReading = r;
             InitializeComponent();
+            updateTextBoxes(r);
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void updateTextBoxes(Reading r)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
+            docTitleBox.Text = r.title;
+            firstBox.Text = r.first;
+            middleBox.Text = r.middle;
+            lastBox.Text = r.last;
+            publisherBox.Text = r.publisherName;
+            dateBox.Text = r.getDateString();
+            //TODO tagsBox.Text = 
         }
 
         private void docTitleBox_TextChanged(object sender, EventArgs e)
@@ -66,9 +65,6 @@ namespace Quotidian
             this.Hide();
             nextPage.Show();
            // Regex dateRegex = new Regex();
-
-
-
         }
 
         [STAThread]
