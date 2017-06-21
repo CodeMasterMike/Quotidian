@@ -42,7 +42,7 @@ namespace Quotidian
                     //TODO enforce unique project name
                     projectId = Convert.ToInt32(cmd.ExecuteScalar());
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show(e.ToString());
                     con.Close();
@@ -154,19 +154,19 @@ namespace Quotidian
         public static Project loadProject(Project project)
         {
             //first load readings
-            
+
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
                 //first get readings
-                project.readings = getReadings(project.projectId, con);
+                project.readings = getReadings(project.projectId, con, true);
                 //then highlights
-                List<Highlight> allHighlights = getHighlights(project.projectId, null, con);
-                foreach(Reading reading in project.readings)
+                List<Highlight> allHighlights = getHighlights(project.projectId, null, con, true);
+                foreach (Reading reading in project.readings)
                 {
-                    foreach(Highlight highlight in allHighlights)
+                    foreach (Highlight highlight in allHighlights)
                     {
-                        if(reading.readingId == highlight.readingId)
+                        if (reading.readingId == highlight.readingId)
                         {
                             reading.highlights.Add(highlight);
                         }
@@ -181,7 +181,7 @@ namespace Quotidian
             return project;
         }
 
-        public static List<Reading> getReadings(int projectId_input, SqlConnection con)
+        public static List<Reading> getReadings(int projectId_input, SqlConnection con, Boolean conOpen)
         {
             List<Reading> readings = new List<Reading>();
             //first load readings
@@ -191,7 +191,12 @@ namespace Quotidian
                 "WHERE Readings.ProjectId = " + projectId_input.ToString());
             read.CommandType = CommandType.Text;
             read.Connection = con;
-            //con.Open();
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
@@ -213,21 +218,65 @@ namespace Quotidian
             return readings;
         }
 
+        public static List<Writing> getWritings(int projectId_input, SqlConnection con, Boolean conOpen)
+        {
+            List<Writing> writings = new List<Writing>();
+            //first load writing
+            String projectIdStr = projectId_input.ToString();
+            SqlCommand read = new SqlCommand("SELECT * " +
+                "FROM Writings " +
+                "WHERE Writings.ProjectId = " + projectId_input.ToString());
+            read.CommandType = CommandType.Text;
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
+            read.Connection = con;
+
+            SqlDataReader reader = read.ExecuteReader();
+            while (reader.Read())
+            {
+                //int readingId = reader.GetInt32(0);
+                //int projectId = reader.GetInt32(1);
+                int writingId = (int)reader["WritingId"];
+                int projectId = (int)reader["ProjectId"];
+                if (projectId == projectId_input)
+                {
+                    String text = (String)reader["Text"];
+                    // Writing writing = new Writing(writingId, null, projectId, title, "", "", author, text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
+                    Writing writing = new Writing();
+                    writings.Add(writing);
+                }
+            }
+            reader.Close();
+            con.Close();
+            return writings;
+        }
+
         //if readingId is null, simply returns all readings for this project
         //if not null, only return highlights for specific reading
-        public static List<Highlight> getHighlights(int projectId, int? readingId_input, SqlConnection con)
+        public static List<Highlight> getHighlights(int projectId, int? readingId_input, SqlConnection con, Boolean conOpen)
         {
             List<Highlight> highlights = new List<Highlight>();
             SqlCommand read = new SqlCommand("SELECT Highlights.HighlightId AS HighlightId, Readings.ReadingId AS ReadingId, Highlights.IsQuote AS IsQuote, Highlights.CharNum AS CharNum, Highlights.CharCount AS CharCount " +
                 "FROM Readings LEFT JOIN Highlights ON Readings.ReadingId = Highlights.ReadingId " +
                 "WHERE Readings.ProjectId = " + projectId.ToString());
             read.CommandType = CommandType.Text;
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
             read.Connection = con;
-            //con.Open();
+
+
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
-                if(reader["HighlightId"] == null)
+                if (reader["HighlightId"] == null)
                 {
                     int highlightId = (int)reader["HighlightId"];
                     int readingId = (int)reader["ReadingId"];

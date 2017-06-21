@@ -72,6 +72,12 @@
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="DatabaseInterface.cs" />
+    <Compile Include="ProjectSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectSummary.Designer.cs">
+      <DependentUpon>ProjectSummary.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReadingPage.cs">
       <SubType>Form</SubType>
     </Compile>
