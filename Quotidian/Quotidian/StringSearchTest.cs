@@ -8,6 +8,8 @@ namespace Quotidian
 {
     class StringSearchTest
     {
+        //algorithm references gotten from https://www.programmingalgorithms.com/algorithm/
+        //containsSearch was selft written
         String str = "TestText";
         String pat = "TestKey";
         public StringSearchTest(String s, String p)

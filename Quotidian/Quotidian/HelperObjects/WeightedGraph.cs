@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quotidian.HelperObjects
 {
+    //prewritten code gotten from https://codereview.stackexchange.com/questions/138475/weighted-graph-and-pathfinding-implementation-in-c
     class WeightedGraph<T>
     {
         List<WeightedEdge<T>> edges;
