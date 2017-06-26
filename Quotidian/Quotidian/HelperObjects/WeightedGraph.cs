@@ -30,118 +30,118 @@ namespace Quotidian.HelperObjects
         /// <summary>
         /// Pathfinding algorithms available: Dijkstra and AStar
         /// </summary>
-        public List<Vertex<T>> Pathfinder(Vertex<T> start, Vertex<T> end, string algorithm)
-        {
-            Func<Vertex<T>, Vertex<T>, List<Vertex<T>>> pathfinder;
+        //public List<Vertex<T>> Pathfinder(Vertex<T> start, Vertex<T> end, string algorithm)
+        //{
+        //    Func<Vertex<T>, Vertex<T>, List<Vertex<T>>> pathfinder;
 
-            if (algorithm == "Dijkstra")
-            {
-                pathfinder = DijkstraSearch;
-            }
-            else if (algorithm == "AStar")
-            {
-                pathfinder = AStarSearch;
-            }
-            else
-            {
-                throw new ArgumentException("Pathfinding algorithm not available.");
-            }
-            return pathfinder(start, end);
-        }
+        //    if (algorithm == "Dijkstra")
+        //    {
+        //        pathfinder = DijkstraSearch;
+        //    }
+        //    else if (algorithm == "AStar")
+        //    {
+        //        pathfinder = AStarSearch;
+        //    }
+        //    else
+        //    {
+        //        throw new ArgumentException("Pathfinding algorithm not available.");
+        //    }
+        //    return pathfinder(start, end);
+        //}
 
 
-        public List<Vertex<T>> DijkstraSearch(Vertex<T> start, Vertex<T> end)
-        {
-            Dictionary<Vertex<T>, Vertex<T>> parentMap = new Dictionary<Vertex<T>, Vertex<T>>();
-            PriorityQueue<Vertex<T>> priorityQueue = new PriorityQueue<Vertex<T>>();
+        //public List<Vertex<T>> DijkstraSearch(Vertex<T> start, Vertex<T> end)
+        //{
+        //    Dictionary<Vertex<T>, Vertex<T>> parentMap = new Dictionary<Vertex<T>, Vertex<T>>();
+        //    PriorityQueue<Vertex<T>> priorityQueue = new PriorityQueue<Vertex<T>>();
 
-            InitializeCosts(start);
-            priorityQueue.Enqueue(start, start.Cost);
+        //    InitializeCosts(start);
+        //    priorityQueue.Enqueue(start, start.Cost);
 
-            Vertex<T> current;
+        //    Vertex<T> current;
 
-            while (priorityQueue.Count > 0)
-            {
-                current = priorityQueue.Dequeue();
+        //    while (priorityQueue.Count > 0)
+        //    {
+        //        current = priorityQueue.Dequeue();
 
-                if (!current.IsVisited)
-                {
-                    current.IsVisited = true;
+        //        if (!current.IsVisited)
+        //        {
+        //            current.IsVisited = true;
 
-                    if (current.Equals(end))
-                    {
-                        break;
-                    }
+        //            if (current.Equals(end))
+        //            {
+        //                break;
+        //            }
 
-                    foreach (WeightedEdge<T> edge in current.Edges)
-                    {
-                        Vertex<T> neighbor = edge.End;
+        //            foreach (WeightedEdge<T> edge in current.Edges)
+        //            {
+        //                Vertex<T> neighbor = edge.End;
 
-                        double newCost = current.Cost + edge.Weight;
-                        double neighborCost = neighbor.Cost;
+        //                double newCost = current.Cost + edge.Weight;
+        //                double neighborCost = neighbor.Cost;
 
-                        if (newCost < neighborCost)
-                        {
-                            neighbor.Cost = newCost;
-                            parentMap.Add(neighbor, current);
-                            double priority = newCost;
-                            priorityQueue.Enqueue(neighbor, priority);
-                        }
-                    }
-                }
-            }
-            List<Vertex<T>> path = ReconstructPath(parentMap, start, end);
-            return path;
-        }
+        //                if (newCost < neighborCost)
+        //                {
+        //                    neighbor.Cost = newCost;
+        //                    parentMap.Add(neighbor, current);
+        //                    double priority = newCost;
+        //                    priorityQueue.Enqueue(neighbor, priority);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    List<Vertex<T>> path = ReconstructPath(parentMap, start, end);
+        //    return path;
+        //}
 
-        public List<Vertex<T>> AStarSearch(Vertex<T> start, Vertex<T> end)
-        {
-            Dictionary<Vertex<T>, Vertex<T>> parentMap = new Dictionary<Vertex<T>, Vertex<T>>();
-            PriorityQueue<Vertex<T>> priorityQueue = new PriorityQueue<Vertex<T>>();
+        //public List<Vertex<T>> AStarSearch(Vertex<T> start, Vertex<T> end)
+        //{
+        //    Dictionary<Vertex<T>, Vertex<T>> parentMap = new Dictionary<Vertex<T>, Vertex<T>>();
+        //    PriorityQueue<Vertex<T>> priorityQueue = new PriorityQueue<Vertex<T>>();
 
-            InitializeCosts(start);
-            priorityQueue.Enqueue(start, start.Cost);
+        //    InitializeCosts(start);
+        //    priorityQueue.Enqueue(start, start.Cost);
 
-            Vertex<T> current;
+        //    Vertex<T> current;
 
-            while (priorityQueue.Count > 0)
-            {
-                current = priorityQueue.Dequeue();
+        //    while (priorityQueue.Count > 0)
+        //    {
+        //        current = priorityQueue.Dequeue();
 
-                if (!current.IsVisited)
-                {
-                    current.IsVisited = true;
+        //        if (!current.IsVisited)
+        //        {
+        //            current.IsVisited = true;
 
-                    if (current.Equals(end))
-                    {
-                        break;
-                    }
+        //            if (current.Equals(end))
+        //            {
+        //                break;
+        //            }
 
-                    foreach (WeightedEdge<T> edge in current.Edges)
-                    {
-                        Vertex<T> neighbor = edge.End;
+        //            foreach (WeightedEdge<T> edge in current.Edges)
+        //            {
+        //                Vertex<T> neighbor = edge.End;
 
-                        double newCost = current.Cost + edge.Weight;
-                        double neighborCost = neighbor.Cost;
+        //                double newCost = current.Cost + edge.Weight;
+        //                double neighborCost = neighbor.Cost;
 
-                        if (newCost < neighborCost)
-                        {
-                            neighbor.Cost = newCost;
-                            parentMap.Add(neighbor, current);
-                            double priority = newCost + Heuristic(neighbor, end);
-                            priorityQueue.Enqueue(neighbor, priority);
-                        }
-                    }
-                }
-            }
-            List<Vertex<T>> path = ReconstructPath(parentMap, start, end);
-            return path;
-        }
+        //                if (newCost < neighborCost)
+        //                {
+        //                    neighbor.Cost = newCost;
+        //                    parentMap.Add(neighbor, current);
+        //                    double priority = newCost + Heuristic(neighbor, end);
+        //                    priorityQueue.Enqueue(neighbor, priority);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    List<Vertex<T>> path = ReconstructPath(parentMap, start, end);
+        //    return path;
+        //}
 
-        public double Heuristic(Vertex<T> vertexA, Vertex<T> vertexB)
-        {
-            return vertexA.Location.DistanceTo(vertexB.Location);
-        }
+        //public double Heuristic(Vertex<T> vertexA, Vertex<T> vertexB)
+        //{
+        //    return vertexA.Location.DistanceTo(vertexB.Location);
+        //}
 
         public void InitializeCosts(Vertex<T> start)
         {
@@ -180,7 +180,7 @@ namespace Quotidian.HelperObjects
 
         public List<Vertex<T>> Neighbors { get { return neighbors; } }
         public List<WeightedEdge<T>> Edges { get { return edges; } }
-        public Location Location { get; set; }
+        //public Location Location { get; set; }
         public T Value { get { return value; } set { this.value = value; } }
         public bool IsVisited { get; set; }
         public int NeighborsCount { get { return neighbors.Count; } }
