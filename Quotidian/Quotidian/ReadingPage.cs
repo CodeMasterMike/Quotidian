@@ -45,6 +45,7 @@ namespace Quotidian
         public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Console.WriteLine("Overridden");
+            ReadingInfo info = new Quotidian.ReadingInfo(project, reading, false);
         }
 
         //this function returns a formatted string [Author, pageNum] to be appended onto quote
