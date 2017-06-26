@@ -71,6 +71,7 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StringSearchTest.cs" />
     <Compile Include="DatabaseInterface.cs" />
     <Compile Include="ProjectSummary.cs">
       <SubType>Form</SubType>
