@@ -43,6 +43,8 @@
             this.middleBox = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.lastBox = new System.Windows.Forms.RichTextBox();
+            this.addAuthorButton = new System.Windows.Forms.Button();
+            this.authorList = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // label1
@@ -73,12 +75,13 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(172, 186);
+            this.label2.Location = new System.Drawing.Point(73, 192);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(123, 25);
+            this.label2.Size = new System.Drawing.Size(129, 25);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Author First";
+            this.label2.Text = "Author First:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -105,10 +108,10 @@
             // firstBox
             // 
             this.firstBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.firstBox.Location = new System.Drawing.Point(390, 179);
+            this.firstBox.Location = new System.Drawing.Point(200, 183);
             this.firstBox.Margin = new System.Windows.Forms.Padding(2);
             this.firstBox.Name = "firstBox";
-            this.firstBox.Size = new System.Drawing.Size(385, 44);
+            this.firstBox.Size = new System.Drawing.Size(157, 44);
             this.firstBox.TabIndex = 2;
             this.firstBox.Text = "";
             // 
@@ -173,20 +176,20 @@
             this.middleNameBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.middleNameBox.AutoSize = true;
             this.middleNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.middleNameBox.Location = new System.Drawing.Point(172, 292);
+            this.middleNameBox.Location = new System.Drawing.Point(361, 192);
             this.middleNameBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.middleNameBox.Name = "middleNameBox";
-            this.middleNameBox.Size = new System.Drawing.Size(145, 25);
+            this.middleNameBox.Size = new System.Drawing.Size(82, 25);
             this.middleNameBox.TabIndex = 23;
-            this.middleNameBox.Text = "Author Middle";
+            this.middleNameBox.Text = "Middle:";
             // 
             // middleBox
             // 
             this.middleBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.middleBox.Location = new System.Drawing.Point(390, 285);
+            this.middleBox.Location = new System.Drawing.Point(437, 183);
             this.middleBox.Margin = new System.Windows.Forms.Padding(2);
             this.middleBox.Name = "middleBox";
-            this.middleBox.Size = new System.Drawing.Size(385, 44);
+            this.middleBox.Size = new System.Drawing.Size(137, 44);
             this.middleBox.TabIndex = 3;
             this.middleBox.Text = "";
             // 
@@ -195,22 +198,40 @@
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.125F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(173, 399);
+            this.label6.Location = new System.Drawing.Point(578, 192);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(122, 25);
+            this.label6.Size = new System.Drawing.Size(59, 25);
             this.label6.TabIndex = 25;
-            this.label6.Text = "Author Last";
+            this.label6.Text = "Last:";
             // 
             // lastBox
             // 
             this.lastBox.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lastBox.Location = new System.Drawing.Point(390, 391);
+            this.lastBox.Location = new System.Drawing.Point(641, 183);
             this.lastBox.Margin = new System.Windows.Forms.Padding(2);
             this.lastBox.Name = "lastBox";
             this.lastBox.Size = new System.Drawing.Size(385, 44);
             this.lastBox.TabIndex = 4;
             this.lastBox.Text = "";
+            // 
+            // addAuthorButton
+            // 
+            this.addAuthorButton.Location = new System.Drawing.Point(825, 255);
+            this.addAuthorButton.Name = "addAuthorButton";
+            this.addAuthorButton.Size = new System.Drawing.Size(201, 35);
+            this.addAuthorButton.TabIndex = 26;
+            this.addAuthorButton.Text = "Add Author...";
+            this.addAuthorButton.UseVisualStyleBackColor = true;
+            this.addAuthorButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // authorList
+            // 
+            this.authorList.Location = new System.Drawing.Point(78, 255);
+            this.authorList.Name = "authorList";
+            this.authorList.Size = new System.Drawing.Size(697, 218);
+            this.authorList.TabIndex = 27;
+            this.authorList.UseCompatibleStateImageBehavior = false;
             // 
             // ReadingInfo
             // 
@@ -219,6 +240,8 @@
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1088, 890);
+            this.Controls.Add(this.authorList);
+            this.Controls.Add(this.addAuthorButton);
             this.Controls.Add(this.lastBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.middleBox);
@@ -259,5 +282,7 @@
         private System.Windows.Forms.RichTextBox middleBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox lastBox;
+        private System.Windows.Forms.Button addAuthorButton;
+        private System.Windows.Forms.ListView authorList;
     }
 }

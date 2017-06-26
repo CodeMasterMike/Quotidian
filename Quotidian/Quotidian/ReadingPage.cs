@@ -46,6 +46,7 @@ namespace Quotidian
         {
             Console.WriteLine("Overridden");
             ReadingInfo info = new Quotidian.ReadingInfo(project, reading, false);
+            info.Show();
         }
 
         //this function returns a formatted string [Author, pageNum] to be appended onto quote

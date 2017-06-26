@@ -80,5 +80,18 @@ namespace Quotidian
         {
             Application.Run(new OpenProject());
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String f = firstBox.Text;
+            String m = middleBox.Text;
+            String l = lastBox.Text;
+            authorList.Items.Add(new ListViewItem(f + " " + m + " " + l));
+        }
     }
 }
