@@ -20,9 +20,19 @@ namespace Quotidian
         public ReadingInfo(Project p, Reading r, bool isNew)
         {
             selectedProject = p;
-            selectedReading = r;
-            InitializeComponent();
-            updateTextBoxes(r);
+            if (isNew == false)
+            {
+                selectedReading = r;
+                InitializeComponent();
+                nxtButton.Visible = false;
+                updateTextBoxes(r);
+            }
+            else
+            {
+                InitializeComponent();
+                citationBtn.Visible = false;
+            }
+
         }
 
         private void updateTextBoxes(Reading r)
@@ -41,7 +51,7 @@ namespace Quotidian
 
         }
 
-        private void nextBtn_Click(object sender, EventArgs e)
+        private void nxtButton_Click(object sender, EventArgs e)
         {
             String docTitle = docTitleBox.Text;
             String authorFirst = firstBox.Text;
@@ -72,5 +82,6 @@ namespace Quotidian
         {
             Application.Run(new OpenProject());
         }
+
     }
 }
