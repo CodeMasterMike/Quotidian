@@ -15,9 +15,10 @@ namespace Quotidian.HelperObjects
         public int linesPerPage { get; set; }
         public String style { get; set; }
         public String title { get; set; }
-        public String first { get; set; }
-        public String middle { get; set; }
-        public String last { get; set; }
+        public List<Author> authors { get; set; }
+        //public String first { get; set; }
+        //public String middle { get; set; }
+        //public String last { get; set; }
         public String text { get; set; }
         public String dateMonth { get; set; }
         public int dateDay { get; set; }
@@ -32,15 +33,13 @@ namespace Quotidian.HelperObjects
         public List<Highlight> highlights { get; set; }
         public List<ReadingTag> readingTags { get; set; }
 
-        public Reading(int? rId, int? hId, int pId, String t, String firstName, String middleName, String lastName, String txt, String month, int day, int year, String publisher)
+        public Reading(int? rId, int? hId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher)
         {
             readingId = rId;
             //highlightId = hId;
             projectId = pId;
             title = t;
-            first = firstName;
-            middle = middleName;
-            last = lastName;
+            authors = auths;
             text = txt;
             dateMonth = month;
             dateDay = day;
@@ -70,10 +69,29 @@ namespace Quotidian.HelperObjects
             return c;
         }
 
+        private String getAuthors()
+        {
+            String c = "";
+            if (authors.Count() > 1)
+            {
+                c += authors.ElementAt(0).formatName();
+                for (int i = 1; i < authors.Count() - 1; i++)
+                {
+                    c += ", " + authors.ElementAt(i).toString();
+                }
+                c += ", and " + authors.Last().toString();
+            }
+            else
+            {
+                c += authors.ElementAt(0).formatName();
+            }
+            return c;
+        }
+
         private String getMLACitation()
         {
             String c = "";
-            c += formatName();
+            c += getAuthors();
             if(sectionTitle != null)
             {
                 c += "\"" + sectionTitle + ".\"";
@@ -94,22 +112,6 @@ namespace Quotidian.HelperObjects
             c += publisherName + ", " + yearPublished + ".";
             c += "Print.";
             return c;
-        }
-
-        //This function doesnt account for a missing first or last name
-        //Can be expanded in the future to do so
-        private String formatName()
-        {
-            String name = "";
-            if(middle == null)
-            {
-                name += last + ", " + first + ".";
-            }
-            else
-            {
-                name += last + ", " + first + " " + middle + ".";
-            }
-            return name;
         }
 
         //MLA styling standard is currently 

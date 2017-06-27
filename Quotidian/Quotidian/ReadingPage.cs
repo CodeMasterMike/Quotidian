@@ -64,7 +64,6 @@ namespace Quotidian
 
         public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("Overridden");
             ReadingInfo info = new Quotidian.ReadingInfo(project, reading, false);
             info.Show();
         }
@@ -72,7 +71,20 @@ namespace Quotidian
         //this function returns a formatted string [Author, pageNum] to be appended onto quote
         private String getAuthorPage(int charNum)
         {
-            String s = "[" + reading.last + ", " + (int)(charNum / reading.linesPerPage + 1) + "]";
+            String s;
+
+            if (reading.authors.Count() == 1)
+            {
+                s = "[" + reading.authors.First().last + ", " + (int)(charNum / reading.linesPerPage + 1) + "]";
+            }
+            else if (reading.authors.Count() > 1)
+            {
+                s = "[" + reading.authors.First().last + " et al, " + (int)(charNum / reading.linesPerPage + 1) + "]";
+            }
+            else
+            {
+                s = "No Authors Found.";
+            }
             return s;
         }
 
@@ -134,7 +146,7 @@ namespace Quotidian
 
         public override void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReadingInfo newForm = new Quotidian.ReadingInfo(project, new Reading(-1,-1,project.projectId,"","","","","","",0,0,""), true);
+            ReadingInfo newForm = new Quotidian.ReadingInfo(project, new Reading(-1,-1,project.projectId,"", new List<Author>(),"","",0,0,""), true);
             newForm.Show();
         }
 
