@@ -24,6 +24,7 @@ namespace Quotidian
         public int dateYear { get; set; }
         public String publisherName { get; set; }
         private ReadingInfo form;
+        Reading reading1;
 
         public ReadingTextPage(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, ReadingInfo f)
         {
@@ -49,18 +50,27 @@ namespace Quotidian
         private void citationBtn_Click(object sender, EventArgs e)
         {
             String text = readingText.Text;
-            Reading reading1 = new Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
+            reading1 = new Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
             currentProject.readings.Add(reading1);
             var newReading = DatabaseInterface.createReading(currentProject.projectId, title, last, text);
-            var readingPage = new ReadingPage(currentProject, reading1);
             generatedLabel.Text = reading1.createCitation();
-            
-            readingPage.Show();
         }
 
         private void generatedLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ReadingTextPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openButton_Click(object sender, EventArgs e)
+        {
+            var readingPage = new ReadingPage(currentProject, reading1);
+            this.Hide();
+            readingPage.Show();
         }
     }
 }
