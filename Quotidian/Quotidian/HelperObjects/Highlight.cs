@@ -14,6 +14,8 @@ namespace Quotidian.HelperObjects
         public int charNum { get; set; }
         public int charCount { get; set; }
 
+        public List<HighlightTag> highlightTags;
+
         public Highlight(int id, int rId, Boolean isQ, int cNum, int cCount)
         {
             highlightId = id;
@@ -21,6 +23,8 @@ namespace Quotidian.HelperObjects
             isQuote = isQ;
             charNum = cNum;
             charCount = cCount;
+
+            highlightTags = new List<HighlightTag>();
         }
     }
 }

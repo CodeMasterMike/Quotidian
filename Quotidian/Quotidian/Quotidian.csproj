@@ -74,6 +74,7 @@
     <Compile Include="HelperObjects\WeightedGraph.cs" />
     <Compile Include="StringSearchTest.cs" />
     <Compile Include="DatabaseInterface.cs" />
+    <Compile Include="HelperObjects\HighlightTag.cs" />
     <Compile Include="ProjectSummary.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,10 +191,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LocalDatabase.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="LocalDatabase_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>LocalDatabase.mdf</DependentUpon>
     </Content>
   </ItemGroup>

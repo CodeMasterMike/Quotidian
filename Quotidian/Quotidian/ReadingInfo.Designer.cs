@@ -38,13 +38,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.publisherBox = new System.Windows.Forms.RichTextBox();
-            this.nextBtn = new System.Windows.Forms.Button();
             this.middleNameBox = new System.Windows.Forms.Label();
             this.middleBox = new System.Windows.Forms.RichTextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.lastBox = new System.Windows.Forms.RichTextBox();
             this.addAuthorButton = new System.Windows.Forms.Button();
             this.authorList = new System.Windows.Forms.ListView();
+            this.nxtButton = new System.Windows.Forms.Button();
+            this.citationBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -161,15 +162,21 @@
             // 
             // nextBtn
             // 
-            this.nextBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.nextBtn.Location = new System.Drawing.Point(541, 835);
-            this.nextBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.nextBtn.Name = "nextBtn";
-            this.nextBtn.Size = new System.Drawing.Size(88, 44);
-            this.nextBtn.TabIndex = 22;
-            this.nextBtn.Text = "OK";
-            this.nextBtn.UseVisualStyleBackColor = true;
-            this.nextBtn.Click += new System.EventHandler(this.nextBtn_Click);
+            //this.nextBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            //this.nextBtn.Location = new System.Drawing.Point(541, 835);
+            //this.nextBtn.Margin = new System.Windows.Forms.Padding(2);
+            //this.nextBtn.Name = "nextBtn";
+            //this.nextBtn.Size = new System.Drawing.Size(88, 44);
+            //this.nextBtn.TabIndex = 22;
+            //this.nextBtn.Text = "OK";
+            //this.nextBtn.UseVisualStyleBackColor = true;
+            //this.nextBtn.Click += new System.EventHandler(this.nextBtn_Click);
+            // 
+            this.publisherBox.Location = new System.Drawing.Point(606, 755);
+            this.publisherBox.Name = "publisherBox";
+            this.publisherBox.Size = new System.Drawing.Size(512, 54);
+            this.publisherBox.TabIndex = 6;
+            this.publisherBox.Text = "";
             // 
             // middleNameBox
             // 
@@ -180,7 +187,6 @@
             this.middleNameBox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.middleNameBox.Name = "middleNameBox";
             this.middleNameBox.Size = new System.Drawing.Size(82, 25);
-            this.middleNameBox.TabIndex = 23;
             this.middleNameBox.Text = "Middle:";
             // 
             // middleBox
@@ -242,11 +248,46 @@
             this.ClientSize = new System.Drawing.Size(1088, 890);
             this.Controls.Add(this.authorList);
             this.Controls.Add(this.addAuthorButton);
+            this.lastBox.Location = new System.Drawing.Point(606, 489);
+            this.lastBox.Name = "lastBox";
+            this.lastBox.Size = new System.Drawing.Size(512, 54);
+            this.lastBox.TabIndex = 4;
+            this.lastBox.Text = "";
+            // 
+            // nxtButton
+            // 
+            this.nxtButton.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.nxtButton.Location = new System.Drawing.Point(1236, 972);
+            this.nxtButton.Name = "nxtButton";
+            this.nxtButton.Size = new System.Drawing.Size(189, 43);
+            this.nxtButton.TabIndex = 26;
+            this.nxtButton.Text = "Next";
+            this.nxtButton.UseVisualStyleBackColor = false;
+            this.nxtButton.Click += new System.EventHandler(this.nxtButton_Click);
+            // 
+            // citationBtn
+            // 
+            this.citationBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.citationBtn.Location = new System.Drawing.Point(772, 972);
+            this.citationBtn.Name = "citationBtn";
+            this.citationBtn.Size = new System.Drawing.Size(189, 43);
+            this.citationBtn.TabIndex = 27;
+            this.citationBtn.Text = "Generate Citation";
+            this.citationBtn.UseVisualStyleBackColor = false;
+            // 
+            // ReadingInfo
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ClientSize = new System.Drawing.Size(1622, 1076);
+            this.Controls.Add(this.citationBtn);
+            this.Controls.Add(this.nxtButton);
             this.Controls.Add(this.lastBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.middleBox);
             this.Controls.Add(this.middleNameBox);
-            this.Controls.Add(this.nextBtn);
             this.Controls.Add(this.publisherBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -277,12 +318,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RichTextBox publisherBox;
-        private System.Windows.Forms.Button nextBtn;
         private System.Windows.Forms.Label middleNameBox;
         private System.Windows.Forms.RichTextBox middleBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.RichTextBox lastBox;
         private System.Windows.Forms.Button addAuthorButton;
         private System.Windows.Forms.ListView authorList;
+        private System.Windows.Forms.Button nxtButton;
+        private System.Windows.Forms.Button citationBtn;
     }
 }

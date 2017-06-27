@@ -30,6 +30,7 @@ namespace Quotidian.HelperObjects
         public int yearPublished { get; set; }
 
         public List<Highlight> highlights { get; set; }
+        public List<ReadingTag> readingTags { get; set; }
 
         public Reading(int? rId, int? hId, int pId, String t, String firstName, String middleName, String lastName, String txt, String month, int day, int year, String publisher)
         {
@@ -49,6 +50,7 @@ namespace Quotidian.HelperObjects
             style = "MLA";
 			
 			highlights = new List<Highlight>();
+            readingTags = new List<ReadingTag>();
             editors = new List<String>();
         }
 

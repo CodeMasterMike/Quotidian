@@ -46,10 +46,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(865, 229);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(1298, 358);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(0, 0);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
@@ -59,8 +57,7 @@
             // 
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.splitContainer1.Location = new System.Drawing.Point(3, 8);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(2);
+            this.splitContainer1.Location = new System.Drawing.Point(12, 45);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -71,19 +68,18 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.richTextBox3);
-            this.splitContainer1.Size = new System.Drawing.Size(281, 684);
-            this.splitContainer1.SplitterDistance = 341;
-            this.splitContainer1.SplitterWidth = 2;
+            this.splitContainer1.Size = new System.Drawing.Size(422, 1069);
+            this.splitContainer1.SplitterDistance = 532;
+            this.splitContainer1.SplitterWidth = 3;
             this.splitContainer1.TabIndex = 3;
             // 
             // richTextBox2
             // 
             this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.richTextBox2.Location = new System.Drawing.Point(11, 54);
-            this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox2.Location = new System.Drawing.Point(17, 28);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(269, 295);
+            this.richTextBox2.Size = new System.Drawing.Size(402, 458);
             this.richTextBox2.TabIndex = 6;
             this.richTextBox2.Text = "";
             // 
@@ -91,10 +87,9 @@
             // 
             this.richTextBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.richTextBox3.Location = new System.Drawing.Point(11, 8);
-            this.richTextBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox3.Location = new System.Drawing.Point(17, 29);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(269, 333);
+            this.richTextBox3.Size = new System.Drawing.Size(402, 523);
             this.richTextBox3.TabIndex = 7;
             this.richTextBox3.Text = "";
             // 
@@ -105,20 +100,18 @@
             this.panel1.Controls.Add(this.tagBtn);
             this.panel1.Controls.Add(this.textBtn);
             this.panel1.Controls.Add(this.quoteBtn);
-            this.panel1.Location = new System.Drawing.Point(1189, 40);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(1784, 62);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(165, 661);
+            this.panel1.Size = new System.Drawing.Size(248, 1033);
             this.panel1.TabIndex = 4;
             // 
             // tagBtn
             // 
             this.tagBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tagBtn.Location = new System.Drawing.Point(36, 569);
-            this.tagBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.tagBtn.Location = new System.Drawing.Point(54, 889);
             this.tagBtn.Name = "tagBtn";
-            this.tagBtn.Size = new System.Drawing.Size(78, 28);
+            this.tagBtn.Size = new System.Drawing.Size(117, 44);
             this.tagBtn.TabIndex = 2;
             this.tagBtn.Text = "Tag";
             this.tagBtn.UseVisualStyleBackColor = true;
@@ -127,10 +120,9 @@
             // 
             this.textBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBtn.Location = new System.Drawing.Point(36, 508);
-            this.textBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.textBtn.Location = new System.Drawing.Point(54, 794);
             this.textBtn.Name = "textBtn";
-            this.textBtn.Size = new System.Drawing.Size(78, 28);
+            this.textBtn.Size = new System.Drawing.Size(117, 44);
             this.textBtn.TabIndex = 1;
             this.textBtn.Text = "Text";
             this.textBtn.UseVisualStyleBackColor = true;
@@ -140,10 +132,9 @@
             // 
             this.quoteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.quoteBtn.Location = new System.Drawing.Point(36, 445);
-            this.quoteBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.quoteBtn.Location = new System.Drawing.Point(54, 695);
             this.quoteBtn.Name = "quoteBtn";
-            this.quoteBtn.Size = new System.Drawing.Size(78, 28);
+            this.quoteBtn.Size = new System.Drawing.Size(117, 44);
             this.quoteBtn.TabIndex = 0;
             this.quoteBtn.Text = "Quote";
             this.quoteBtn.UseVisualStyleBackColor = true;
@@ -154,10 +145,10 @@
             this.readingDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.readingDoc.Location = new System.Drawing.Point(406, 28);
-            this.readingDoc.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.readingDoc.Location = new System.Drawing.Point(609, 44);
+            this.readingDoc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.readingDoc.Name = "readingDoc";
-            this.readingDoc.Size = new System.Drawing.Size(707, 823);
+            this.readingDoc.Size = new System.Drawing.Size(1058, 1284);
             this.readingDoc.TabIndex = 5;
             this.readingDoc.Text = "";
             this.readingDoc.Click += new System.EventHandler(this.richTextBox1_Click);
@@ -165,16 +156,16 @@
             // 
             // ReadingPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1373, 871);
+            this.ClientSize = new System.Drawing.Size(2060, 1361);
             this.Controls.Add(this.readingDoc);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.groupBox1);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3);
             this.Name = "ReadingPage";
             this.Text = "Quotidian";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

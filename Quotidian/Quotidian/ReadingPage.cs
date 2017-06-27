@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace Quotidian
 {
@@ -19,12 +20,33 @@ namespace Quotidian
             project = p;
             reading = r;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
             readingDoc.Text = reading.text;
+            string str = DatabaseInterface.databaseConnectionStr;
+            SqlConnection con = new SqlConnection(str);
+            con.Open();
+            highlights = DatabaseInterface.getHighlights(project.projectId, reading.readingId, con, true);
+            for (int i = 0; i < highlights.Count(); i++)
+            {
+                int start = highlights[i].charCount;
+                int length = highlights[i].charNum;
+                readingDoc.SelectionStart = start;
+                readingDoc.SelectionLength = length;
+                if (highlights[i].isQuote == true)
+                {
+                    readingDoc.SelectionBackColor = Color.Yellow;
+                }
+                
+                else
+                {
+                    readingDoc.SelectionBackColor = Color.LightSkyBlue;
+                }
+            }
         }
 
         public Project project;
         public Reading reading;
         int highlightCount = 0;
         HelperObjects.Highlight highlight1;
+        List<Highlight> highlights;
 
         private void quoteBtn_Click(object sender, EventArgs e)
         {
@@ -37,9 +59,7 @@ namespace Quotidian
                 richTextBox2.AppendText(Environment.NewLine);
             }
             richTextBox2.AppendText("\"" + readingDoc.SelectedText + "\" " + authorPage);
-            
-            highlight1 = new HelperObjects.Highlight(highlightCount, 1, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
-            highlightCount++;
+            highlight1 = DatabaseInterface.createHighlight((int)reading.readingId, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
         }
 
         public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -75,16 +95,29 @@ namespace Quotidian
                 richTextBox3.AppendText(Environment.NewLine);
             }
             richTextBox3.AppendText(readingDoc.SelectedText);
-            highlight1 = new HelperObjects.Highlight(highlightCount, 1, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
-            highlightCount++;
+            highlight1 = DatabaseInterface.createHighlight((int)reading.readingId, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
         }
 
         private void Test1_Click(object sender, EventArgs e)
         {
             //test inserting project
             Project project1 = DatabaseInterface.createProject("TestProject123");
+            Project project2 = DatabaseInterface.createProject("TestProject234");
             Reading reading1 = DatabaseInterface.createReading(1, "Test Reading", "Jim Thorpe", "Jimmy T was a class act. His legend is undeniable.");
+            Reading reading2 = DatabaseInterface.createReading(1, "Test Reading 2", "Jim Johnson", "Jimmy J was a class act. His legend is undeniable.");
+            Reading reading3 = DatabaseInterface.createReading(2, "Reading Test", "Jimony Cricket", "Jimmy C was a class act. His legend is undeniable.");
+            ReadingTag rTag1 = DatabaseInterface.createReadingTag(1, "Science");
+            ReadingTag rTag2 = DatabaseInterface.createReadingTag(1, "Biology");
+            ReadingTag rTag3 = DatabaseInterface.createReadingTag(2, "Biology");
             Highlight highlight1 = DatabaseInterface.createHighlight(1, true, 1, 10);
+            Highlight highlight2 = DatabaseInterface.createHighlight(1, true, 1, 10);
+            Highlight highlight3 = DatabaseInterface.createHighlight(2, true, 1, 10);
+            HighlightTag hTag1 = DatabaseInterface.createHighlightTag(1, "Science");
+            HighlightTag hTag2 = DatabaseInterface.createHighlightTag(1, "Adventure");
+            HighlightTag hTag3 = DatabaseInterface.createHighlightTag(2, "Technology");
+
+            Project loadedProj = DatabaseInterface.loadProject(new Project(1, ""));
+            Project loadedProj2 = DatabaseInterface.loadProject(new Project(2, ""));
 
             int tester = -1;
 		}

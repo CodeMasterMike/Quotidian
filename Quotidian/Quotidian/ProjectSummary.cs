@@ -43,6 +43,7 @@ namespace Quotidian
         {
             readingsList.DataSource = readings;
             readingsList.DisplayMember = "title";
+            selectedReading = (Reading)readingsList.SelectedItem;
             //readingsList.ValueMember = "";
         }
 
@@ -62,7 +63,8 @@ namespace Quotidian
             else
             {
                 //selectedReading = DatabaseInterface.loadReading(selectedReading);
-                var nextPage = new ReadingPage(currentProject, selectedReading);
+                //var nextPage = new ReadingPage(currentProject, selectedReading);
+                openNewReadingPage(false);
             }
         }
 
@@ -74,7 +76,7 @@ namespace Quotidian
             }
             else
             {
-                var nextPage = new WritingPage(currentProject, selectedWriting);
+                openNewWritingPage(false);
             }
         }
 
@@ -91,29 +93,47 @@ namespace Quotidian
         private void newReadingBtn_Click(object sender, EventArgs e)
         {
             //selectedReading = DatabaseInterface.createReading(newProjectNameTextBox.Text);
-            openNewReadingPage();
+            openNewReadingPage(true);
         }
 
         private void newWritingBtn_Click(object sender, EventArgs e)
         {
-            openNewWritingPage();
+            openNewWritingPage(true);
         }
 
-        private void openNewReadingPage()
+        private void openNewReadingPage(Boolean isNew)
         {
             //var nextPage = new ProjectSummary();
-            var nextPage = new ReadingPage(currentProject, new Reading(-1, -1, -1, "No Reading Selected", "", "", "", "No Reading Selected", "", -1, -1, ""));
-            this.Hide();
-            nextPage.Show();
+            if (isNew == true)
+            {
+                var nextPage = new ReadingInfo(currentProject, null, isNew);
+                this.Hide();
+                nextPage.Show();
+            }
+            else
+            {
+                var nextPage = new ReadingPage(currentProject, selectedReading);
+                this.Hide();
+                nextPage.Show();
+            }
         }
 
-        private void openNewWritingPage()
+        private void openNewWritingPage(Boolean isNew)
         {
-            //var nextPage = new ProjectSummary();
-            var nextPage = new WritingPage(currentProject, new Writing());
-            this.Hide();
-            nextPage.Show();
+            if (isNew == true)
+            {
+                var nextPage = new WritingPage(currentProject, new Writing());
+                this.Hide();
+                nextPage.Show();
+            }
+            else
+            {
+                var nextPage = new WritingPage(currentProject, selectedWriting);
+                this.Hide();
+                nextPage.Show();
+            }
         }
-
     }
-}
+
+ }
+
