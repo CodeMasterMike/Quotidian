@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Quotidian.HelperObjects
 {
-    public class ReadingTag
+    public class HighlightTag
     {
         public int tagId { get; set; }
-        public int readingId { get; set; }
+        public int highlightId { get; set; }
         public String tag { get; set; }
 
-        public ReadingTag(int id, int rId, String t)
+        public HighlightTag(int id, int hId, String t)
         {
             tagId = id;
-            readingId = rId;
+            highlightId = hId;
             tag = t;
         }
     }

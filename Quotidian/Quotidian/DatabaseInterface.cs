@@ -21,11 +21,6 @@ namespace Quotidian
 
         public static string databaseConnectionStr = ConfigurationManager.ConnectionStrings["Quotidian.Properties.Settings.LocalDatabaseConnectionString"].ConnectionString;
 
-        public static void loadProjectFromDB(SqlConnection con)
-        {
-
-        }
-
         //returns null if project name already exists
         public static Project createProject(String projectName)
         {
@@ -111,18 +106,126 @@ namespace Quotidian
             }
         }
 
-        //must be called directly after last insertion
-        /*public static int getLastInsertedId(SqlConnection con)
+        public static ReadingTag createReadingTag(int readingId, String tagText)
         {
-            SqlCommand read = new SqlCommand("SELECT SCOPE_IDENTITY()");
+            ReadingTag tag;
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                //first check database for already existing Tag text
+                int? tagId = checkForTag(tagText, con);
+                //if none, must create 
+                if (tagId == null)
+                {
+                    tagId = addTagToDB(tagText, con);
+                }
+                //then simply add an entry to the ReadingTags table to connect the reading to the tag
+                addReadingTagLinkToDB(readingId, (int)tagId, con);
+                tag = new ReadingTag((int)tagId, readingId, tagText);
+                con.Close();
+            }
+            return tag;
+        }
+
+        public static HighlightTag createHighlightTag(int highlightId, String tagText)
+        {
+            HighlightTag tag;
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                //first check database for already existing Tag text
+                int? tagId = checkForTag(tagText, con);
+                //if none, must create 
+                if (tagId == null)
+                {
+                    tagId = addTagToDB(tagText, con);
+                }
+                //then simply add an entry to the ReadingTags table to connect the reading to the tag
+                addHighlightTagLinkToDB(highlightId, (int)tagId, con);
+                tag = new HighlightTag((int)tagId, highlightId, tagText);
+                con.Close();
+            }
+            return tag;
+        }
+
+        private static Boolean addReadingTagLinkToDB(int readingId, int tagId, SqlConnection con)
+        {
+            SqlCommand cmd = new SqlCommand("INSERT INTO ReadingTags (ReadingId, TagId) output INSERTED.ReadingTagId VALUES (@ReadingId, @TagId)", con);
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@ReadingId", readingId);
+            cmd.Parameters.AddWithValue("@TagId", tagId);
+            try
+            {
+                //TODO enforce unique project name
+                tagId = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+                return false;
+            }
+            return true;
+        }
+
+        private static Boolean addHighlightTagLinkToDB(int highlightId, int tagId, SqlConnection con)
+        {
+            SqlCommand cmd = new SqlCommand("INSERT INTO HighlightTags (HighlightId, TagId) output INSERTED.ReadingTagId VALUES (@HighlightId, @TagId)", con);
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@HighlightId", highlightId);
+            cmd.Parameters.AddWithValue("@TagId", tagId);
+            try
+            {
+                //TODO enforce unique project name
+                tagId = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+                return false;
+            }
+            return true;
+        }
+
+        //assumes open connection
+        //returns null if something went wrong
+        private static int? addTagToDB(String tagText, SqlConnection con)
+        {
+            SqlCommand cmd = new SqlCommand("INSERT INTO Tags (Tag) output INSERTED.TagId VALUES (@Tag)", con);
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con;
+            cmd.Parameters.AddWithValue("@Tag", tagText);
+            int? tagId = null;
+            try
+            {
+                //TODO enforce unique project name
+                tagId = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.ToString());
+                return tagId;
+            }
+            return tagId;
+        }
+        //assumes open connection
+        public static int? checkForTag(String tagText, SqlConnection con)
+        {
+            SqlCommand read = new SqlCommand("SELECT * " +
+                    "FROM Tags " +
+                    "WHERE Tag = '" + tagText + "'");
             read.CommandType = CommandType.Text;
             read.Connection = con;
             SqlDataReader reader = read.ExecuteReader();
-            decimal id_dec = (decimal)reader[0];
-            int id = Convert.ToInt32(id_dec);
+            int? tagId;
+            if (reader.Read())
+                tagId = (int)reader["TagId"];
+            else
+                tagId = null;
             reader.Close();
-            return id;
-        }*/
+            return tagId;
+        }
 
         public static List<Project> getProjects()
         {
@@ -164,10 +267,13 @@ namespace Quotidian
                 List<Highlight> allHighlights = getHighlights(project.projectId, null, con, true);
                 foreach (Reading reading in project.readings)
                 {
+                    reading.readingTags = getReadingTags((int)reading.readingId, con, true);
+
                     foreach (Highlight highlight in allHighlights)
                     {
                         if (reading.readingId == highlight.readingId)
                         {
+                            highlight.highlightTags = getHighlightTags(highlight.highlightId, con, true);
                             reading.highlights.Add(highlight);
                         }
                     }
@@ -214,7 +320,10 @@ namespace Quotidian
                 }
             }
             reader.Close();
-            //con.Close();
+            if (conOpen == false)
+            {
+                con.Close();
+            }
             return readings;
         }
 
@@ -251,8 +360,83 @@ namespace Quotidian
                 }
             }
             reader.Close();
-            con.Close();
+            if (conOpen == false)
+            {
+                con.Close();
+            }
             return writings;
+        }
+
+        public static List<ReadingTag> getReadingTags(int readingId, SqlConnection con, Boolean conOpen)
+        {
+            List<ReadingTag> readingTags = new List<ReadingTag>();
+
+            SqlCommand read = new SqlCommand("SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
+                "FROM Readings " +
+                "LEFT JOIN ReadingTags " +
+                    "ON Readings.ReadingId = ReadingTags.ReadingId " +
+                "LEFT JOIN Tags " +
+                    "ON ReadingTags.TagId = Tags.TagId " +
+                "WHERE Readings.ReadingId = " + readingId.ToString());
+            read.CommandType = CommandType.Text;
+            read.Connection = con;
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
+            SqlDataReader reader = read.ExecuteReader();
+            while (reader.Read())
+            {
+                int tagId = (int)reader["TagId"];
+                String tagText = (String)reader["Tag"];
+                readingTags.Add(new ReadingTag(tagId, readingId, tagText));
+            }
+
+            reader.Close();
+            if (conOpen == false)
+            {
+                con.Close();
+            }
+
+            return readingTags;
+        }
+
+        public static List<HighlightTag> getHighlightTags(int highlightId, SqlConnection con, Boolean conOpen)
+        {
+            List<HighlightTag> highlightTags = new List<HighlightTag>();
+
+            SqlCommand read = new SqlCommand("SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
+                "FROM Highlights " +
+                "LEFT JOIN HighlightTags " +
+                    "ON Highlights.HighlightId = HighlightTags.HighlightId " +
+                "LEFT JOIN Tags " +
+                    "ON HighlightTags.TagId = Tags.TagId " +
+                "WHERE Highlights.HighlightId = " + highlightId.ToString());
+            read.CommandType = CommandType.Text;
+            read.Connection = con;
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
+            SqlDataReader reader = read.ExecuteReader();
+            while (reader.Read())
+            {
+                int tagId = (int)reader["TagId"];
+                String tagText = (String)reader["Tag"];
+                highlightTags.Add(new HighlightTag(tagId, highlightId, tagText));
+            }
+
+            reader.Close();
+            if (conOpen == false)
+            {
+                con.Close();
+            }
+
+            return highlightTags;
         }
 
         //if readingId is null, simply returns all readings for this project
@@ -288,7 +472,10 @@ namespace Quotidian
                 }
             }
             reader.Close();
-            //con.Close();
+            if (conOpen == false)
+            {
+                con.Close();
+            }
 
             return highlights;
         }
