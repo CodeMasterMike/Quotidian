@@ -100,8 +100,22 @@ namespace Quotidian
         {
             //test inserting project
             Project project1 = DatabaseInterface.createProject("TestProject123");
+            Project project2 = DatabaseInterface.createProject("TestProject234");
             Reading reading1 = DatabaseInterface.createReading(1, "Test Reading", "Jim Thorpe", "Jimmy T was a class act. His legend is undeniable.");
+            Reading reading2 = DatabaseInterface.createReading(1, "Test Reading 2", "Jim Johnson", "Jimmy J was a class act. His legend is undeniable.");
+            Reading reading3 = DatabaseInterface.createReading(2, "Reading Test", "Jimony Cricket", "Jimmy C was a class act. His legend is undeniable.");
+            ReadingTag rTag1 = DatabaseInterface.createReadingTag(1, "Science");
+            ReadingTag rTag2 = DatabaseInterface.createReadingTag(1, "Biology");
+            ReadingTag rTag3 = DatabaseInterface.createReadingTag(2, "Biology");
             Highlight highlight1 = DatabaseInterface.createHighlight(1, true, 1, 10);
+            Highlight highlight2 = DatabaseInterface.createHighlight(1, true, 1, 10);
+            Highlight highlight3 = DatabaseInterface.createHighlight(2, true, 1, 10);
+            HighlightTag hTag1 = DatabaseInterface.createHighlightTag(1, "Science");
+            HighlightTag hTag2 = DatabaseInterface.createHighlightTag(1, "Adventure");
+            HighlightTag hTag3 = DatabaseInterface.createHighlightTag(2, "Technology");
+
+            Project loadedProj = DatabaseInterface.loadProject(new Project(1, ""));
+            Project loadedProj2 = DatabaseInterface.loadProject(new Project(2, ""));
 
             int tester = -1;
 		}
