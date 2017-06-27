@@ -102,7 +102,7 @@ namespace Quotidian
                     return null;
                 }
                 con.Close();
-                return new Highlight(highlightId, readingId, isQuote, charNum, charCount); //TODO query for reading just created to get ReadingId
+                return new Highlight(highlightId, readingId, isQuote, charNum, charCount);
             }
         }
 
@@ -170,7 +170,7 @@ namespace Quotidian
 
         private static Boolean addHighlightTagLinkToDB(int highlightId, int tagId, SqlConnection con)
         {
-            SqlCommand cmd = new SqlCommand("INSERT INTO HighlightTags (HighlightId, TagId) output INSERTED.ReadingTagId VALUES (@HighlightId, @TagId)", con);
+            SqlCommand cmd = new SqlCommand("INSERT INTO HighlightTags (HighlightId, TagId) output INSERTED.HighlightTagId VALUES (@HighlightId, @TagId)", con);
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con;
             cmd.Parameters.AddWithValue("@HighlightId", highlightId);
@@ -389,9 +389,12 @@ namespace Quotidian
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
-                int tagId = (int)reader["TagId"];
-                String tagText = (String)reader["Tag"];
-                readingTags.Add(new ReadingTag(tagId, readingId, tagText));
+                int tagId = reader["TagId"] as int? ?? default(int);
+                if(tagId > 0)
+                {
+                    String tagText = (String)reader["Tag"];
+                    readingTags.Add(new ReadingTag((int)tagId, readingId, tagText));
+                }
             }
 
             reader.Close();
@@ -425,9 +428,13 @@ namespace Quotidian
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
-                int tagId = (int)reader["TagId"];
-                String tagText = (String)reader["Tag"];
-                highlightTags.Add(new HighlightTag(tagId, highlightId, tagText));
+                if(reader["TagId"] != DBNull.Value)
+                {
+                    //int tagId = (int)reader["TagId"] as int? ?? default(int);
+                    int tagId = (int)reader["TagId"];
+                    String tagText = (String)reader["Tag"];
+                    highlightTags.Add(new HighlightTag(tagId, highlightId, tagText));
+                }
             }
 
             reader.Close();
@@ -460,7 +467,7 @@ namespace Quotidian
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
-                if (reader["HighlightId"] == null)
+                if (reader["HighlightId"] != DBNull.Value)
                 {
                     int highlightId = (int)reader["HighlightId"];
                     int readingId = (int)reader["ReadingId"];

@@ -32,6 +32,7 @@
             this.openProjectButton = new System.Windows.Forms.Button();
             this.newProjectButton = new System.Windows.Forms.Button();
             this.newProjectNameTextBox = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // selectProjectListBox
@@ -73,11 +74,22 @@
             this.newProjectNameTextBox.TabIndex = 3;
             this.newProjectNameTextBox.Text = "Enter New Project Name Here";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(421, -4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Test";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Test1_Click);
+            // 
             // OpenProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(508, 395);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.newProjectNameTextBox);
             this.Controls.Add(this.newProjectButton);
             this.Controls.Add(this.openProjectButton);
@@ -95,5 +107,6 @@
         private System.Windows.Forms.Button openProjectButton;
         private System.Windows.Forms.Button newProjectButton;
         private System.Windows.Forms.TextBox newProjectNameTextBox;
+        private System.Windows.Forms.Button button1;
     }
 }
