@@ -16,6 +16,7 @@ namespace Quotidian
     {
         public Project selectedProject;
         public Reading selectedReading;
+        public List<Author> auths = new List<Author>();
 
         public ReadingInfo(Project p, Reading r, bool isNew)
         {
@@ -31,6 +32,7 @@ namespace Quotidian
             {
                 InitializeComponent();
                 citationBtn.Visible = false;
+                selectedReading = new Reading(-1, -1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "");
             }
 
         }
@@ -38,11 +40,12 @@ namespace Quotidian
         private void updateTextBoxes(Reading r)
         {
             docTitleBox.Text = r.title;
-            firstBox.Text = r.first;
-            middleBox.Text = r.middle;
-            lastBox.Text = r.last;
             publisherBox.Text = r.publisherName;
             dateBox.Text = r.getDateString();
+            foreach(Author a in r.authors)
+            {
+                authorList.Items.Add(new ListViewItem(a.first + " " + a.middle + " " + a.last));
+            }
             //TODO tagsBox.Text = 
         }
 
@@ -71,10 +74,16 @@ namespace Quotidian
             String month = datePublished.ToString("MMMM");
             int day = datePublished.Day;
             int year = datePublished.Year;
-            var nextPage = new ReadingTextPage(docTitle, authorFirst, authorMiddle, authorLast, month, day, year, publisher, this);
+            var nextPage = new ReadingTextPage(docTitle, selectedReading, this);
             this.Hide();
             nextPage.Show();
-           // Regex dateRegex = new Regex();
+            // Regex dateRegex = new Regex();
+            selectedReading.title = docTitle;
+            selectedReading.publisherName = publisher;
+            selectedReading.dateDay = datePublished.Day;
+            selectedReading.dateMonth = month;
+            selectedReading.dateYear = datePublished.Year;
+            selectedReading.authors = auths;
         }
 
         [STAThread]
@@ -82,6 +91,31 @@ namespace Quotidian
         {
             Application.Run(new OpenProject());
         }
+        private void label2_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String f = firstBox.Text;
+            String m = middleBox.Text;
+            String l = lastBox.Text;
+            Author newAuthor = new Author(-1, f, m, l);
+            auths.Add(newAuthor);
+            authorList.Items.Add(new ListViewItem(f + " " + m + " " + l));
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+                authorList.Items.RemoveAt(authorList.Items.Count - 1);
+                //selectedReading.authors.RemoveAt(selectedReading.authors.Count() - 1);
+                auths.Remove(auths.Last());
+        }
+
+        private void firstBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

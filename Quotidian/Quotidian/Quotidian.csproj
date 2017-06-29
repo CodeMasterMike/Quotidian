@@ -71,6 +71,9 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HelperObjects\Author.cs" />
+    <Compile Include="HelperObjects\WeightedGraph.cs" />
+    <Compile Include="StringSearchTest.cs" />
     <Compile Include="DatabaseInterface.cs" />
     <Compile Include="HelperObjects\HighlightTag.cs" />
     <Compile Include="ProjectSummary.cs">

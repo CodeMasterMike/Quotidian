@@ -14,6 +14,7 @@ namespace Quotidian
     public partial class ReadingTextPage : Form
     {
         public Project currentProject;
+        public Reading currentReading;
 
         public String title { get; set; }
         public String first { get; set; }
@@ -26,19 +27,21 @@ namespace Quotidian
         private ReadingInfo form;
         Reading reading1;
 
-        public ReadingTextPage(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, ReadingInfo f)
+        public ReadingTextPage(String docTitle, Reading r, ReadingInfo f)
+        //public ReadingTextPage(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, ReadingInfo f)
         {
             currentProject = f.selectedProject;
+            reading1 = r;
 
-            title = docTitle;
-            first = firstName;
-            middle = middleName;
-            last = lastName;
-            dateMonth = month;
-            dateDay = day;
-            dateYear = year;
-            publisherName = publisher;
-            form = f;
+            //title = docTitle;
+            //first = firstName;
+            //middle = middleName;
+            //last = lastName;
+            //dateMonth = month;
+            //dateDay = day;
+            //dateYear = year;
+            //publisherName = publisher;
+            //form = f;
             InitializeComponent();
         }
 
@@ -50,9 +53,10 @@ namespace Quotidian
         private void citationBtn_Click(object sender, EventArgs e)
         {
             String text = readingText.Text;
-            reading1 = new Reading(-1, -1, -1, title, first, middle, last, text, dateMonth, dateDay, dateYear, publisherName);
+            
+            //reading1 = new Reading(-1, -1, -1, title, new List<Author>(), text, dateMonth, dateDay, dateYear, publisherName);
             currentProject.readings.Add(reading1);
-            var newReading = DatabaseInterface.createReading(currentProject.projectId, title, last, text);
+            var newReading = DatabaseInterface.createReading(currentProject.projectId, reading1.title, "Last needs changed", reading1.text);
             generatedLabel.Text = reading1.createCitation();
         }
 
