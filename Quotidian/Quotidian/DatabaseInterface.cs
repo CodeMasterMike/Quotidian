@@ -74,7 +74,7 @@ namespace Quotidian
                     return null;
                 }
                 con.Close();
-                return new Reading(readingId, null, projectId, title, "", "", author, text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
+                return new Reading(readingId, null, projectId, title, new List<Author>(), text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
             }
         }
 
@@ -315,7 +315,7 @@ namespace Quotidian
                     String title = (String)reader["Title"];
                     String author = (String)reader["Author"];
                     String text = (String)reader["Text"];
-                    Reading reading = new Reading(readingId, null, projectId, title, "", "", author, text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
+                    Reading reading = new Reading(readingId, null, projectId, title, new List<Author>(), text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
                     readings.Add(reading);
                 }
             }
