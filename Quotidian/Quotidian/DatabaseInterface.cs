@@ -315,6 +315,11 @@ namespace Quotidian
                     String title = (String)reader["Title"];
                     String author = (String)reader["Author"];
                     String text = (String)reader["Text"];
+                    String style = (String)reader["Style"];
+                    DateTime date = (DateTime)reader["Date"];
+                    String publisher = (String)reader["Publisher"];
+                    String city = (String)reader["City"];
+                    int yearPublished = (int)reader["YearPublished"];
                     Reading reading = new Reading(readingId, null, projectId, title, "", "", author, text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
                     readings.Add(reading);
                 }
