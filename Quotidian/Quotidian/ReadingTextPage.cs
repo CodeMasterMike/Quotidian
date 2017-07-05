@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -56,7 +57,8 @@ namespace Quotidian
             
             //reading1 = new Reading(-1, -1, -1, title, new List<Author>(), text, dateMonth, dateDay, dateYear, publisherName);
             currentProject.readings.Add(reading1);
-            var newReading = DatabaseInterface.createReading(currentProject.projectId, reading1.title, "Last needs changed", reading1.text);
+            int dateMonth = DateTime.ParseExact(reading1.dateMonth, "MMMM", CultureInfo.CurrentCulture).Month;
+            var newReading = DatabaseInterface.createReading(currentProject.projectId, reading1.title, "Last needs changed", reading1.text, reading1.style, new DateTime(reading1.dateYear,dateMonth,reading1.dateDay), reading1.publisherName, reading1.city, reading1.yearPublished);
             generatedLabel.Text = reading1.createCitation();
         }
 
