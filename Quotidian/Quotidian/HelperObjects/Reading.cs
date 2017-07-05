@@ -8,7 +8,7 @@ namespace Quotidian.HelperObjects
 {
     public class Reading
     {
-        public int? readingId { get; set; }
+        public int readingId { get; set; }
         //public int? highlightId { get; set; }
         private readonly int LPP = 60;
         public int projectId { get; set; }
@@ -33,7 +33,7 @@ namespace Quotidian.HelperObjects
         public List<Highlight> highlights { get; set; }
         public List<ReadingTag> readingTags { get; set; }
 
-        public Reading(int? rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String style)
+        public Reading(int rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String style)
         {
             readingId = rId;
             projectId = pId;
@@ -66,6 +66,11 @@ namespace Quotidian.HelperObjects
             }
 
             return c;
+        }
+
+        public List<ReadingTag> getReadingTags()
+        {
+            return readingTags;
         }
 
         private String getAuthors()
