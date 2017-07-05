@@ -46,7 +46,6 @@ namespace Quotidian
             {
                 authorList.Items.Add(new ListViewItem(a.first + " " + a.middle + " " + a.last));
             }
-            //TODO tagsBox.Text = 
         }
 
         private void docTitleBox_TextChanged(object sender, EventArgs e)
@@ -70,7 +69,7 @@ namespace Quotidian
             {
                 Console.WriteLine(ex);
             }
-            String tags = tagsBox.Text;
+            List<ReadingTag> tags = parseTags();
             String month = datePublished.ToString("MMMM");
             int day = datePublished.Day;
             int year = datePublished.Year;
@@ -84,6 +83,20 @@ namespace Quotidian
             selectedReading.dateMonth = month;
             selectedReading.dateYear = datePublished.Year;
             selectedReading.authors = auths;
+            selectedReading.readingTags = tags;
+        }
+
+        private List<ReadingTag> parseTags()
+        {
+            String[] tags = tagsBox.Text.Split(',');
+            List<ReadingTag> readingTags = new List<ReadingTag>();
+            int id = 0;
+            for (int i = 0; i < tags.Length; i++)
+            {
+                readingTags.Add(new ReadingTag(id, null, tags[i]));
+                id++;
+            }
+            return readingTags;
         }
 
         [STAThread]
@@ -117,5 +130,6 @@ namespace Quotidian
         {
 
         }
+
     }
 }
