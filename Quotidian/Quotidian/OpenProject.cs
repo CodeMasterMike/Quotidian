@@ -72,9 +72,11 @@ namespace Quotidian
             //test inserting project
             Project project1 = DatabaseInterface.createProject("TestProject123");
             Project project2 = DatabaseInterface.createProject("TestProject234");
-            Reading reading1 = DatabaseInterface.createReading(1, "Test Reading", "Jim Thorpe", "Jimmy T was a class act. His legend is undeniable.");
-            Reading reading2 = DatabaseInterface.createReading(1, "Test Reading 2", "Jim Johnson", "Jimmy J was a class act. His legend is undeniable.");
-            Reading reading3 = DatabaseInterface.createReading(2, "Reading Test", "Jimony Cricket", "Jimmy C was a class act. His legend is undeniable.");
+            Reading reading1 = DatabaseInterface.createReading(1, "Test Reading", "Jim Thorpe", "Jimmy T was a class act. His legend is undeniable.", "MLA", new DateTime(1990,1,1), "FunkyPub", "Rochester", 2000);
+            Reading reading2 = DatabaseInterface.createReading(1, "Test Reading 2", "Jim Johnson", "Jimmy J was a class act. His legend is undeniable.", "MLA", new DateTime(1990, 1, 1), "FunkyPub", "Rochester", 2000);
+            Reading reading3 = DatabaseInterface.createReading(2, "Reading Test", "Jimony Cricket", "Jimmy C was a class act. His legend is undeniable.", "MLA", new DateTime(1990, 1, 1), "FunkyPub", "Rochester", 2000);
+            Author author1 = DatabaseInterface.createAuthor(1, "Jim", "Francis", "Thorpe");
+            Author author2 = DatabaseInterface.createAuthor(2, "Michael", "Joseph", "McAlpin");
             ReadingTag rTag1 = DatabaseInterface.createReadingTag(1, "Science");
             ReadingTag rTag2 = DatabaseInterface.createReadingTag(1, "Biology");
             ReadingTag rTag3 = DatabaseInterface.createReadingTag(2, "Biology");

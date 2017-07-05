@@ -9,10 +9,10 @@ namespace Quotidian.HelperObjects
     public class ReadingTag
     {
         public int tagId { get; set; }
-        public int? readingId { get; set; }
+        public int readingId { get; set; }
         public String tag { get; set; }
 
-        public ReadingTag(int id, int? rId, String t)
+        public ReadingTag(int id, int rId, String t)
         {
             tagId = id;
             readingId = rId;
