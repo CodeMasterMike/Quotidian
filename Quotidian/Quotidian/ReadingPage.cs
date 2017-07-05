@@ -40,6 +40,7 @@ namespace Quotidian
                     readingDoc.SelectionBackColor = Color.LightSkyBlue;
                 }
             }
+            selectReadingTagsListBox(); //initialize this ListBox
         }
 
         public Project project;
@@ -136,6 +137,33 @@ namespace Quotidian
         {
             this.Hide();
             OpenProject openProject = new OpenProject();
+        }
+
+        public void selectReadingTagsListBox()
+        {
+            tagsListBox.DataSource = reading.readingTags;
+            tagsListBox.DisplayMember = "tag";
+            tagsListBox.ValueMember = "tagId";
+        }
+
+        public void selectHighlightTagsListBox()
+        {
+            //need to loop through the highlight tags to display the proper selection, and if no highlight selected just display readingTags
+            //TODO if multiple highlights overlap, way to cycle between these
+            bool found = false;
+            foreach (Highlight highlight in reading.highlights)
+            {
+                if(readingDoc.SelectionLength == 0 && readingDoc.SelectionStart >= highlight.charNum && readingDoc.SelectionStart <= highlight.charNum+highlight.charCount)
+                {
+                    tagsListBox.DataSource = highlight.highlightTags;
+                    tagsListBox.DisplayMember = "tag";
+                    tagsListBox.ValueMember = "tagId";
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                selectReadingTagsListBox();
         }
     }
 }
