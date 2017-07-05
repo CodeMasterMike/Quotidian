@@ -90,9 +90,7 @@
     <Compile Include="ReadingPage.Designer.cs">
       <DependentUpon>ReadingPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubBaseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="SubBaseForm.cs" />
     <Compile Include="SubBaseForm.Designer.cs">
       <DependentUpon>SubBaseForm.cs</DependentUpon>
     </Compile>
