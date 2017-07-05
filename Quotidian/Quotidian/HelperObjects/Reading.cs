@@ -33,10 +33,9 @@ namespace Quotidian.HelperObjects
         public List<Highlight> highlights { get; set; }
         public List<ReadingTag> readingTags { get; set; }
 
-        public Reading(int? rId, int? hId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher)
+        public Reading(int? rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String style)
         {
             readingId = rId;
-            //highlightId = hId;
             projectId = pId;
             title = t;
             authors = auths;

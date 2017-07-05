@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data.OleDb;
 using System.Configuration;
+using System.Globalization;
 using Quotidian.HelperObjects;
 using System.Data;
 
@@ -50,18 +51,23 @@ namespace Quotidian
         }
 
         //TODO update when reading class updated
-        public static Reading createReading(int projectId, String title, String author, String text)
+        public static Reading createReading(int projectId, String title, String author, String text, String style, DateTime date, String publisher, String city, int yearPublished)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Readings (ProjectId, Title, Author, Text) output INSERTED.ReadingId VALUES (@ProjectId, @Title, @Author, @Text)");
+                SqlCommand cmd = new SqlCommand("INSERT INTO Readings (ProjectId, Title, Author, Text, Style, Date, Publisher, City, YearPublished) output INSERTED.ReadingId VALUES (@ProjectId, @Title, @Author, @Text, @Style, @Date, @Publisher, @City, @YearPublished)");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@ProjectId", projectId);
                 cmd.Parameters.AddWithValue("@Title", title);
-                cmd.Parameters.AddWithValue("@Author", author);
+                cmd.Parameters.AddWithValue("@Author", "");
                 cmd.Parameters.AddWithValue("@Text", text);
+                cmd.Parameters.AddWithValue("@Style", style);
+                cmd.Parameters.AddWithValue("@Date", date);
+                cmd.Parameters.AddWithValue("@Publisher", publisher);
+                cmd.Parameters.AddWithValue("@City", city);
+                cmd.Parameters.AddWithValue("@YearPublished", yearPublished);
                 int readingId = -1;
                 try
                 {
@@ -74,7 +80,36 @@ namespace Quotidian
                     return null;
                 }
                 con.Close();
-                return new Reading(readingId, null, projectId, title, new List<Author>(), text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
+                String monthInt = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(date.Month);
+                return new Reading(readingId, projectId, title, new List<Author>(), text, monthInt, date.Day, date.Year, publisher, city, style); //TODO update reading db and this
+            }
+        }
+
+        public static Author createAuthor(int readingId, String first, String middle, String last)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("INSERT INTO Authors (ReadingId, First, Middle, Last) output INSERTED.AuthorId VALUES (@ReadingId, @First, @Middle, @Last)");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ReadingId", readingId);
+                cmd.Parameters.AddWithValue("@First", first);
+                cmd.Parameters.AddWithValue("@Middle", middle);
+                cmd.Parameters.AddWithValue("@Last", last);
+                int authorId = -1;
+                try
+                {
+                    authorId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return null;
+                }
+                con.Close();
+                return new Author(authorId, readingId, first, middle, last);
             }
         }
 
@@ -263,11 +298,12 @@ namespace Quotidian
                 con.Open();
                 //first get readings
                 project.readings = getReadings(project.projectId, con, true);
-                //then highlights
+                //then highlights and tags
                 List<Highlight> allHighlights = getHighlights(project.projectId, null, con, true);
                 foreach (Reading reading in project.readings)
                 {
                     reading.readingTags = getReadingTags((int)reading.readingId, con, true);
+                    reading.authors = getAuthors((int)reading.readingId,con,true);
 
                     foreach (Highlight highlight in allHighlights)
                     {
@@ -278,7 +314,6 @@ namespace Quotidian
                         }
                     }
                 }
-                //and now tags TODO
 
                 con.Close();
             }
@@ -306,8 +341,6 @@ namespace Quotidian
             SqlDataReader reader = read.ExecuteReader();
             while (reader.Read())
             {
-                //int readingId = reader.GetInt32(0);
-                //int projectId = reader.GetInt32(1);
                 int readingId = (int)reader["ReadingId"];
                 int projectId = (int)reader["ProjectId"];
                 if (projectId == projectId_input)
@@ -320,8 +353,9 @@ namespace Quotidian
                     String publisher = (String)reader["Publisher"];
                     String city = (String)reader["City"];
                     int yearPublished = (int)reader["YearPublished"];
+                    String strMonthName = getMonthName(date.Month);
 
-                    Reading reading = new Reading(readingId, null, projectId, title, new List<Author>(), text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
+                    Reading reading = new Reading(readingId, projectId, title, new List<Author>(), text, strMonthName, date.Day, date.Year, publisher, city, style); //TODO update reading db and this
                     readings.Add(reading);
                 }
             }
@@ -331,6 +365,52 @@ namespace Quotidian
                 con.Close();
             }
             return readings;
+        }
+
+        public static String getMonthName(int monthNum)
+        {
+            System.Globalization.DateTimeFormatInfo mfi = new System.Globalization.DateTimeFormatInfo();
+            return mfi.GetMonthName(monthNum).ToString();
+        }
+
+        public static int getMonthNum(String monthName)
+        {
+            return DateTime.ParseExact(monthName, "MMMM", CultureInfo.CurrentCulture).Month;
+        }
+
+        public static List<Author> getAuthors(int readingId_input, SqlConnection con, Boolean conOpen)
+        {
+            List<Author> authors = new List<Author>();
+            //first load readings
+            SqlCommand read = new SqlCommand("SELECT * " +
+                "FROM Authors " +
+                "WHERE Authors.ReadingId = " + readingId_input.ToString());
+            read.CommandType = CommandType.Text;
+            read.Connection = con;
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
+            SqlDataReader reader = read.ExecuteReader();
+            while (reader.Read())
+            {
+                int authorId = (int)reader["AuthorId"];
+                int readingId = (int)reader["ReadingId"];
+                String first = (String)reader["First"];
+                String middle = (String)reader["Middle"];
+                String last = (String)reader["Last"];
+
+                Author author = new Author(authorId,readingId,first,middle,last);
+                authors.Add(author);
+            }
+            reader.Close();
+            if (conOpen == false)
+            {
+                con.Close();
+            }
+            return authors;
         }
 
         public static List<Writing> getWritings(int projectId_input, SqlConnection con, Boolean conOpen)
