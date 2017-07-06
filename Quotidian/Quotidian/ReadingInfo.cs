@@ -32,7 +32,7 @@ namespace Quotidian
             {
                 InitializeComponent();
                 citationBtn.Visible = false;
-                selectedReading = new Reading(-1, -1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "");
+                selectedReading = new Reading(-1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "", "", "MLA");
             }
 
         }
@@ -46,7 +46,7 @@ namespace Quotidian
             {
                 authorList.Items.Add(new ListViewItem(a.first + " " + a.middle + " " + a.last));
             }
-            //TODO tagsBox.Text = 
+            List<ReadingTag> readingTags = r.getReadingTags();
         }
 
         private void docTitleBox_TextChanged(object sender, EventArgs e)
@@ -70,7 +70,7 @@ namespace Quotidian
             {
                 Console.WriteLine(ex);
             }
-            String tags = tagsBox.Text;
+            List<ReadingTag> tags = parseTags();
             String month = datePublished.ToString("MMMM");
             int day = datePublished.Day;
             int year = datePublished.Year;
@@ -84,6 +84,20 @@ namespace Quotidian
             selectedReading.dateMonth = month;
             selectedReading.dateYear = datePublished.Year;
             selectedReading.authors = auths;
+            selectedReading.readingTags = tags;
+            selectedReading.style = "MLA";
+            selectedReading.city = "";
+        }
+
+        private List<ReadingTag> parseTags()
+        {
+            String[] tags = tagsBox.Text.Split(',');
+            List<ReadingTag> readingTags = new List<ReadingTag>();
+            for (int i = 0; i < tags.Length; i++)
+            {
+                readingTags.Add(new ReadingTag(-1, -1, tags[i]));
+            }
+            return readingTags;
         }
 
         [STAThread]
@@ -101,7 +115,7 @@ namespace Quotidian
             String f = firstBox.Text;
             String m = middleBox.Text;
             String l = lastBox.Text;
-            Author newAuthor = new Author(-1, f, m, l);
+            Author newAuthor = new Author(-1,-1, f, m, l);
             auths.Add(newAuthor);
             authorList.Items.Add(new ListViewItem(f + " " + m + " " + l));
         }
@@ -117,5 +131,6 @@ namespace Quotidian
         {
 
         }
+
     }
 }
