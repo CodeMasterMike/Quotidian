@@ -26,8 +26,8 @@ namespace Quotidian
             highlights = DatabaseInterface.getHighlights(project.projectId, reading.readingId, con, true);
             for (int i = 0; i < highlights.Count(); i++)
             {
-                int start = highlights[i].charCount;
-                int length = highlights[i].charNum;
+                int start = highlights[i].charNum;
+                int length = highlights[i].charCount;
                 readingDoc.SelectionStart = start;
                 readingDoc.SelectionLength = length;
                 if (highlights[i].isQuote == true)
@@ -40,6 +40,7 @@ namespace Quotidian
                     readingDoc.SelectionBackColor = Color.LightSkyBlue;
                 }
             }
+            selectReadingTagsListBox(); //initialize this ListBox
         }
 
         public Project project;
@@ -47,6 +48,7 @@ namespace Quotidian
         int highlightCount = 0;
         HelperObjects.Highlight highlight1;
         List<Highlight> highlights;
+        private Highlight selectedHighlight;
 
         private void quoteBtn_Click(object sender, EventArgs e)
         {
@@ -94,9 +96,29 @@ namespace Quotidian
 
         }
 
-        private void richTextBox1_Click(object sender, EventArgs e)
+        private void readingTextBox_Click(object sender, EventArgs e)
         {
             readingDoc.SelectionBackColor = Color.White;
+
+            //need to loop through the highlight tags to display the proper selection, and if no highlight selected just display readingTags
+            //TODO if multiple highlights overlap, way to cycle between these
+            bool found = false;
+            foreach (Highlight highlight in reading.highlights)
+            {
+                if (readingDoc.SelectionLength == 0 && readingDoc.SelectionStart >= highlight.charNum && readingDoc.SelectionStart <= highlight.charNum + highlight.charCount)
+                {
+                    selectedHighlight = highlight;
+                    tagsListBox.DataSource = highlight.highlightTags;
+                    tagsListBox.DisplayMember = "tag";
+                    tagsListBox.ValueMember = "tagId";
+                    found = true;
+                    tagListLabel.Text = "Highlight Tags:";
+                    break;
+                }
+            }
+            if (!found)
+                selectReadingTagsListBox();
+
         }
 
         private void textBtn_Click(object sender, EventArgs e)
@@ -136,6 +158,37 @@ namespace Quotidian
         {
             this.Hide();
             OpenProject openProject = new OpenProject();
+        }
+
+        public void selectReadingTagsListBox()
+        {
+            tagsListBox.DataSource = reading.readingTags;
+            tagsListBox.DisplayMember = "tag";
+            tagsListBox.ValueMember = "tagId";
+            tagListLabel.Text = "Reading Tags:";
+            selectedHighlight = null;
+        }
+
+        public void selectHighlightTagsListBox()
+        {
+        }
+
+        private void addTagButton_Click(object sender, EventArgs e)
+        {
+            if(newTagTextBox.Text.Equals(""))
+                System.Windows.Forms.MessageBox.Show("No text entered!");
+            else if(selectedHighlight == null)
+            {
+                reading.readingTags.Add(DatabaseInterface.createReadingTag(reading.readingId, newTagTextBox.Text));
+                newTagTextBox.Text = "";
+                readingTextBox_Click(null, null);
+            }
+            else
+            {
+                selectedHighlight.highlightTags.Add(DatabaseInterface.createHighlightTag(selectedHighlight.highlightId, newTagTextBox.Text));
+                newTagTextBox.Text = "";
+                readingTextBox_Click(null, null);
+            }
         }
     }
 }

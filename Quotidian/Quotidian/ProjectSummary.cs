@@ -31,8 +31,10 @@ namespace Quotidian
             string str = DatabaseInterface.databaseConnectionStr;
             SqlConnection con = new SqlConnection(str);
             con.Open();
-            readings = DatabaseInterface.getReadings(projId, con, true);
-            writings = DatabaseInterface.getWritings(projId, con, true);
+            //readings = DatabaseInterface.getReadings(projId, con, true);
+            readings = p.readings;
+            //writings = DatabaseInterface.getWritings(projId, con, true);
+            writings = p.writings;
             con.Close();
             callingForm = caller;
             initializeReadingsListBox();
