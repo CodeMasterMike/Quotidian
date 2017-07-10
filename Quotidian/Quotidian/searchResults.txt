@@ -1,0 +1,64 @@
+String Search Test Results
+
+Algorithms - .indexOf/Contains, KMP, Boyer Moore, Rabin Karpe
+Numbers reported in milliseconds elapsed
+
+
+Moby Dick text search ~ 1.15Megs
+
+Test Case 1: Searching Moby Dick for word "Ishmael" : 19 occurences
+.indexOf - 38
+BM - 5
+KMP - 25
+RK - 57
+
+Test 2: Search Moby Dick for nonexistant string ("Gabe")
+indxOf - 37
+BM - 6
+KMP - 19
+RK - 52
+
+Test 3: Search Moby Dick for word "whale" : 1269 occurences
+indexOf - 27
+BM - 6
+KMP - 17
+RK - 53
+
+Test 4: Moby Dick for the word "the": 18539 occurences
+indexOf - 23
+BM - 12
+KMP - 22
+RK - 53
+
+Using Alice in Wonderland (148 kb)
+
+Test 5: Search for Alice (397 occurences)
+indexOf - 3
+BM - 1
+KMP - 2
+RK - 6
+
+Test 6: Search for nonexistant string ("supercalifragilistic" )
+indexOf - 4
+BM - 0
+KMP - 2
+RK - 6
+
+Test 7: Search for "the" (2115)
+indexOf - 3
+BM - 1 
+KMP - 2 
+RK - 6
+
+
+Using text of War and Peace (3.88mb)
+
+Test 8: Search for "war" 1263 occurences
+indexOf - 116
+BM - 27
+KMP - 61
+RK - 183
+
+Final observations
+Boyer-Moore performed fastest, but I had to add a large data structure to help in its searching (10000 char array). Second best was KMP. Third was indexOf. Finally was rabin karpe. 
+I would probably go with boyer-moore if speed is paramount and memory is cheap. Otherwise I would go with KMP. Using indexOf and Rabin-Karpe do not seem worth it. 
