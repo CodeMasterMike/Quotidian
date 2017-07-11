@@ -11,5 +11,6 @@ namespace Quotidian.HelperObjects
         public int writingId { get; set; }
         public int projectId { get; set; }
         public String text { get; set; }
+        public bool modified { get; set; }
     }
 }

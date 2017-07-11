@@ -13,6 +13,7 @@ namespace Quotidian.HelperObjects
         public String first { get; set; }
         public String middle { get; set; }
         public String last { get; set; }
+        public bool modified { get; set; }
 
         public Author(int id, int rId, String f, String m, String l)
         {
@@ -21,6 +22,7 @@ namespace Quotidian.HelperObjects
             first = f;
             middle = m;
             last = l;
+            modified = false;
         }
 
         //This function doesnt account for a missing first or last name

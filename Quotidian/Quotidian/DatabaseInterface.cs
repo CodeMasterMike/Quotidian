@@ -85,6 +85,37 @@ namespace Quotidian
             }
         }
 
+        public static bool updateReading(int readingId, String title, String text, String style, DateTime date, String publisher, String city, int yearPublished)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE Readings SET [Title]=@Title, [Text]=@Text, [Style]=@Style, [Date]=@Date, [Publisher]=@Publisher, [City]=@City, [YearPublished]=@YearPublished " + 
+                    "WHERE ReadingId = " + readingId.ToString());
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Title", title);
+                cmd.Parameters.AddWithValue("@Text", text);
+                cmd.Parameters.AddWithValue("@Style", style);
+                cmd.Parameters.AddWithValue("@Date", date);
+                cmd.Parameters.AddWithValue("@Publisher", publisher);
+                cmd.Parameters.AddWithValue("@City", city);
+                cmd.Parameters.AddWithValue("@YearPublished", yearPublished);
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         public static Author createAuthor(int readingId, String first, String middle, String last)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))

@@ -99,7 +99,7 @@
             this.richTextBox3.Location = new System.Drawing.Point(8, 15);
             this.richTextBox3.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(203, 318);
+            this.richTextBox3.Size = new System.Drawing.Size(203, 320);
             this.richTextBox3.TabIndex = 7;
             this.richTextBox3.Text = "";
             // 
@@ -162,6 +162,7 @@
             this.readingDoc.Location = new System.Drawing.Point(221, 39);
             this.readingDoc.Margin = new System.Windows.Forms.Padding(2);
             this.readingDoc.Name = "readingDoc";
+            this.readingDoc.ReadOnly = true;
             this.readingDoc.Size = new System.Drawing.Size(526, 435);
             this.readingDoc.TabIndex = 5;
             this.readingDoc.Text = "";

@@ -11,12 +11,14 @@ namespace Quotidian.HelperObjects
         public int tagId { get; set; }
         public int highlightId { get; set; }
         public String tag { get; set; }
+        public bool modified { get; set; }
 
         public HighlightTag(int id, int hId, String t)
         {
             tagId = id;
             highlightId = hId;
             tag = t;
+            modified = false;
         }
     }
 }

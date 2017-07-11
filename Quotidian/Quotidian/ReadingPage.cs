@@ -118,7 +118,6 @@ namespace Quotidian
             }
             if (!found)
                 selectReadingTagsListBox();
-
         }
 
         private void textBtn_Click(object sender, EventArgs e)
@@ -140,6 +139,12 @@ namespace Quotidian
         public void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (reading.modified)
+                DatabaseInterface.updateReading(reading.readingId, reading.title, reading.text, reading.style, new DateTime(reading.dateYear, DatabaseInterface.getMonthNum(reading.dateMonth), reading.dateDay), reading.publisherName, reading.city, reading.yearPublished);
         }
 
         public override void newReadingToolStripMenuItem_Click(object sender, EventArgs e)
