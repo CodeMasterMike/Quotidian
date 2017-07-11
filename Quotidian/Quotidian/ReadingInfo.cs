@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using Quotidian.HelperObjects;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Quotidian
 {
@@ -44,7 +45,7 @@ namespace Quotidian
             dateBox.Text = r.getDateString();
             foreach(Author a in r.authors)
             {
-                authorList.Items.Add(new ListViewItem(a.first + " " + a.middle + " " + a.last));
+                authorList1.Items.Add(new ListViewItem(a.first + " " + a.middle + " " + a.last));
             }
             List<ReadingTag> readingTags = r.getReadingTags();
         }
@@ -110,19 +111,19 @@ namespace Quotidian
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void addAuthorButton_Click(object sender, EventArgs e)
         {
             String f = firstBox.Text;
             String m = middleBox.Text;
             String l = lastBox.Text;
             Author newAuthor = new Author(-1,-1, f, m, l);
             auths.Add(newAuthor);
-            authorList.Items.Add(new ListViewItem(f + " " + m + " " + l));
+            authorList1.Items.Add(new KryptonListItem(f + " " + m + " " + l));
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-                authorList.Items.RemoveAt(authorList.Items.Count - 1);
+                authorList1.Items.RemoveAt(authorList1.Items.Count - 1);
                 //selectedReading.authors.RemoveAt(selectedReading.authors.Count() - 1);
                 auths.Remove(auths.Last());
         }

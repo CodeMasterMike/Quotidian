@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Quotidian.HelperObjects;
+using System.IO;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Quotidian
 {
-    public partial class OpenProject : Form
+    public partial class OpenProject : BaseForm
     {
         public List<Project> projects;
         public Project selectedProject;
@@ -36,7 +38,7 @@ namespace Quotidian
 
         private void selectProjectListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedProject = (Project)((ListBox)sender).SelectedItem;
+            selectedProject = (Project)((KryptonListBox)sender).SelectedItem;
         }
 
         private void openProjectButton_Click(object sender, EventArgs e)
@@ -69,7 +71,7 @@ namespace Quotidian
 
         private void Test1_Click(object sender, EventArgs e)
         {
-            //test inserting project
+            ////test inserting project
             Project project1 = DatabaseInterface.createProject("TestProject123");
             Project project2 = DatabaseInterface.createProject("TestProject234");
             Reading reading1 = DatabaseInterface.createReading(1, "Test Reading", "Jim Thorpe", "Jimmy T was a class act. His legend is undeniable.", "MLA", new DateTime(1990,1,1), "FunkyPub", "Rochester", 2000);
@@ -91,6 +93,59 @@ namespace Quotidian
             Project loadedProj2 = DatabaseInterface.loadProject(new Project(2, ""));
 
             int tester = -1;
+
+            //String Search Test
+            stringTest();
+            
         }
+
+        public void stringTest()
+        {
+            String path = @"..\\..\\warpeace.txt";
+            String strToSearch = "";
+            StringSearchTest tester = new StringSearchTest();
+
+            if (!File.Exists(path))
+            {
+                // Create the file.
+                using (FileStream fs = File.Create(path))
+                {
+                    Byte[] info =
+                        new UTF8Encoding(true).GetBytes("This is some text in the file.");
+
+                    // Add some information to the file.
+                    fs.Write(info, 0, info.Length);
+                }
+            }
+
+            // Open the stream and read it back.
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string s = "";
+                while ((s = sr.ReadLine()) != null)
+                {
+                    strToSearch += s;
+                }
+                //Console.WriteLine(strToSearch);
+            }
+
+            Console.WriteLine("Done Reading File");
+
+            String pat = "war";
+
+            //algorithmToTest, String, pattern
+            Console.WriteLine("Using indexOf: ");
+            Console.WriteLine("Elapsed Time: " + tester.Test(1, strToSearch, pat));
+
+            Console.WriteLine("Using BM: ");
+            Console.WriteLine("Elapsed Time: " + tester.Test(2, strToSearch, pat));
+
+            Console.WriteLine("Using KMP: ");
+            Console.WriteLine("Elapsed Time: " + tester.Test(3, strToSearch, pat));
+
+            Console.WriteLine("Using RK: ");
+            Console.WriteLine("Elapsed Time: " + tester.Test(4, strToSearch, pat));
+        }
+
     }
 }

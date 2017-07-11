@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,21 +13,53 @@ namespace Quotidian
         //containsSearch was selft written
         String str = "TestText";
         String pat = "TestKey";
-        public StringSearchTest(String s, String p)
+
+        public double Test(int alg, String s, String p)
         {
+            Stopwatch stop = new Stopwatch();
+            int[] retVal;
             str = s;
             pat = p;
+            stop.Start();
+            switch (alg)
+            {
+                
+                case 1://contains
+                    retVal = containsSearch();
+                    break;
+                case 2://BoyerMoore
+                    retVal = BoyerMooreSearch();
+                    break;
+                case 3://KMP
+                    retVal = KMPSearch();
+                    break;
+                case 4://RabinKarpe
+                    retVal = RabinKarpeSearch();
+                    break;
+                default:
+                    retVal = new int[] { -1 };
+                    break;
+            }
+            stop.Stop();
+            //Console.WriteLine("Array Contents-->");
+            //foreach (var item in retVal)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+            Console.WriteLine(retVal.Count());
+            return stop.ElapsedMilliseconds;
         }
 
         public int[] containsSearch()
         {
             List<int> retVal = new List<int>();
             int i = str.IndexOf(pat, 0);
-
+            //Console.WriteLine(i);
             while(i != -1)
             {
                 retVal.Add(i);
-                i = str.IndexOf(pat, i);
+                i = str.IndexOf(pat, i+1);
+                //Console.WriteLine(i);
             }
 
             return retVal.ToArray();
@@ -143,7 +176,7 @@ namespace Quotidian
             int m = pat.Length;
             int n = str.Length;
 
-            int[] badChar = new int[256];
+            int[] badChar = new int[10000];
 
             BadCharHeuristic(pat, m, ref badChar);
 
@@ -173,7 +206,7 @@ namespace Quotidian
         {
             int i;
 
-            for (i = 0; i < 256; i++)
+            for (i = 0; i < 10000; i++)
                 badChar[i] = -1;
 
             for (i = 0; i < size; i++)

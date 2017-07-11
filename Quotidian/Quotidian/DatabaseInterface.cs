@@ -586,13 +586,16 @@ namespace Quotidian
             {
                 if (reader["HighlightId"] != DBNull.Value)
                 {
-                    int highlightId = (int)reader["HighlightId"];
                     int readingId = (int)reader["ReadingId"];
-                    Boolean isQuote = (Boolean)reader["IsQuote"];
-                    int charNum = (int)reader["CharNum"];
-                    int charCount = (int)reader["CharCount"];
-                    Highlight highlight = new Highlight(highlightId, readingId, isQuote, charNum, charCount);
-                    highlights.Add(highlight);
+                    if (readingId_input == null || (readingId_input != null && readingId == readingId_input))
+                    {
+                        int highlightId = (int)reader["HighlightId"];
+                        Boolean isQuote = (Boolean)reader["IsQuote"];
+                        int charNum = (int)reader["CharNum"];
+                        int charCount = (int)reader["CharCount"];
+                        Highlight highlight = new Highlight(highlightId, readingId, isQuote, charNum, charCount);
+                        highlights.Add(highlight);
+                    }
                 }
             }
             reader.Close();
