@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Quotidian.HelperObjects;
 using System.IO;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace Quotidian
 {
-    public partial class OpenProject : Form
+    public partial class OpenProject : BaseForm
     {
         public List<Project> projects;
         public Project selectedProject;
@@ -37,7 +38,7 @@ namespace Quotidian
 
         private void selectProjectListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedProject = (Project)((ListBox)sender).SelectedItem;
+            selectedProject = (Project)((KryptonListBox)sender).SelectedItem;
         }
 
         private void openProjectButton_Click(object sender, EventArgs e)
@@ -145,5 +146,6 @@ namespace Quotidian
             Console.WriteLine("Using RK: ");
             Console.WriteLine("Elapsed Time: " + tester.Test(4, strToSearch, pat));
         }
+
     }
 }
