@@ -28,85 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.selectProjectListBox = new System.Windows.Forms.ListBox();
-            this.openProjectButton = new System.Windows.Forms.Button();
-            this.newProjectButton = new System.Windows.Forms.Button();
             this.newProjectNameTextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.selectProjectListBox = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
+            this.newProjectButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.openProjectButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
-            // 
-            // selectProjectListBox
-            // 
-            this.selectProjectListBox.FormattingEnabled = true;
-            this.selectProjectListBox.ItemHeight = 16;
-            this.selectProjectListBox.Location = new System.Drawing.Point(12, 25);
-            this.selectProjectListBox.Name = "selectProjectListBox";
-            this.selectProjectListBox.ScrollAlwaysVisible = true;
-            this.selectProjectListBox.Size = new System.Drawing.Size(484, 324);
-            this.selectProjectListBox.TabIndex = 0;
-            this.selectProjectListBox.SelectedIndexChanged += new System.EventHandler(this.selectProjectListBox_SelectedIndexChanged);
-            // 
-            // openProjectButton
-            // 
-            this.openProjectButton.Location = new System.Drawing.Point(372, 359);
-            this.openProjectButton.Name = "openProjectButton";
-            this.openProjectButton.Size = new System.Drawing.Size(124, 23);
-            this.openProjectButton.TabIndex = 1;
-            this.openProjectButton.Text = "Open Selected";
-            this.openProjectButton.UseVisualStyleBackColor = true;
-            this.openProjectButton.Click += new System.EventHandler(this.openProjectButton_Click);
-            // 
-            // newProjectButton
-            // 
-            this.newProjectButton.Location = new System.Drawing.Point(258, 359);
-            this.newProjectButton.Name = "newProjectButton";
-            this.newProjectButton.Size = new System.Drawing.Size(108, 23);
-            this.newProjectButton.TabIndex = 2;
-            this.newProjectButton.Text = "New Project";
-            this.newProjectButton.UseVisualStyleBackColor = true;
-            this.newProjectButton.Click += new System.EventHandler(this.newProjectButton_Click);
             // 
             // newProjectNameTextBox
             // 
-            this.newProjectNameTextBox.Location = new System.Drawing.Point(13, 360);
+            this.newProjectNameTextBox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.newProjectNameTextBox.Location = new System.Drawing.Point(138, 718);
+            this.newProjectNameTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.newProjectNameTextBox.Name = "newProjectNameTextBox";
-            this.newProjectNameTextBox.Size = new System.Drawing.Size(239, 22);
+            this.newProjectNameTextBox.Size = new System.Drawing.Size(492, 31);
             this.newProjectNameTextBox.TabIndex = 3;
             this.newProjectNameTextBox.Text = "Enter New Project Name Here";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(421, -4);
+            this.button1.Location = new System.Drawing.Point(1063, 14);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(112, 36);
             this.button1.TabIndex = 4;
             this.button1.Text = "Test";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Test1_Click);
             // 
+            // selectProjectListBox
+            // 
+            this.selectProjectListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectProjectListBox.Location = new System.Drawing.Point(138, 54);
+            this.selectProjectListBox.Name = "selectProjectListBox";
+            this.selectProjectListBox.Size = new System.Drawing.Size(899, 604);
+            this.selectProjectListBox.TabIndex = 5;
+            this.selectProjectListBox.SelectedIndexChanged += new System.EventHandler(this.selectProjectListBox_SelectedIndexChanged);
+            // 
+            // newProjectButton
+            // 
+            this.newProjectButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.newProjectButton.Location = new System.Drawing.Point(659, 698);
+            this.newProjectButton.Name = "newProjectButton";
+            this.newProjectButton.Size = new System.Drawing.Size(172, 63);
+            this.newProjectButton.TabIndex = 6;
+            this.newProjectButton.Values.Text = "New Project";
+            this.newProjectButton.Click += new System.EventHandler(this.newProjectButton_Click);
+            // 
+            // openProjectButton
+            // 
+            this.openProjectButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.openProjectButton.Location = new System.Drawing.Point(849, 698);
+            this.openProjectButton.Name = "openProjectButton";
+            this.openProjectButton.Size = new System.Drawing.Size(188, 63);
+            this.openProjectButton.TabIndex = 7;
+            this.openProjectButton.Values.Text = "Open Selected";
+            this.openProjectButton.Click += new System.EventHandler(this.openProjectButton_Click);
+            // 
             // OpenProject
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(508, 395);
+            this.ClientSize = new System.Drawing.Size(1188, 817);
+            this.Controls.Add(this.openProjectButton);
+            this.Controls.Add(this.newProjectButton);
+            this.Controls.Add(this.selectProjectListBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.newProjectNameTextBox);
-            this.Controls.Add(this.newProjectButton);
-            this.Controls.Add(this.openProjectButton);
-            this.Controls.Add(this.selectProjectListBox);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "OpenProject";
             this.Text = "Open Project";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox selectProjectListBox;
-        private System.Windows.Forms.Button openProjectButton;
-        private System.Windows.Forms.Button newProjectButton;
         private System.Windows.Forms.TextBox newProjectNameTextBox;
         private System.Windows.Forms.Button button1;
+        private ComponentFactory.Krypton.Toolkit.KryptonListBox selectProjectListBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton newProjectButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton openProjectButton;
     }
 }

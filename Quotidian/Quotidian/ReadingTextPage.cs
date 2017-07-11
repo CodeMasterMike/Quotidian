@@ -65,6 +65,7 @@ namespace Quotidian
                 DatabaseInterface.createReadingTag(newReading.readingId, readingTags[i].tag);
             }
             generatedLabel.Text = reading1.createCitation();
+            reading1 = newReading;
         }
 
         private void generatedLabel_Click(object sender, EventArgs e)

@@ -7,10 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using ComponentFactory.Krypton.Toolkit;
 namespace Quotidian
 {
-    public partial class SubBaseForm : Form
+    public partial class SubBaseForm : KryptonForm
     {
         public SubBaseForm()
         {
