@@ -58,7 +58,8 @@
             // 
             // openReadingBtn
             // 
-            this.openReadingBtn.Location = new System.Drawing.Point(56, 789);
+            this.openReadingBtn.Location = new System.Drawing.Point(42, 631);
+            this.openReadingBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openReadingBtn.Name = "openReadingBtn";
             this.openReadingBtn.Size = new System.Drawing.Size(186, 79);
             this.openReadingBtn.TabIndex = 19;
@@ -77,7 +78,8 @@
             // 
             // openWritingBtn
             // 
-            this.openWritingBtn.Location = new System.Drawing.Point(775, 789);
+            this.openWritingBtn.Location = new System.Drawing.Point(581, 631);
+            this.openWritingBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openWritingBtn.Name = "openWritingBtn";
             this.openWritingBtn.Size = new System.Drawing.Size(186, 79);
             this.openWritingBtn.TabIndex = 21;
@@ -109,7 +111,7 @@
             // 
             // ProjectSummary
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1274, 905);
