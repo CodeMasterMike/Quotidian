@@ -484,17 +484,19 @@ namespace Quotidian
             return writings;
         }
 
-        public static List<ReadingTag> getReadingTags(int readingId, SqlConnection con, Boolean conOpen)
+        public static List<ReadingTag> getReadingTags(int? readingId, SqlConnection con, Boolean conOpen)
         {
             List<ReadingTag> readingTags = new List<ReadingTag>();
 
-            SqlCommand read = new SqlCommand("SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
+            String sqlStr = "SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
                 "FROM Readings " +
                 "LEFT JOIN ReadingTags " +
                     "ON Readings.ReadingId = ReadingTags.ReadingId " +
                 "LEFT JOIN Tags " +
-                    "ON ReadingTags.TagId = Tags.TagId " +
-                "WHERE Readings.ReadingId = " + readingId.ToString());
+                    "ON ReadingTags.TagId = Tags.TagId";
+            if(readingId != null)
+                sqlStr = sqlStr + " WHERE Readings.ReadingId = " + readingId.ToString();
+            SqlCommand read = new SqlCommand(sqlStr);
             read.CommandType = CommandType.Text;
             read.Connection = con;
 
@@ -606,5 +608,96 @@ namespace Quotidian
 
             return highlights;
         }
+
+        //Begin tag map creation
+        public static List<TagLink> getReadingLinks(SqlConnection con, Boolean conOpen)
+        {
+            List<TagLink> tagLinks = new List<TagLink>();
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
+            SqlCommand read = new SqlCommand("SELECT T1, T2, RId1 AS RId "+
+                "FROM (SELECT TagId AS T1, ReadingId AS RId1 "+
+                "FROM ReadingTags) AS Table1 "+
+                "INNER JOIN "+
+                "(SELECT TagId AS T2, ReadingId AS RId2 "+
+                "FROM ReadingTags) AS Table2 "+
+                "ON RId1 = RId2 AND T1 != T2 AND T1<T2;");
+
+            read.CommandType = CommandType.Text;
+            read.Connection = con;
+
+            SqlDataReader reader = read.ExecuteReader();
+            while (reader.Read())
+            {
+                int tagId1 = (int)reader["T1"];
+                int tagId2 = (int)reader["T2"];
+                int readingId = (int)reader["RId"];
+                tagLinks.Add(new TagLink(tagId1, tagId2, readingId));
+            }
+
+            if (conOpen == false)
+            {
+                con.Close();
+            }
+
+            return tagLinks;
+        }
+
+        public static WeightedGraph<ReadingTag> createWeightedGraph()
+        {
+            string str = DatabaseInterface.databaseConnectionStr;
+            using (SqlConnection con = new SqlConnection(str))
+            {
+                WeightedGraph<ReadingTag> graph;
+                List<Vertex<ReadingTag>> vertices = new List<Vertex<ReadingTag>>();
+                List<WeightedEdge<ReadingTag>> edges = new List<WeightedEdge<ReadingTag>>();
+                DatabaseInterface.getReadingLinks(con, false);
+                List<ReadingTag> tags = DatabaseInterface.getReadingTags(null, con, false);
+                int numTags = tags.Count();
+                List<TagLink> tagLinks = DatabaseInterface.getReadingLinks(con, false);
+                //List<List<List<int>>> table = new List<List<List<int>>>();
+                List<int>[,] table = new List<int>[numTags, numTags];
+
+                foreach (TagLink l in tagLinks)
+                {
+                    if (table[l.t1, l.t2] == null)
+                    {
+                        table[l.t1, l.t2] = new List<int>();
+                    }
+                    table[l.t1, l.t2].Add(l.rId);
+                }
+
+                Dictionary<string, Vertex<ReadingTag>> dick = new Dictionary<string, Vertex<ReadingTag>>();
+
+                foreach (ReadingTag t in tags)
+                {
+                    Vertex<ReadingTag> v = new Vertex<ReadingTag>(t);
+                    dick.Add(t.tagId.ToString(), v);
+                    vertices.Add(v);
+                }
+
+                for (int i = 0; i < tags.Count(); i++)
+                {
+                    for (int j = 0; j < tags.Count(); j++)
+                    {
+                        if (table[i, j] != null && table[i, j].Count() > 0)
+                        {
+                            WeightedEdge<ReadingTag> edge = new WeightedEdge<ReadingTag>(dick[i.ToString()], dick[j.ToString()], table[i, j].Count());
+                            edge.ReadingIds = table[i, j];
+                            edges.Add(edge);
+
+                        }
+                    }
+                }
+                graph = new WeightedGraph<ReadingTag>(vertices, edges);
+                return graph;
+            }
+        }
     }
+
+
 }

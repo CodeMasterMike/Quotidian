@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Quotidian.HelperObjects;
 using System.IO;
+using System.Data.SqlClient;
 using ComponentFactory.Krypton.Toolkit;
 
 namespace Quotidian
@@ -91,6 +92,56 @@ namespace Quotidian
 
             Project loadedProj = DatabaseInterface.loadProject(new Project(1, ""));
             Project loadedProj2 = DatabaseInterface.loadProject(new Project(2, ""));
+
+            string str = DatabaseInterface.databaseConnectionStr;
+            using (SqlConnection con = new SqlConnection(str))
+            {
+                WeightedGraph<ReadingTag> graph;
+                List<Vertex<ReadingTag>> vertices = new List<Vertex<ReadingTag>>();
+                List<WeightedEdge<ReadingTag>> edges = new List<WeightedEdge<ReadingTag>>();
+                DatabaseInterface.getReadingLinks(con,false);
+                List<ReadingTag> tags = DatabaseInterface.getReadingTags(null, con, false);
+                int numTags = tags.Count();
+                List <TagLink> tagLinks= DatabaseInterface.getReadingLinks(con, false);
+                //List<List<List<int>>> table = new List<List<List<int>>>();
+                List<int>[,] table = new List<int> [numTags,numTags];
+
+                foreach(TagLink l in tagLinks)
+                {
+                    if(table[l.t1, l.t2] == null)
+                    {
+                        table[l.t1, l.t2] = new List<int>();
+                    }
+                    table[l.t1, l.t2].Add(l.rId);
+                }
+
+                Dictionary<string, Vertex<ReadingTag>> dick = new Dictionary<string, Vertex<ReadingTag>>();
+
+                foreach(ReadingTag t in tags)
+                {
+                    Vertex<ReadingTag> v = new Vertex<ReadingTag>(t);
+                    dick.Add(t.tagId.ToString(), v);
+                    vertices.Add(v);
+                }
+
+                for(int i = 0; i < tags.Count(); i++)
+                {
+                    for(int j = 0; j < tags.Count(); j++)
+                    {
+                        if(table[i, j] != null && table[i, j].Count() > 0)
+                        {
+                            WeightedEdge<ReadingTag> edge = new WeightedEdge<ReadingTag>(dick[i.ToString()], dick[j.ToString()], table[i, j].Count());
+                            edge.ReadingIds = table[i, j];
+                            edges.Add(edge);
+
+                        }
+                    }
+                }
+
+                graph = new WeightedGraph<ReadingTag>(vertices, edges);
+
+
+            }
 
             int tester = -1;
 
