@@ -39,6 +39,7 @@ namespace Quotidian
             callingForm = caller;
             initializeReadingsListBox();
             initializeWritingsListBox();
+            citeStyleType.Text = p.style;
         }
 
         public void initializeReadingsListBox()
@@ -134,6 +135,13 @@ namespace Quotidian
                 this.Hide();
                 nextPage.Show();
             }
+        }
+
+        private void citeStyleType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String style = citeStyleType.Text;
+            Console.WriteLine(style);
+            currentProject.style = style;
         }
     }
 

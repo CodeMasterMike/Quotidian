@@ -60,10 +60,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Location = new System.Drawing.Point(1298, 358);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(974, 286);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(0, 0);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
@@ -71,19 +69,17 @@
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(17, 16);
-            this.richTextBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.richTextBox2.Location = new System.Drawing.Point(13, 13);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(320, 376);
+            this.richTextBox2.Size = new System.Drawing.Size(241, 302);
             this.richTextBox2.TabIndex = 6;
             this.richTextBox2.Text = "";
             // 
             // richTextBox3
             // 
-            this.richTextBox3.Location = new System.Drawing.Point(17, 18);
-            this.richTextBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.richTextBox3.Location = new System.Drawing.Point(13, 14);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(320, 376);
+            this.richTextBox3.Size = new System.Drawing.Size(241, 302);
             this.richTextBox3.TabIndex = 7;
             this.richTextBox3.Text = "";
             // 
@@ -92,10 +88,9 @@
             this.readingDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.readingDoc.Location = new System.Drawing.Point(18, 16);
-            this.readingDoc.Margin = new System.Windows.Forms.Padding(4);
+            this.readingDoc.Location = new System.Drawing.Point(14, 13);
             this.readingDoc.Name = "readingDoc";
-            this.readingDoc.Size = new System.Drawing.Size(1074, 798);
+            this.readingDoc.Size = new System.Drawing.Size(806, 639);
             this.readingDoc.TabIndex = 5;
             this.readingDoc.Text = "";
             this.readingDoc.Click += new System.EventHandler(this.readingTextBox_Click);
@@ -104,37 +99,39 @@
             // tagsListBox
             // 
             this.tagsListBox.FormattingEnabled = true;
-            this.tagsListBox.ItemHeight = 25;
-            this.tagsListBox.Location = new System.Drawing.Point(13, 49);
-            this.tagsListBox.Margin = new System.Windows.Forms.Padding(6);
+            this.tagsListBox.ItemHeight = 20;
+            this.tagsListBox.Location = new System.Drawing.Point(10, 39);
+            this.tagsListBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tagsListBox.Name = "tagsListBox";
-            this.tagsListBox.Size = new System.Drawing.Size(518, 154);
+            this.tagsListBox.Size = new System.Drawing.Size(390, 124);
             this.tagsListBox.TabIndex = 8;
+            this.tagsListBox.SelectedIndexChanged += new System.EventHandler(this.tagsListBox_SelectedIndexChanged);
             // 
             // tagListLabel
             // 
             this.tagListLabel.AutoSize = true;
             this.tagListLabel.BackColor = System.Drawing.Color.Transparent;
             this.tagListLabel.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tagListLabel.Location = new System.Drawing.Point(6, 6);
-            this.tagListLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.tagListLabel.Location = new System.Drawing.Point(4, 5);
+            this.tagListLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tagListLabel.Name = "tagListLabel";
-            this.tagListLabel.Size = new System.Drawing.Size(234, 37);
+            this.tagListLabel.Size = new System.Drawing.Size(176, 29);
             this.tagListLabel.TabIndex = 9;
             this.tagListLabel.Text = "Reading Tags:";
             // 
             // newTagTextBox
             // 
-            this.newTagTextBox.Location = new System.Drawing.Point(556, 71);
-            this.newTagTextBox.Margin = new System.Windows.Forms.Padding(6);
+            this.newTagTextBox.Location = new System.Drawing.Point(417, 57);
+            this.newTagTextBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.newTagTextBox.Name = "newTagTextBox";
-            this.newTagTextBox.Size = new System.Drawing.Size(250, 31);
+            this.newTagTextBox.Size = new System.Drawing.Size(188, 26);
             this.newTagTextBox.TabIndex = 11;
             // 
             // kryptonSplitContainer1
             // 
             this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonSplitContainer1.Location = new System.Drawing.Point(45, 75);
+            this.kryptonSplitContainer1.Location = new System.Drawing.Point(34, 60);
+            this.kryptonSplitContainer1.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonSplitContainer1.Name = "kryptonSplitContainer1";
             this.kryptonSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -145,16 +142,17 @@
             // kryptonSplitContainer1.Panel2
             // 
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.richTextBox3);
-            this.kryptonSplitContainer1.Size = new System.Drawing.Size(356, 833);
-            this.kryptonSplitContainer1.SplitterDistance = 409;
+            this.kryptonSplitContainer1.Size = new System.Drawing.Size(267, 666);
+            this.kryptonSplitContainer1.SplitterDistance = 327;
             this.kryptonSplitContainer1.TabIndex = 13;
             // 
             // kryptonPanel1
             // 
             this.kryptonPanel1.Controls.Add(this.readingDoc);
-            this.kryptonPanel1.Location = new System.Drawing.Point(432, 75);
+            this.kryptonPanel1.Location = new System.Drawing.Point(324, 60);
+            this.kryptonPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(1111, 833);
+            this.kryptonPanel1.Size = new System.Drawing.Size(833, 666);
             this.kryptonPanel1.TabIndex = 14;
             // 
             // kryptonPanel2
@@ -162,35 +160,39 @@
             this.kryptonPanel2.Controls.Add(this.tagBtn);
             this.kryptonPanel2.Controls.Add(this.textBtn);
             this.kryptonPanel2.Controls.Add(this.quoteBtn);
-            this.kryptonPanel2.Location = new System.Drawing.Point(1571, 75);
+            this.kryptonPanel2.Location = new System.Drawing.Point(1178, 60);
+            this.kryptonPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonPanel2.Name = "kryptonPanel2";
-            this.kryptonPanel2.Size = new System.Drawing.Size(356, 833);
+            this.kryptonPanel2.Size = new System.Drawing.Size(267, 666);
             this.kryptonPanel2.StateCommon.Color1 = System.Drawing.Color.LightSteelBlue;
             this.kryptonPanel2.StateCommon.Color2 = System.Drawing.Color.White;
             this.kryptonPanel2.TabIndex = 15;
             // 
             // tagBtn
             // 
-            this.tagBtn.Location = new System.Drawing.Point(74, 603);
+            this.tagBtn.Location = new System.Drawing.Point(56, 482);
+            this.tagBtn.Margin = new System.Windows.Forms.Padding(2);
             this.tagBtn.Name = "tagBtn";
-            this.tagBtn.Size = new System.Drawing.Size(218, 81);
+            this.tagBtn.Size = new System.Drawing.Size(164, 65);
             this.tagBtn.TabIndex = 5;
             this.tagBtn.Values.Text = "Tag";
             // 
             // textBtn
             // 
-            this.textBtn.Location = new System.Drawing.Point(74, 394);
+            this.textBtn.Location = new System.Drawing.Point(56, 315);
+            this.textBtn.Margin = new System.Windows.Forms.Padding(2);
             this.textBtn.Name = "textBtn";
-            this.textBtn.Size = new System.Drawing.Size(218, 81);
+            this.textBtn.Size = new System.Drawing.Size(164, 65);
             this.textBtn.TabIndex = 4;
             this.textBtn.Values.Text = "Text";
             this.textBtn.Click += new System.EventHandler(this.textBtn_Click);
             // 
             // quoteBtn
             // 
-            this.quoteBtn.Location = new System.Drawing.Point(74, 184);
+            this.quoteBtn.Location = new System.Drawing.Point(56, 147);
+            this.quoteBtn.Margin = new System.Windows.Forms.Padding(2);
             this.quoteBtn.Name = "quoteBtn";
-            this.quoteBtn.Size = new System.Drawing.Size(218, 81);
+            this.quoteBtn.Size = new System.Drawing.Size(164, 65);
             this.quoteBtn.TabIndex = 3;
             this.quoteBtn.Values.Text = "Quote";
             this.quoteBtn.Click += new System.EventHandler(this.quoteBtn_Click);
@@ -202,40 +204,44 @@
             this.kryptonPanel3.Controls.Add(this.tagListLabel);
             this.kryptonPanel3.Controls.Add(this.tagsListBox);
             this.kryptonPanel3.Controls.Add(this.newTagTextBox);
-            this.kryptonPanel3.Location = new System.Drawing.Point(444, 927);
+            this.kryptonPanel3.Location = new System.Drawing.Point(333, 742);
+            this.kryptonPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonPanel3.Name = "kryptonPanel3";
-            this.kryptonPanel3.Size = new System.Drawing.Size(1099, 220);
+            this.kryptonPanel3.Size = new System.Drawing.Size(824, 176);
             this.kryptonPanel3.TabIndex = 16;
             // 
             // removeTagButton
             // 
-            this.removeTagButton.Location = new System.Drawing.Point(556, 137);
+            this.removeTagButton.Location = new System.Drawing.Point(417, 110);
+            this.removeTagButton.Margin = new System.Windows.Forms.Padding(2);
             this.removeTagButton.Name = "removeTagButton";
-            this.removeTagButton.Size = new System.Drawing.Size(433, 55);
+            this.removeTagButton.Size = new System.Drawing.Size(325, 44);
             this.removeTagButton.TabIndex = 17;
             this.removeTagButton.Values.Text = "Remove Selected Tag";
             // 
             // addTagButton
             // 
-            this.addTagButton.Location = new System.Drawing.Point(830, 57);
+            this.addTagButton.Location = new System.Drawing.Point(622, 46);
+            this.addTagButton.Margin = new System.Windows.Forms.Padding(2);
             this.addTagButton.Name = "addTagButton";
-            this.addTagButton.Size = new System.Drawing.Size(159, 59);
+            this.addTagButton.Size = new System.Drawing.Size(119, 47);
             this.addTagButton.TabIndex = 17;
             this.addTagButton.Values.Text = "Add Tag";
+            this.addTagButton.Click += new System.EventHandler(this.addTagButton_Click_1);
             // 
             // ReadingPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1970, 1148);
+            this.ClientSize = new System.Drawing.Size(1478, 918);
             this.Controls.Add(this.kryptonPanel2);
             this.Controls.Add(this.kryptonSplitContainer1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.kryptonPanel1);
             this.Controls.Add(this.kryptonPanel3);
             this.ForeColor = System.Drawing.Color.Black;
-            this.Margin = new System.Windows.Forms.Padding(8, 6, 8, 6);
+            this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "ReadingPage";
             this.Text = "Quotidian";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
