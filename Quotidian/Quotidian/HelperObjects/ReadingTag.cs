@@ -20,5 +20,10 @@ namespace Quotidian.HelperObjects
             tag = t;
             modified = false;
         }
+
+        public override String ToString()
+        {
+            return tag;
+        }
     }
 }

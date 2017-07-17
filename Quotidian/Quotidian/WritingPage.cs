@@ -47,6 +47,18 @@ namespace Quotidian
             }
             else
                 System.Windows.Forms.MessageBox.Show("Nothing Selected!");
+		}	
+			
+        private void generateBibliography_Click(object sender, EventArgs e)
+        {
+            String bib = "";
+            foreach(Reading r in project.readings)
+            {
+                r.style = project.getStyle();
+                bib += r.createCitation();
+                bib += "\n";
+            }
+            System.Windows.Forms.MessageBox.Show(bib);
         }
 
         //public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -27,6 +27,67 @@ namespace Quotidian.HelperObjects
             edges.Remove(edge);
         }
 
+        //combination of breadth first search and a weighted shortest path algorithm
+        public List<WeightedEdge<T>> TagFinder(Vertex<T> start, List<WeightedEdge<T>> final, List<Vertex<T>> visited, List<Vertex<T>> seen, List<WeightedEdge<T>> sortedNeighbors)
+        {
+            //Start with new queue. We start with new one each time because sortedNeighbors will just be transformed to queue and that persists across function calls
+            Queue<WeightedEdge<T>> queue = new Queue<WeightedEdge<T>>();
+            Console.WriteLine("At Node: " + start.Value);
+            //need visited node list
+            //start at start list
+            //add neighbors to queue of nodes to visit next based on their weight
+            //as you visit node, add it to final list
+            
+            foreach (WeightedEdge<T> e in start.edges)
+            {
+                //if edge is not already in sortedNeighbors (i.e. it has been 'seen')
+                //and if the target of the edge has not already been visited
+                if(!sortedNeighbors.Contains(e) && !visited.Contains(e.End))
+                {
+                    sortedNeighbors.Add(e);
+                    //seen.Add(e.End);
+                }
+            }
+
+            //sort neighbors(edges) based on link strength
+            //This sorting doesn't take into account proximity to start node
+            sortedNeighbors.Sort(); //default sort is based on link
+
+            //print out sortedNeighbors for debug purposes
+            Console.WriteLine("sortedNeighbors length:" + sortedNeighbors.Count());
+            foreach (WeightedEdge<T> e in sortedNeighbors)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            
+            //added sortedNeighbors to queue
+            foreach(WeightedEdge<T> e in sortedNeighbors)
+            {
+                queue.Enqueue(e);
+            }
+
+            //if queue is empty, return final
+            if(queue.Count() == 0)
+            {
+                return final;
+            }
+
+            //dequeue first element and visit that
+            WeightedEdge<T> next = queue.Dequeue();
+
+            //do similar operation to sortedNeighbors
+            if (sortedNeighbors.Count() > 0)
+            {
+                sortedNeighbors.RemoveAt(0);
+            }
+
+            //visit node
+            visited.Add(next.End);
+            //add to list
+            final.Add(next);//maybe add something else?
+            return TagFinder(next.End, final, visited, seen, sortedNeighbors);
+        }
+
         /// <summary>
         /// Pathfinding algorithms available: Dijkstra and AStar
         /// </summary>
@@ -174,8 +235,8 @@ namespace Quotidian.HelperObjects
 
     class Vertex<T>
     {
-        List<Vertex<T>> neighbors;
-        List<WeightedEdge<T>> edges;
+        public List<Vertex<T>> neighbors;
+        public List<WeightedEdge<T>> edges;
         T value;
 
         public List<Vertex<T>> Neighbors { get { return neighbors; } }
@@ -225,7 +286,7 @@ namespace Quotidian.HelperObjects
 
     }
 
-    class WeightedEdge<T>
+    class WeightedEdge<T> : IComparable<WeightedEdge<T>>
     {
         int weight;
 
@@ -246,6 +307,20 @@ namespace Quotidian.HelperObjects
             this.weight = weight;
             start.AddNeighbor(end);
             start.AddEdge(this);
+            end.AddEdge(this);
+        }
+
+        public int CompareTo(WeightedEdge<T> e)
+        {
+            if(e.weight > weight)
+            {
+                return 1;
+            }
+            else if (e.weight < weight)
+            {
+                return -1;
+            }
+            return 0;
         }
 
         public override string ToString()

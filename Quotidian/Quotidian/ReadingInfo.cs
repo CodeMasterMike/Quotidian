@@ -35,7 +35,7 @@ namespace Quotidian
                 citationBtn.Visible = false;
                 selectedReading = new Reading(-1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "", "", "MLA");
             }
-
+            selectedReading.style = p.getStyle();
         }
 
         private void updateTextBoxes(Reading r)
@@ -106,6 +106,7 @@ namespace Quotidian
         {
             Application.Run(new OpenProject());
         }
+
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -116,16 +117,13 @@ namespace Quotidian
             String f = firstBox.Text;
             String m = middleBox.Text;
             String l = lastBox.Text;
+            firstBox.Text = "";
+            middleBox.Text = "";
+            lastBox.Text = "";
+
             Author newAuthor = new Author(-1,-1, f, m, l);
             auths.Add(newAuthor);
             authorList1.Items.Add(new KryptonListItem(f + " " + m + " " + l));
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-                authorList1.Items.RemoveAt(authorList1.Items.Count - 1);
-                //selectedReading.authors.RemoveAt(selectedReading.authors.Count() - 1);
-                auths.Remove(auths.Last());
         }
 
         private void firstBox_TextChanged(object sender, EventArgs e)
@@ -133,5 +131,19 @@ namespace Quotidian
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //authorList1.Items.RemoveAt(authorList1.Items.Count - 1);
+            try
+            {
+                KryptonListItem it = (KryptonListItem)authorList1.SelectedItem;
+                authorList1.Items.Remove(it);
+                auths.Remove(auths.Find(x => x.first + " " + x.middle + " " + x.last == it.ShortText));
+            }
+            catch (NullReferenceException ex)
+            {
+                //do nothing
+            }
+        }
     }
 }

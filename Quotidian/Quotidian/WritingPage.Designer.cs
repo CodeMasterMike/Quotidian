@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ViewResultButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.generateBibliography = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -47,28 +48,28 @@
             this.writingDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.writingDoc.Location = new System.Drawing.Point(488, 30);
-            this.writingDoc.Margin = new System.Windows.Forms.Padding(2);
+            this.writingDoc.Location = new System.Drawing.Point(549, 38);
+            this.writingDoc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.writingDoc.Name = "writingDoc";
-            this.writingDoc.Size = new System.Drawing.Size(479, 542);
+            this.writingDoc.Size = new System.Drawing.Size(538, 676);
             this.writingDoc.TabIndex = 6;
             this.writingDoc.Text = "";
             // 
             // searchBox
             // 
-            this.searchBox.Location = new System.Drawing.Point(22, 38);
-            this.searchBox.Margin = new System.Windows.Forms.Padding(2);
+            this.searchBox.Location = new System.Drawing.Point(25, 47);
+            this.searchBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(295, 36);
+            this.searchBox.Size = new System.Drawing.Size(331, 44);
             this.searchBox.TabIndex = 7;
             this.searchBox.Text = "";
             // 
             // searchBtn
             // 
-            this.searchBtn.Location = new System.Drawing.Point(334, 38);
-            this.searchBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.searchBtn.Location = new System.Drawing.Point(376, 47);
+            this.searchBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.searchBtn.Name = "searchBtn";
-            this.searchBtn.Size = new System.Drawing.Size(78, 35);
+            this.searchBtn.Size = new System.Drawing.Size(88, 43);
             this.searchBtn.TabIndex = 8;
             this.searchBtn.Text = "Search";
             this.searchBtn.UseVisualStyleBackColor = true;
@@ -76,11 +77,11 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.textSearchResultsListBox);
-            this.panel1.Location = new System.Drawing.Point(22, 125);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Controls.Add(this.richTextBox1);
+            this.panel1.Location = new System.Drawing.Point(25, 156);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(390, 182);
+            this.panel1.Size = new System.Drawing.Size(439, 227);
             this.panel1.TabIndex = 9;
             // 
             // textSearchResultsListBox
@@ -94,10 +95,10 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.richTextBox2);
-            this.panel2.Location = new System.Drawing.Point(22, 388);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
+            this.panel2.Location = new System.Drawing.Point(25, 486);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(390, 182);
+            this.panel2.Size = new System.Drawing.Size(439, 227);
             this.panel2.TabIndex = 10;
             // 
             // richTextBox2
@@ -105,20 +106,20 @@
             this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox2.Location = new System.Drawing.Point(0, 11);
-            this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox2.Location = new System.Drawing.Point(0, 14);
+            this.richTextBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(387, 162);
+            this.richTextBox2.Size = new System.Drawing.Size(434, 202);
             this.richTextBox2.TabIndex = 12;
             this.richTextBox2.Text = "";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 100);
+            this.label1.Location = new System.Drawing.Point(21, 125);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 17);
+            this.label1.Size = new System.Drawing.Size(118, 20);
             this.label1.TabIndex = 11;
             this.label1.Text = "Search Results";
             // 
@@ -141,13 +142,24 @@
             this.ViewResultButton.Values.Text = "View Selected Reading\r\n";
             this.ViewResultButton.Click += new System.EventHandler(this.searchResultSelected);
             // 
+            // generateBibliography
+            // 
+            this.generateBibliography.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.generateBibliography.Location = new System.Drawing.Point(226, 412);
+            this.generateBibliography.Margin = new System.Windows.Forms.Padding(2);
+            this.generateBibliography.Name = "generateBibliography";
+            this.generateBibliography.Size = new System.Drawing.Size(198, 50);
+            this.generateBibliography.TabIndex = 13;
+            this.generateBibliography.Values.Text = "Generate Bibliography";
+            this.generateBibliography.Click += new System.EventHandler(this.generateBibliography_Click);
+            // 
             // WritingPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1027, 598);
-            this.Controls.Add(this.ViewResultButton);
+            this.ClientSize = new System.Drawing.Size(1155, 748);
+            this.Controls.Add(this.generateBibliography);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
@@ -155,7 +167,7 @@
             this.Controls.Add(this.searchBtn);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.writingDoc);
-            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "WritingPage";
             this.Text = "Form2";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -167,6 +179,7 @@
             this.Controls.SetChildIndex(this.label1, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.ViewResultButton, 0);
+            this.Controls.SetChildIndex(this.generateBibliography, 0);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -186,5 +199,6 @@
         private System.Windows.Forms.Label label2;
         private ComponentFactory.Krypton.Toolkit.KryptonListBox textSearchResultsListBox;
         private ComponentFactory.Krypton.Toolkit.KryptonButton ViewResultButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton generateBibliography;
     }
 }
