@@ -28,38 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.openReadingButton = new System.Windows.Forms.Button();
-            this.selectReadingListBox = new System.Windows.Forms.ListBox();
+            this.selectReadingListBox = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
+            this.openReadingButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
-            // 
-            // openReadingButton
-            // 
-            this.openReadingButton.Location = new System.Drawing.Point(369, 370);
-            this.openReadingButton.Name = "openReadingButton";
-            this.openReadingButton.Size = new System.Drawing.Size(124, 23);
-            this.openReadingButton.TabIndex = 5;
-            this.openReadingButton.Text = "Open Selected";
-            this.openReadingButton.UseVisualStyleBackColor = true;
-            this.openReadingButton.Click += new System.EventHandler(this.openReadingButton_Click);
             // 
             // selectReadingListBox
             // 
-            this.selectReadingListBox.FormattingEnabled = true;
-            this.selectReadingListBox.ItemHeight = 16;
-            this.selectReadingListBox.Location = new System.Drawing.Point(9, 36);
+            this.selectReadingListBox.Location = new System.Drawing.Point(12, 29);
             this.selectReadingListBox.Name = "selectReadingListBox";
-            this.selectReadingListBox.ScrollAlwaysVisible = true;
-            this.selectReadingListBox.Size = new System.Drawing.Size(484, 324);
-            this.selectReadingListBox.TabIndex = 4;
-            this.selectReadingListBox.SelectedIndexChanged += new System.EventHandler(this.selectReadingListBox_SelectedIndexChanged);
+            this.selectReadingListBox.Size = new System.Drawing.Size(728, 517);
+            this.selectReadingListBox.TabIndex = 6;
+            // 
+            // openReadingButton
+            // 
+            this.openReadingButton.Location = new System.Drawing.Point(533, 552);
+            this.openReadingButton.Name = "openReadingButton";
+            this.openReadingButton.Size = new System.Drawing.Size(207, 67);
+            this.openReadingButton.TabIndex = 7;
+            this.openReadingButton.Values.Text = "Open Selected";
             // 
             // SelectReading
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 404);
+            this.ClientSize = new System.Drawing.Size(753, 631);
             this.Controls.Add(this.openReadingButton);
             this.Controls.Add(this.selectReadingListBox);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SelectReading";
             this.Text = "Select Reading";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SelectReading_FormClosed);
@@ -69,7 +64,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button openReadingButton;
-        private System.Windows.Forms.ListBox selectReadingListBox;
+
+        private ComponentFactory.Krypton.Toolkit.KryptonListBox selectReadingListBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton openReadingButton;
     }
 }
