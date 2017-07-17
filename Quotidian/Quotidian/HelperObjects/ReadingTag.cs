@@ -18,5 +18,10 @@ namespace Quotidian.HelperObjects
             readingId = rId;
             tag = t;
         }
+
+        public override String ToString()
+        {
+            return tag;
+        }
     }
 }

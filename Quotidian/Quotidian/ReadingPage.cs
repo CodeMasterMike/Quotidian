@@ -19,6 +19,7 @@ namespace Quotidian
             InitializeComponent();
             project = p;
             reading = r;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
+            reading.style = p.getStyle();
             readingDoc.Text = reading.text;
             string str = DatabaseInterface.databaseConnectionStr;
             SqlConnection con = new SqlConnection(str);
@@ -173,11 +174,16 @@ namespace Quotidian
         {
         }
 
-        private void addTagButton_Click(object sender, EventArgs e)
+        //private void addTagButton_Click(object sender, EventArgs e)
+        //{
+            
+        //}
+
+        private void addTagButton_Click_1(object sender, EventArgs e)
         {
-            if(newTagTextBox.Text.Equals(""))
+            if (newTagTextBox.Text.Equals(""))
                 System.Windows.Forms.MessageBox.Show("No text entered!");
-            else if(selectedHighlight == null)
+            else if (selectedHighlight == null)
             {
                 reading.readingTags.Add(DatabaseInterface.createReadingTag(reading.readingId, newTagTextBox.Text));
                 newTagTextBox.Text = "";
@@ -189,6 +195,11 @@ namespace Quotidian
                 newTagTextBox.Text = "";
                 readingTextBox_Click(null, null);
             }
+        }
+
+        private void tagsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

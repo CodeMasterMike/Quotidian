@@ -25,18 +25,23 @@ namespace Quotidian.HelperObjects
 
         //This function doesnt account for a missing first or last name
         //Can be expanded in the future to do so
-        public String formatName()
+        public String formatName(Boolean period)
         {
             String name = "";
             if (middle == null)
             {
-                name += last + ", " + first + ".";
+                name += last + ", " + first;
             }
             else
             {
                 name += last + ", " + first + " " + middle + ".";
             }
+            if (period)
+            {
+                name += ". ";
+            }
             return name;
+
         }
 
         public String toString()

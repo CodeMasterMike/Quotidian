@@ -45,7 +45,7 @@ namespace Quotidian.HelperObjects
             dateYear = year;
             publisherName = publisher;
             linesPerPage = LPP;
-            style = "MLA";
+            //style = DatabaseInterface.getProject(pId);
 			
 			highlights = new List<Highlight>();
             readingTags = new List<ReadingTag>();
@@ -61,7 +61,7 @@ namespace Quotidian.HelperObjects
                     c = getMLACitation();
                     break;
                 default:
-                    c = "No citation style found";
+                    c = "No style found";
                     break;
             }
 
@@ -78,16 +78,20 @@ namespace Quotidian.HelperObjects
             String c = "";
             if (authors.Count() > 1)
             {
-                c += authors.ElementAt(0).formatName();
+                c += authors.ElementAt(0).formatName(false);
                 for (int i = 1; i < authors.Count() - 1; i++)
                 {
                     c += ", " + authors.ElementAt(i).toString();
                 }
-                c += ", and " + authors.Last().toString();
+                c += ", and " + authors.Last().toString() + ". ";
+            }
+            else if (authors.Count() == 1)
+            {
+                c += authors.ElementAt(0).formatName(false);
             }
             else
             {
-                c += authors.ElementAt(0).formatName();
+                c = "No Authors Found";
             }
             return c;
         }

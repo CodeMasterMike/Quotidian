@@ -28,7 +28,7 @@ namespace Quotidian
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Projects (Name) output INSERTED.ProjectId VALUES (@Name)", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Projects (Name, Style) output INSERTED.ProjectId VALUES (@Name, 'MLA')", con);
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@Name", projectName);
@@ -45,7 +45,7 @@ namespace Quotidian
                     return null;
                 }
                 con.Close();
-                Project newProject = new Project(projectId, projectName);
+                Project newProject = new Project(projectId, projectName, "MLA");
                 return newProject;
             }
         }
@@ -279,7 +279,8 @@ namespace Quotidian
                     //string name = reader.GetString(1);
                     int projectId = (int)reader["ProjectId"];
                     string name = (String)reader["Name"];
-                    Project project = new Project(projectId, name);
+                    string style = (String)reader["Style"];
+                    Project project = new Project(projectId, name, style);
                     projects.Add(project);
                 }
                 reader.Close();

@@ -10,17 +10,24 @@ namespace Quotidian.HelperObjects
     {
         public int projectId { get; set; }
         public String name { get; set; }
+        public String style { get; set; }
 
         public List<Reading> readings;
         public List<Writing> writings;
 
-        public Project(int id, String n)
+        public Project(int id, String n, String s)
         {
             readings = new List<Reading>();
             writings = new List<Writing>();
 
             projectId = id;
             name = n;
+            style = s;
+        }
+
+        public String getStyle()
+        {
+            return style;
         }
     }
 }
