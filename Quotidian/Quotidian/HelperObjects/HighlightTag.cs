@@ -10,15 +10,17 @@ namespace Quotidian.HelperObjects
     {
         public int tagId { get; set; }
         public int highlightId { get; set; }
+        public int? readingId { get; set; }
         public String tag { get; set; }
         public bool modified { get; set; }
 
-        public HighlightTag(int id, int hId, String t)
+        public HighlightTag(int id, int hId, String t, int? rId = null)
         {
             tagId = id;
             highlightId = hId;
             tag = t;
             modified = false;
+            readingId = rId;
         }
     }
 }

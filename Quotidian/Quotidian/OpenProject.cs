@@ -154,7 +154,7 @@ namespace Quotidian
         {
             String path = @"..\\..\\warpeace.txt";
             String strToSearch = "";
-            StringSearchTest tester = new StringSearchTest();
+            //StringSearch tester = new StringSearch();
 
             if (!File.Exists(path))
             {
@@ -186,16 +186,16 @@ namespace Quotidian
 
             //algorithmToTest, String, pattern
             Console.WriteLine("Using indexOf: ");
-            Console.WriteLine("Elapsed Time: " + tester.Test(1, strToSearch, pat));
+            Console.WriteLine("Elapsed Time: " + StringSearch.Test(1, strToSearch, pat));
 
             Console.WriteLine("Using BM: ");
-            Console.WriteLine("Elapsed Time: " + tester.Test(2, strToSearch, pat));
+            Console.WriteLine("Elapsed Time: " + StringSearch.Test(2, strToSearch, pat));
 
             Console.WriteLine("Using KMP: ");
-            Console.WriteLine("Elapsed Time: " + tester.Test(3, strToSearch, pat));
+            Console.WriteLine("Elapsed Time: " + StringSearch.Test(3, strToSearch, pat));
 
             Console.WriteLine("Using RK: ");
-            Console.WriteLine("Elapsed Time: " + tester.Test(4, strToSearch, pat));
+            Console.WriteLine("Elapsed Time: " + StringSearch.Test(4, strToSearch, pat));
         }
 
     }

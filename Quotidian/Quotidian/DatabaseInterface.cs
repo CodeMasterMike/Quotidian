@@ -484,11 +484,11 @@ namespace Quotidian
             return writings;
         }
 
-        public static List<ReadingTag> getReadingTags(int? readingId, SqlConnection con, Boolean conOpen)
+        public static List<ReadingTag> getReadingTags(int? readingId, SqlConnection con, Boolean conOpen, int? projectId = null)
         {
             List<ReadingTag> readingTags = new List<ReadingTag>();
 
-            String sqlStr = "SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
+            String sqlStr = "SELECT Readings.ProjectId, Tags.TagId AS TagId, Tags.Tag AS Tag " +
                 "FROM Readings " +
                 "LEFT JOIN ReadingTags " +
                     "ON Readings.ReadingId = ReadingTags.ReadingId " +
@@ -496,6 +496,8 @@ namespace Quotidian
                     "ON ReadingTags.TagId = Tags.TagId";
             if(readingId != null)
                 sqlStr = sqlStr + " WHERE Readings.ReadingId = " + readingId.ToString();
+            else if (projectId != null)
+                sqlStr = sqlStr + " WHERE Readings.ProjectId = " + projectId.ToString();
             SqlCommand read = new SqlCommand(sqlStr);
             read.CommandType = CommandType.Text;
             read.Connection = con;
@@ -512,7 +514,7 @@ namespace Quotidian
                 if(tagId > 0)
                 {
                     String tagText = (String)reader["Tag"];
-                    readingTags.Add(new ReadingTag((int)tagId, readingId, tagText));
+                    readingTags.Add(new ReadingTag((int)tagId, (int)readingId, tagText));
                 }
             }
 
@@ -525,17 +527,23 @@ namespace Quotidian
             return readingTags;
         }
 
-        public static List<HighlightTag> getHighlightTags(int highlightId, SqlConnection con, Boolean conOpen)
+        public static List<HighlightTag> getHighlightTags(int? highlightId, SqlConnection con, Boolean conOpen, int? projectId = null)
         {
             List<HighlightTag> highlightTags = new List<HighlightTag>();
 
-            SqlCommand read = new SqlCommand("SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
+            String sqlStr = "SELECT Tags.TagId AS TagId, Tags.Tag AS Tag, Readings.ProjectId, Highlights.HighlightId AS HighlightId " +
                 "FROM Highlights " +
+                "LEFT JOIN Readings " +
+                    "ON Highlights.ReadingId = Readings.ReadingId " +
                 "LEFT JOIN HighlightTags " +
                     "ON Highlights.HighlightId = HighlightTags.HighlightId " +
                 "LEFT JOIN Tags " +
-                    "ON HighlightTags.TagId = Tags.TagId " +
-                "WHERE Highlights.HighlightId = " + highlightId.ToString());
+                    "ON HighlightTags.TagId = Tags.TagId";
+            if(highlightId != null)
+                sqlStr = sqlStr + " WHERE Highlights.HighlightId = " + highlightId.ToString();
+            else if(projectId != null)
+                sqlStr = sqlStr + " WHERE Readings.ProjectId = " + projectId.ToString();
+            SqlCommand read = new SqlCommand(sqlStr);
             read.CommandType = CommandType.Text;
             read.Connection = con;
 
@@ -552,7 +560,8 @@ namespace Quotidian
                     //int tagId = (int)reader["TagId"] as int? ?? default(int);
                     int tagId = (int)reader["TagId"];
                     String tagText = (String)reader["Tag"];
-                    highlightTags.Add(new HighlightTag(tagId, highlightId, tagText));
+                    int highlightId2 = (int)reader["HighlightId"];
+                    highlightTags.Add(new HighlightTag(tagId, highlightId2, tagText));
                 }
             }
 
@@ -563,6 +572,17 @@ namespace Quotidian
             }
 
             return highlightTags;
+        }
+
+        public static void getTags(int projectId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                List<ReadingTag> readingTags = getReadingTags(null, con, false, projectId);
+                List<HighlightTag> highlightTags = getHighlightTags(null, con, false, projectId);
+
+
+            }
         }
 
         //if readingId is null, simply returns all readings for this project
@@ -647,7 +667,7 @@ namespace Quotidian
             return tagLinks;
         }
 
-        public static WeightedGraph<ReadingTag> createWeightedGraph()
+        public static WeightedGraph<ReadingTag> createWeightedGraph(int projectId, bool includeReadingTags, bool includeHighlightTags)
         {
             string str = DatabaseInterface.databaseConnectionStr;
             using (SqlConnection con = new SqlConnection(str))
@@ -657,6 +677,7 @@ namespace Quotidian
                 List<WeightedEdge<ReadingTag>> edges = new List<WeightedEdge<ReadingTag>>();
                 DatabaseInterface.getReadingLinks(con, false);
                 List<ReadingTag> tags = DatabaseInterface.getReadingTags(null, con, false);
+                List<HighlightTag> hTags = DatabaseInterface.getHighlightTags(null, con, false);
                 int numTags = tags.Count();
                 List<TagLink> tagLinks = DatabaseInterface.getReadingLinks(con, false);
                 //List<List<List<int>>> table = new List<List<List<int>>>();
