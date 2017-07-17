@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.readingsLabel = new System.Windows.Forms.Label();
-            this.writingsLabel = new System.Windows.Forms.Label();
             this.openReadingBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.newReadingBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.openWritingBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -37,76 +35,64 @@
             this.readingsList = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
             this.writingsList = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
             this.citeStyleType = new System.Windows.Forms.ComboBox();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.SuspendLayout();
-            // 
-            // readingsLabel
-            // 
-            this.readingsLabel.AutoSize = true;
-            this.readingsLabel.Location = new System.Drawing.Point(51, 52);
-            this.readingsLabel.Name = "readingsLabel";
-            this.readingsLabel.Size = new System.Drawing.Size(77, 20);
-            this.readingsLabel.TabIndex = 17;
-            this.readingsLabel.Text = "Readings";
-            // 
-            // writingsLabel
-            // 
-            this.writingsLabel.AutoSize = true;
-            this.writingsLabel.Location = new System.Drawing.Point(770, 52);
-            this.writingsLabel.Name = "writingsLabel";
-            this.writingsLabel.Size = new System.Drawing.Size(66, 20);
-            this.writingsLabel.TabIndex = 18;
-            this.writingsLabel.Text = "Writings";
             // 
             // openReadingBtn
             // 
-            this.openReadingBtn.Location = new System.Drawing.Point(55, 789);
-            this.openReadingBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.openReadingBtn.Location = new System.Drawing.Point(73, 986);
+            this.openReadingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openReadingBtn.Name = "openReadingBtn";
-            this.openReadingBtn.Size = new System.Drawing.Size(186, 79);
+            this.openReadingBtn.Size = new System.Drawing.Size(248, 99);
             this.openReadingBtn.TabIndex = 19;
             this.openReadingBtn.Values.Text = "Open Reading";
             this.openReadingBtn.Click += new System.EventHandler(this.openReadingBtn_Click);
             // 
             // newReadingBtn
             // 
-            this.newReadingBtn.Location = new System.Drawing.Point(284, 789);
+            this.newReadingBtn.Location = new System.Drawing.Point(379, 986);
+            this.newReadingBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.newReadingBtn.Name = "newReadingBtn";
-            this.newReadingBtn.Size = new System.Drawing.Size(186, 79);
+            this.newReadingBtn.Size = new System.Drawing.Size(248, 99);
             this.newReadingBtn.TabIndex = 20;
             this.newReadingBtn.Values.Text = "New Reading";
             this.newReadingBtn.Click += new System.EventHandler(this.newReadingBtn_Click);
             // 
             // openWritingBtn
             // 
-            this.openWritingBtn.Location = new System.Drawing.Point(774, 789);
-            this.openWritingBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.openWritingBtn.Location = new System.Drawing.Point(1032, 986);
+            this.openWritingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openWritingBtn.Name = "openWritingBtn";
-            this.openWritingBtn.Size = new System.Drawing.Size(186, 79);
+            this.openWritingBtn.Size = new System.Drawing.Size(248, 99);
             this.openWritingBtn.TabIndex = 21;
             this.openWritingBtn.Values.Text = "Open Writing";
             this.openWritingBtn.Click += new System.EventHandler(this.openWritingBtn_Click);
             // 
             // newWritingBtn
             // 
-            this.newWritingBtn.Location = new System.Drawing.Point(1003, 789);
+            this.newWritingBtn.Location = new System.Drawing.Point(1337, 986);
+            this.newWritingBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.newWritingBtn.Name = "newWritingBtn";
-            this.newWritingBtn.Size = new System.Drawing.Size(186, 79);
+            this.newWritingBtn.Size = new System.Drawing.Size(248, 99);
             this.newWritingBtn.TabIndex = 22;
             this.newWritingBtn.Values.Text = "New Writing";
             this.newWritingBtn.Click += new System.EventHandler(this.newWritingBtn_Click);
             // 
             // readingsList
             // 
-            this.readingsList.Location = new System.Drawing.Point(56, 94);
+            this.readingsList.Location = new System.Drawing.Point(75, 118);
+            this.readingsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.readingsList.Name = "readingsList";
-            this.readingsList.Size = new System.Drawing.Size(414, 679);
+            this.readingsList.Size = new System.Drawing.Size(552, 849);
             this.readingsList.TabIndex = 23;
             // 
             // writingsList
             // 
-            this.writingsList.Location = new System.Drawing.Point(775, 94);
+            this.writingsList.Location = new System.Drawing.Point(1033, 118);
+            this.writingsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.writingsList.Name = "writingsList";
-            this.writingsList.Size = new System.Drawing.Size(414, 679);
+            this.writingsList.Size = new System.Drawing.Size(552, 849);
             this.writingsList.TabIndex = 24;
             // 
             // citeStyleType
@@ -115,19 +101,38 @@
             this.citeStyleType.Items.AddRange(new object[] {
             "MLA",
             "Chicago"});
-            this.citeStyleType.Location = new System.Drawing.Point(505, 94);
+            this.citeStyleType.Location = new System.Drawing.Point(673, 118);
+            this.citeStyleType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.citeStyleType.Name = "citeStyleType";
-            this.citeStyleType.Size = new System.Drawing.Size(121, 28);
+            this.citeStyleType.Size = new System.Drawing.Size(160, 33);
             this.citeStyleType.TabIndex = 25;
             this.citeStyleType.Text = "Style";
             this.citeStyleType.SelectedIndexChanged += new System.EventHandler(this.citeStyleType_SelectedIndexChanged);
             // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(75, 74);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(114, 37);
+            this.kryptonLabel1.TabIndex = 26;
+            this.kryptonLabel1.Values.Text = "Readings";
+            // 
+            // kryptonLabel2
+            // 
+            this.kryptonLabel2.Location = new System.Drawing.Point(1033, 74);
+            this.kryptonLabel2.Name = "kryptonLabel2";
+            this.kryptonLabel2.Size = new System.Drawing.Size(106, 37);
+            this.kryptonLabel2.TabIndex = 27;
+            this.kryptonLabel2.Values.Text = "Writings";
+            // 
             // ProjectSummary
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1274, 905);
+            this.ClientSize = new System.Drawing.Size(1699, 1131);
+            this.Controls.Add(this.kryptonLabel2);
+            this.Controls.Add(this.kryptonLabel1);
             this.Controls.Add(this.citeStyleType);
             this.Controls.Add(this.writingsList);
             this.Controls.Add(this.readingsList);
@@ -135,12 +140,9 @@
             this.Controls.Add(this.openWritingBtn);
             this.Controls.Add(this.newReadingBtn);
             this.Controls.Add(this.openReadingBtn);
-            this.Controls.Add(this.writingsLabel);
-            this.Controls.Add(this.readingsLabel);
+            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Name = "ProjectSummary";
-            this.Text = "Program Summary";
-            this.Controls.SetChildIndex(this.readingsLabel, 0);
-            this.Controls.SetChildIndex(this.writingsLabel, 0);
+            this.Text = "Project Summary";
             this.Controls.SetChildIndex(this.openReadingBtn, 0);
             this.Controls.SetChildIndex(this.newReadingBtn, 0);
             this.Controls.SetChildIndex(this.openWritingBtn, 0);
@@ -148,14 +150,14 @@
             this.Controls.SetChildIndex(this.readingsList, 0);
             this.Controls.SetChildIndex(this.writingsList, 0);
             this.Controls.SetChildIndex(this.citeStyleType, 0);
+            this.Controls.SetChildIndex(this.kryptonLabel1, 0);
+            this.Controls.SetChildIndex(this.kryptonLabel2, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label readingsLabel;
-        private System.Windows.Forms.Label writingsLabel;
         private ComponentFactory.Krypton.Toolkit.KryptonButton openReadingBtn;
         private ComponentFactory.Krypton.Toolkit.KryptonButton newReadingBtn;
         private ComponentFactory.Krypton.Toolkit.KryptonButton openWritingBtn;
@@ -163,5 +165,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonListBox readingsList;
         private ComponentFactory.Krypton.Toolkit.KryptonListBox writingsList;
         private System.Windows.Forms.ComboBox citeStyleType;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
     }
 }

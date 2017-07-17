@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.readingText = new System.Windows.Forms.RichTextBox();
-            this.pasteBtn = new System.Windows.Forms.Button();
-            this.citationBtn = new System.Windows.Forms.Button();
             this.generatedLabel = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.openButton = new System.Windows.Forms.Button();
+            this.pasteBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.citationBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.openButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
             // 
             // readingText
@@ -45,33 +45,6 @@
             this.readingText.Size = new System.Drawing.Size(895, 656);
             this.readingText.TabIndex = 0;
             this.readingText.Text = "";
-            // 
-            // pasteBtn
-            // 
-            this.pasteBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pasteBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.pasteBtn.Location = new System.Drawing.Point(215, 801);
-            this.pasteBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.pasteBtn.Name = "pasteBtn";
-            this.pasteBtn.Size = new System.Drawing.Size(117, 54);
-            this.pasteBtn.TabIndex = 9;
-            this.pasteBtn.Text = "Paste";
-            this.pasteBtn.UseVisualStyleBackColor = false;
-            this.pasteBtn.Click += new System.EventHandler(this.pasteBtn_Click);
-            // 
-            // citationBtn
-            // 
-            this.citationBtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.citationBtn.AutoSize = true;
-            this.citationBtn.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.citationBtn.Location = new System.Drawing.Point(449, 801);
-            this.citationBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.citationBtn.Name = "citationBtn";
-            this.citationBtn.Size = new System.Drawing.Size(213, 54);
-            this.citationBtn.TabIndex = 10;
-            this.citationBtn.Text = "Generate Citation";
-            this.citationBtn.UseVisualStyleBackColor = false;
-            this.citationBtn.Click += new System.EventHandler(this.citationBtn_Click);
             // 
             // generatedLabel
             // 
@@ -91,18 +64,31 @@
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
             // 
+            // pasteBtn
+            // 
+            this.pasteBtn.Location = new System.Drawing.Point(131, 794);
+            this.pasteBtn.Name = "pasteBtn";
+            this.pasteBtn.Size = new System.Drawing.Size(192, 61);
+            this.pasteBtn.TabIndex = 13;
+            this.pasteBtn.Values.Text = "Paste";
+            this.pasteBtn.Click += new System.EventHandler(this.pasteBtn_Click);
+            // 
+            // citationBtn
+            // 
+            this.citationBtn.Location = new System.Drawing.Point(424, 794);
+            this.citationBtn.Name = "citationBtn";
+            this.citationBtn.Size = new System.Drawing.Size(270, 61);
+            this.citationBtn.TabIndex = 14;
+            this.citationBtn.Values.Text = "Generate Citation";
+            this.citationBtn.Click += new System.EventHandler(this.citationBtn_Click);
+            // 
             // openButton
             // 
-            this.openButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.openButton.AutoSize = true;
-            this.openButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.openButton.Location = new System.Drawing.Point(776, 801);
-            this.openButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.openButton.Location = new System.Drawing.Point(795, 794);
             this.openButton.Name = "openButton";
-            this.openButton.Size = new System.Drawing.Size(213, 54);
-            this.openButton.TabIndex = 12;
-            this.openButton.Text = "Open Reading";
-            this.openButton.UseVisualStyleBackColor = false;
+            this.openButton.Size = new System.Drawing.Size(231, 61);
+            this.openButton.TabIndex = 15;
+            this.openButton.Values.Text = "Open Reading";
             this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
             // ReadingTextPage
@@ -112,10 +98,10 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1165, 1144);
             this.Controls.Add(this.openButton);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.generatedLabel);
             this.Controls.Add(this.citationBtn);
             this.Controls.Add(this.pasteBtn);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.generatedLabel);
             this.Controls.Add(this.readingText);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ReadingTextPage";
@@ -129,10 +115,10 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox readingText;
-        private System.Windows.Forms.Button pasteBtn;
-        private System.Windows.Forms.Button citationBtn;
         private System.Windows.Forms.Label generatedLabel;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button openButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton pasteBtn;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton citationBtn;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton openButton;
     }
 }
