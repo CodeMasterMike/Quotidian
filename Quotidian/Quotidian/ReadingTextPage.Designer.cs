@@ -28,23 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.readingText = new System.Windows.Forms.RichTextBox();
             this.generatedLabel = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.pasteBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.citationBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.openButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.readingText = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
-            // 
-            // readingText
-            // 
-            this.readingText.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.readingText.Location = new System.Drawing.Point(131, 62);
-            this.readingText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.readingText.Name = "readingText";
-            this.readingText.Size = new System.Drawing.Size(895, 656);
-            this.readingText.TabIndex = 0;
-            this.readingText.Text = "";
             // 
             // generatedLabel
             // 
@@ -56,13 +45,6 @@
             this.generatedLabel.TabIndex = 11;
             this.generatedLabel.Text = "Generated Citation Appears Here";
             this.generatedLabel.Click += new System.EventHandler(this.generatedLabel_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
             // 
             // pasteBtn
             // 
@@ -91,20 +73,31 @@
             this.openButton.Values.Text = "Open Reading";
             this.openButton.Click += new System.EventHandler(this.openButton_Click);
             // 
+            // readingText
+            // 
+            this.readingText.Location = new System.Drawing.Point(130, 89);
+            this.readingText.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.readingText.Name = "readingText";
+            this.readingText.Size = new System.Drawing.Size(894, 657);
+            this.readingText.TabIndex = 0;
+            this.readingText.Text = "";
+            // 
             // ReadingTextPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1165, 1144);
+            this.ClientSize = new System.Drawing.Size(1165, 1048);
+            this.Controls.Add(this.readingText);
             this.Controls.Add(this.openButton);
             this.Controls.Add(this.citationBtn);
             this.Controls.Add(this.pasteBtn);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.generatedLabel);
-            this.Controls.Add(this.readingText);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MaximizeBox = false;
             this.Name = "ReadingTextPage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add Text";
             this.Load += new System.EventHandler(this.ReadingTextPage_Load);
             this.ResumeLayout(false);
@@ -113,12 +106,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox readingText;
         private System.Windows.Forms.Label generatedLabel;
-        private System.Windows.Forms.Button button1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton pasteBtn;
         private ComponentFactory.Krypton.Toolkit.KryptonButton citationBtn;
         private ComponentFactory.Krypton.Toolkit.KryptonButton openButton;
+        private System.Windows.Forms.RichTextBox readingText;
     }
 }

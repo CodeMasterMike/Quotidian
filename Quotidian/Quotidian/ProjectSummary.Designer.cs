@@ -41,7 +41,7 @@
             // 
             // openReadingBtn
             // 
-            this.openReadingBtn.Location = new System.Drawing.Point(73, 986);
+            this.openReadingBtn.Location = new System.Drawing.Point(11, 982);
             this.openReadingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openReadingBtn.Name = "openReadingBtn";
             this.openReadingBtn.Size = new System.Drawing.Size(248, 99);
@@ -51,8 +51,8 @@
             // 
             // newReadingBtn
             // 
-            this.newReadingBtn.Location = new System.Drawing.Point(379, 986);
-            this.newReadingBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.newReadingBtn.Location = new System.Drawing.Point(317, 982);
+            this.newReadingBtn.Margin = new System.Windows.Forms.Padding(4);
             this.newReadingBtn.Name = "newReadingBtn";
             this.newReadingBtn.Size = new System.Drawing.Size(248, 99);
             this.newReadingBtn.TabIndex = 20;
@@ -61,7 +61,7 @@
             // 
             // openWritingBtn
             // 
-            this.openWritingBtn.Location = new System.Drawing.Point(1032, 986);
+            this.openWritingBtn.Location = new System.Drawing.Point(714, 982);
             this.openWritingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.openWritingBtn.Name = "openWritingBtn";
             this.openWritingBtn.Size = new System.Drawing.Size(248, 99);
@@ -71,8 +71,8 @@
             // 
             // newWritingBtn
             // 
-            this.newWritingBtn.Location = new System.Drawing.Point(1337, 986);
-            this.newWritingBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.newWritingBtn.Location = new System.Drawing.Point(1019, 982);
+            this.newWritingBtn.Margin = new System.Windows.Forms.Padding(4);
             this.newWritingBtn.Name = "newWritingBtn";
             this.newWritingBtn.Size = new System.Drawing.Size(248, 99);
             this.newWritingBtn.TabIndex = 22;
@@ -81,16 +81,16 @@
             // 
             // readingsList
             // 
-            this.readingsList.Location = new System.Drawing.Point(75, 118);
-            this.readingsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.readingsList.Location = new System.Drawing.Point(13, 114);
+            this.readingsList.Margin = new System.Windows.Forms.Padding(4);
             this.readingsList.Name = "readingsList";
             this.readingsList.Size = new System.Drawing.Size(552, 849);
             this.readingsList.TabIndex = 23;
             // 
             // writingsList
             // 
-            this.writingsList.Location = new System.Drawing.Point(1033, 118);
-            this.writingsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.writingsList.Location = new System.Drawing.Point(715, 114);
+            this.writingsList.Margin = new System.Windows.Forms.Padding(4);
             this.writingsList.Name = "writingsList";
             this.writingsList.Size = new System.Drawing.Size(552, 849);
             this.writingsList.TabIndex = 24;
@@ -101,17 +101,17 @@
             this.citeStyleType.Items.AddRange(new object[] {
             "MLA",
             "Chicago"});
-            this.citeStyleType.Location = new System.Drawing.Point(673, 118);
-            this.citeStyleType.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.citeStyleType.Location = new System.Drawing.Point(553, 1119);
+            this.citeStyleType.Margin = new System.Windows.Forms.Padding(4);
             this.citeStyleType.Name = "citeStyleType";
-            this.citeStyleType.Size = new System.Drawing.Size(160, 33);
+            this.citeStyleType.Size = new System.Drawing.Size(175, 33);
             this.citeStyleType.TabIndex = 25;
-            this.citeStyleType.Text = "Style";
+            this.citeStyleType.Text = "Citation Style";
             this.citeStyleType.SelectedIndexChanged += new System.EventHandler(this.citeStyleType_SelectedIndexChanged);
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(75, 74);
+            this.kryptonLabel1.Location = new System.Drawing.Point(13, 70);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(114, 37);
             this.kryptonLabel1.TabIndex = 26;
@@ -119,7 +119,7 @@
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(1033, 74);
+            this.kryptonLabel2.Location = new System.Drawing.Point(715, 70);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(106, 37);
             this.kryptonLabel2.TabIndex = 27;
@@ -130,7 +130,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1699, 1131);
+            this.ClientSize = new System.Drawing.Size(1280, 1190);
             this.Controls.Add(this.kryptonLabel2);
             this.Controls.Add(this.kryptonLabel1);
             this.Controls.Add(this.citeStyleType);
@@ -141,7 +141,9 @@
             this.Controls.Add(this.newReadingBtn);
             this.Controls.Add(this.openReadingBtn);
             this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.MaximizeBox = false;
             this.Name = "ProjectSummary";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Project Summary";
             this.Controls.SetChildIndex(this.openReadingBtn, 0);
             this.Controls.SetChildIndex(this.newReadingBtn, 0);
