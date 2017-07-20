@@ -145,5 +145,10 @@ namespace Quotidian
                 //do nothing
             }
         }
+
+        private void ReadingInfo_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
