@@ -77,6 +77,12 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BibliographyPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BibliographyPage.Designer.cs">
+      <DependentUpon>BibliographyPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="HelperObjects\Author.cs" />
     <Compile Include="HelperObjects\WeightedGraph.cs" />
     <Compile Include="StringSearchTest.cs" />
@@ -146,6 +152,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BibliographyPage.resx">
+      <DependentUpon>BibliographyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectSummary.resx">
       <DependentUpon>ProjectSummary.cs</DependentUpon>

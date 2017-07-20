@@ -26,14 +26,8 @@ namespace Quotidian
 
         private void generateBibliography_Click(object sender, EventArgs e)
         {
-            String bib = "";
-            foreach(Reading r in project.readings)
-            {
-                r.style = project.getStyle();
-                bib += r.createCitation();
-                bib += "\n";
-            }
-            System.Windows.Forms.MessageBox.Show(bib);
+            BibliographyPage bib = new BibliographyPage(project);
+            bib.Show();
         }
 
         //public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
