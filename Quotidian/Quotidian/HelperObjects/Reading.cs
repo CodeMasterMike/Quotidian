@@ -93,6 +93,7 @@ namespace Quotidian.HelperObjects
             {
                 c = "No Authors Found";
             }
+            c += " ";
             return c;
         }
 
@@ -104,7 +105,7 @@ namespace Quotidian.HelperObjects
             {
                 c += "\"" + sectionTitle + ".\"";
             }
-            c += title + ".";
+            c += "<em>" + title + "</em>.";
             if(editors.Count() > 0)
             {
                 c += "Ed. ";

@@ -26,12 +26,14 @@ namespace Quotidian
             {
                 selectedReading = r;
                 InitializeComponent();
+                generatedCitation.Hide();
                 nxtButton.Visible = false;
                 updateTextBoxes(r);
             }
             else
             {
                 InitializeComponent();
+                generatedCitation.Hide();
                 citationBtn.Visible = false;
                 selectedReading = new Reading(-1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "", "", "MLA");
             }
@@ -149,6 +151,12 @@ namespace Quotidian
         private void ReadingInfo_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void citationBtn_Click(object sender, EventArgs e)
+        {
+            generatedCitation.Show();
+            generatedCitation.DocumentText = selectedReading.createCitation();
         }
     }
 }

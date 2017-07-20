@@ -64,7 +64,6 @@ namespace Quotidian
             {
                 DatabaseInterface.createReadingTag(newReading.readingId, readingTags[i].tag);
             }
-            generatedLabel.Text = reading1.createCitation();
             reading1 = newReading;
         }
 
@@ -80,6 +79,7 @@ namespace Quotidian
 
         private void openButton_Click(object sender, EventArgs e)
         {
+            citationBtn_Click(sender, e);
             var readingPage = new ReadingPage(currentProject, reading1);
             this.Hide();
             readingPage.Show();
