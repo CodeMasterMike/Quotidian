@@ -35,7 +35,7 @@ namespace Quotidian.HelperObjects
 
         public bool modified { get; set; }
 
-        public Reading(int rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String style)
+        public Reading(int rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String s)
         {
             readingId = rId;
             projectId = pId;
@@ -47,7 +47,7 @@ namespace Quotidian.HelperObjects
             dateYear = year;
             publisherName = publisher;
             linesPerPage = LPP;
-            style = "MLA";
+            style = s;
             modified = false;
 
             highlights = new List<Highlight>();		
@@ -59,13 +59,17 @@ namespace Quotidian.HelperObjects
         {
             String c = "";
 
-            switch(style) {
-                case "MLA":
-                    c = getMLACitation();
-                    break;
-                default:
-                    c = "No style found";
-                    break;
+            if (style.Contains("MLA"))
+            {
+                c = getMLACitation();
+            }
+            else if (style.Contains("Chicago"))
+            {
+                c = "Chicago style not yet implemented";
+            }
+            else
+            {
+                c = "No Style Found";
             }
 
             return c;
@@ -96,6 +100,7 @@ namespace Quotidian.HelperObjects
             {
                 c = "No Authors Found";
             }
+            c += " ";
             return c;
         }
 
@@ -107,7 +112,7 @@ namespace Quotidian.HelperObjects
             {
                 c += "\"" + sectionTitle + ".\"";
             }
-            c += title + ".";
+            c += "<em>" + title + "</em>.";
             if(editors.Count() > 0)
             {
                 c += "Ed. ";

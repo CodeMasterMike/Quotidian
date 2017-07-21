@@ -26,11 +26,13 @@ namespace Quotidian
             {
                 selectedReading = r;
                 InitializeComponent();
+                generatedCitation.Hide();
                 updateTextBoxes(selectedReading);
             }
             else
             {
                 InitializeComponent();
+                generatedCitation.Hide();
                 selectedReading = new Reading(-1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "", "", "MLA");
                 updateTextBoxes(selectedReading);
             }
@@ -53,12 +55,9 @@ namespace Quotidian
 
         }
 
-        private void nxtButton_Click(object sender, EventArgs e)
+        private void updateReadingObject()
         {
             String docTitle = docTitleBox.Text;
-            String authorFirst = firstBox.Text;
-            String authorMiddle = middleBox.Text;
-            String authorLast = lastBox.Text;
             String publisher = publisherBox.Text;
             DateTime datePublished = new DateTime();
             try
@@ -79,8 +78,13 @@ namespace Quotidian
             selectedReading.dateMonth = month;
             selectedReading.dateYear = datePublished.Year;
             selectedReading.authors = auths;
-            selectedReading.style = "MLA";
-            selectedReading.city = "";
+            selectedReading.style = selectedProject.style;
+            selectedReading.city = "";//TODO - add input on readingInfo page
+        }
+
+        private void nxtButton_Click(object sender, EventArgs e)
+        {
+            updateReadingObject();
 
             if(selectedReading.readingId > 0)
             {
@@ -90,7 +94,7 @@ namespace Quotidian
             }
             else
             {
-                var nextPage = new ReadingTextPage(docTitle, selectedReading, this);
+                var nextPage = new ReadingTextPage(selectedReading.title, selectedReading, this);
                 this.Hide();
                 nextPage.Show();
             }
@@ -146,9 +150,11 @@ namespace Quotidian
 
         }
 
-        private void citationBtn_Click(object sender, EventArgs e)
+        private void generateCitation_Click(object sender, EventArgs e)
         {
-            
+            updateReadingObject();
+            generatedCitation.Show();
+            generatedCitation.DocumentText = selectedReading.createCitation();
         }
     }
 }

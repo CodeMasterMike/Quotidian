@@ -40,6 +40,7 @@ namespace Quotidian
             initializeReadingsListBox();
             initializeWritingsListBox();
             citeStyleType.Text = p.style;
+            currentProject.style = p.style;
         }
 
         public void initializeReadingsListBox()

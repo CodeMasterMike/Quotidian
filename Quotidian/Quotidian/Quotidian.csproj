@@ -77,6 +77,12 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BibliographyPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BibliographyPage.Designer.cs">
+      <DependentUpon>BibliographyPage.cs</DependentUpon>
+	  </Compile>
     <Compile Include="ViewSearchResult.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BibliographyPage.resx">
+      <DependentUpon>BibliographyPage.cs</DependentUpon>
+	  </EmbeddedResource>
     <EmbeddedResource Include="ViewSearchResult.resx">
       <DependentUpon>ViewSearchResult.cs</DependentUpon>
     </EmbeddedResource>
