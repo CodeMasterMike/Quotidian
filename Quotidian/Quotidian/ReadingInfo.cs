@@ -31,7 +31,7 @@ namespace Quotidian
             else
             {
                 InitializeComponent();
-                selectedReading = new Reading(-1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "", "", "MLA");
+                selectedReading = new Reading(-1, p.projectId, "Title", new List<Author>(), "", "January", 1, 1999, "", "", "MLA");
                 updateTextBoxes(selectedReading);
             }
             selectedReading.style = p.getStyle();

@@ -73,6 +73,7 @@ namespace Quotidian
 
         public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            writing.text = writingDoc.Text;
             DatabaseInterface.updateProject(project);
         }
 
