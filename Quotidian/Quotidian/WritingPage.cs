@@ -61,6 +61,26 @@ namespace Quotidian
             System.Windows.Forms.MessageBox.Show(bib);
         }
 
+        private void viewFoundResultButton_Click(object sender, EventArgs e)
+        {
+            if (textSearchResultsListBox.SelectedItem != null)
+            {
+                ViewSearchResult searchResult = new ViewSearchResult((SearchResult)textSearchResultsListBox.SelectedItem);
+            }
+            else
+                System.Windows.Forms.MessageBox.Show("Nothing Selected!");
+        }
+
+        public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseInterface.updateProject(project);
+        }
+
+        private void writingDoc_TextChanged(object sender, EventArgs e)
+        {
+            writing.modified = true;
+        }
+
         //public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         //{
         //    throw new NotImplementedException();

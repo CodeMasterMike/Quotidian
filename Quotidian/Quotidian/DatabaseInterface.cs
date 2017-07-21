@@ -28,10 +28,11 @@ namespace Quotidian
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Projects (Name, Style) output INSERTED.ProjectId VALUES (@Name, 'MLA')", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Projects (Name, Style) output INSERTED.ProjectId VALUES (@Name, @Style)", con);
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@Name", projectName);
+                cmd.Parameters.AddWithValue("@Style", "MLA");
                 int projectId = -1;
                 try
                 {
@@ -50,7 +51,101 @@ namespace Quotidian
             }
         }
 
-        //TODO update when reading class updated
+        //call this function whenever saving a modified project file, saves everything within
+        public static Boolean updateProject(Project project)
+        {
+            foreach(Reading r in project.readings)
+            {
+                if(r.readingId <= 0) //if true, reading is new
+                {
+                    Reading tempReading = createReading(r.projectId, r.title, "", r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, r.city, r.yearPublished);
+                    r.readingId = tempReading.readingId;
+                }
+                else if(r.modified)
+                {
+                    updateReading(r.readingId, r.title, r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, r.city, r.yearPublished);
+                }
+                //Authors
+                deleteAuthors(r.readingId);
+                foreach (Author author in r.authors)
+                {
+                    Author tempAuthor = createAuthor(r.readingId, author.first, author.middle, author.last);
+                    author.authorId = tempAuthor.authorId;
+                }
+                //ReadingTags
+                deleteReadingTagLinks(r.readingId);
+                foreach (ReadingTag tag in r.readingTags)
+                {
+                    ReadingTag tempRTag = createReadingTag(r.readingId, tag.tag);
+                    tag.tagId = tempRTag.tagId;
+                }
+                //Highlights and HighlightTags
+                foreach (Highlight highlight in r.highlights)
+                {
+                    deleteHighlightTagLinks(highlight.highlightId);
+                }
+                deleteHighlights(r.readingId);
+                foreach (Highlight highlight in r.highlights)
+                {
+                    Highlight tempHighlight = createHighlight(r.readingId, highlight.isQuote, highlight.charNum, highlight.charCount);
+                    foreach(HighlightTag tag in highlight.highlightTags)
+                    {
+                        HighlightTag tempHTag = createHighlightTag(tempHighlight.highlightId, tag.tag);
+                        tag.tagId = tempHTag.tagId;
+                    }
+                    highlight.highlightId = tempHighlight.highlightId;
+                }
+
+                r.modified = false;
+            }
+            foreach(Writing w in project.writings)
+            {
+                if (w.writingId <= 0)
+                {
+                    Writing tempWriting = createWriting(w.projectId,w.text);
+                    w.writingId = tempWriting.writingId;
+                }
+                else if (w.modified)
+                {
+                    updateWriting(w);
+                }
+            }
+            return true;
+        }
+
+        //requires fully loaded project object
+        public static Boolean deleteProject(Project project)
+        {
+            foreach(Reading reading in project.readings)
+            {
+                deleteReading(reading);
+            }
+            foreach(Writing writing in project.writings)
+            {
+                deleteWriting(writing);
+            }
+
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Highlights WHERE HighlightId = " + highlight.highlightId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         public static Reading createReading(int projectId, String title, String author, String text, String style, DateTime date, String publisher, String city, int yearPublished)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
@@ -85,7 +180,7 @@ namespace Quotidian
             }
         }
 
-        public static bool updateReading(int readingId, String title, String text, String style, DateTime date, String publisher, String city, int yearPublished)
+        public static Boolean updateReading(int readingId, String title, String text, String style, DateTime date, String publisher, String city, int yearPublished)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
@@ -101,6 +196,111 @@ namespace Quotidian
                 cmd.Parameters.AddWithValue("@Publisher", publisher);
                 cmd.Parameters.AddWithValue("@City", city);
                 cmd.Parameters.AddWithValue("@YearPublished", yearPublished);
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
+        public static Boolean deleteReading(Reading reading)
+        {
+            deleteAuthors(reading.readingId);
+            foreach(Highlight highlight in reading.highlights) //must delete children tags first to prevent FK contrainst issue
+            {
+                deleteHighlightTagLinks(highlight.highlightId);
+            }
+            deleteHighlights(reading.readingId);
+            deleteReadingTagLinks(reading.readingId);
+
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Readings WHERE ReadingId = " + reading.readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
+        public static Writing createWriting(int projectId, String text)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("INSERT INTO Readings (ProjectId, Text) output INSERTED.WritingId VALUES (@ProjectId, @Text)");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                cmd.Parameters.AddWithValue("@Text", text);
+                int writingId = -1;
+                try
+                {
+                    writingId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return null;
+                }
+                con.Close();
+                return new Writing(writingId, projectId, text); //TODO update reading db and this
+            }
+        }
+        
+        public static Boolean updateWriting(Writing writing)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE Writings SET [Text]=@Text " +
+                    "WHERE WritingId = " + writing.writingId.ToString());
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Text", writing.text);
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
+        public static Boolean deleteWriting(Writing writing)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Writings WHERE WritingId = " + writing.writingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
                 try
                 {
                     cmd.ExecuteScalar();
@@ -144,6 +344,29 @@ namespace Quotidian
             }
         }
 
+        public static Boolean deleteAuthors(int readingId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Authors WHERE ReadingId = " + readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         public static Highlight createHighlight(int readingId, Boolean isQuote, int charNum, int charCount)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
@@ -169,6 +392,30 @@ namespace Quotidian
                 }
                 con.Close();
                 return new Highlight(highlightId, readingId, isQuote, charNum, charCount);
+            }
+        }
+
+        //this function requires the highlight tags be deleted first
+        public static Boolean deleteHighlights(int readingId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Highlights WHERE ReadingId = " + readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
             }
         }
 
@@ -234,6 +481,30 @@ namespace Quotidian
             return true;
         }
 
+        public static Boolean deleteReadingTagLinks(int readingId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM ReadingTags "
+                    + "WHERE ReadingId = " + readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         private static Boolean addHighlightTagLinkToDB(int highlightId, int tagId, SqlConnection con)
         {
             SqlCommand cmd = new SqlCommand("INSERT INTO HighlightTags (HighlightId, TagId) output INSERTED.HighlightTagId VALUES (@HighlightId, @TagId)", con);
@@ -243,7 +514,6 @@ namespace Quotidian
             cmd.Parameters.AddWithValue("@TagId", tagId);
             try
             {
-                //TODO enforce unique project name
                 tagId = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception e)
@@ -252,6 +522,30 @@ namespace Quotidian
                 return false;
             }
             return true;
+        }
+
+        public static Boolean deleteHighlightTagLinks(int highlightId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM HighlightTags "
+                    + "WHERE HighlightId = " + highlightId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
         }
 
         //assumes open connection
@@ -265,7 +559,6 @@ namespace Quotidian
             int? tagId = null;
             try
             {
-                //TODO enforce unique project name
                 tagId = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception e)
@@ -323,8 +616,6 @@ namespace Quotidian
 
         public static Project loadProject(Project project)
         {
-            //first load readings
-
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
@@ -720,6 +1011,4 @@ namespace Quotidian
             }
         }
     }
-
-
 }

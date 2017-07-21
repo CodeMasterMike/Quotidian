@@ -12,5 +12,12 @@ namespace Quotidian.HelperObjects
         public int projectId { get; set; }
         public String text { get; set; }
         public bool modified { get; set; }
+
+        public Writing(int id, int pId, String txt)
+        {
+            writingId = writingId;
+            projectId = pId;
+            text = txt;
+        }
     }
 }
