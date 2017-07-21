@@ -55,15 +55,15 @@ namespace Quotidian.HelperObjects
             editors = new List<String>();
         }
 
-        public String createCitation()
+        public String createCitation(String s)
         {
             String c = "";
 
-            if (style.Contains("MLA"))
+            if (s.Contains("MLA"))
             {
                 c = getMLACitation();
             }
-            else if (style.Contains("Chicago"))
+            else if (s.Contains("Chicago"))
             {
                 c = "Chicago style not yet implemented";
             }

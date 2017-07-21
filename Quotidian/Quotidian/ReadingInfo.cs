@@ -154,7 +154,7 @@ namespace Quotidian
         {
             updateReadingObject();
             generatedCitation.Show();
-            generatedCitation.DocumentText = selectedReading.createCitation();
+            generatedCitation.DocumentText = selectedReading.createCitation(selectedProject.style);
         }
     }
 }
