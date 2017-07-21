@@ -33,7 +33,7 @@ namespace Quotidian
 
             foreach(Reading r in selectedProj.readings)
             {
-                text += r.createCitation();
+                text += r.createCitation(selectedProj.style);
                 text += "</br>";
             }
 
