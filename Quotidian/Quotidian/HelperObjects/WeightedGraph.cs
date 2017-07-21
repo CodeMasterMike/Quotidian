@@ -290,6 +290,8 @@ namespace Quotidian.HelperObjects
     {
         int weight;
 
+        public List<int> ReadingIds = new List<int>();
+
         Vertex<T> start;
         Vertex<T> end;
 

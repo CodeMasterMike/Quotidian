@@ -28,10 +28,11 @@ namespace Quotidian
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Projects (Name, Style) output INSERTED.ProjectId VALUES (@Name, 'MLA')", con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Projects (Name, Style) output INSERTED.ProjectId VALUES (@Name, @Style)", con);
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@Name", projectName);
+                cmd.Parameters.AddWithValue("@Style", "MLA");
                 int projectId = -1;
                 try
                 {
@@ -50,7 +51,101 @@ namespace Quotidian
             }
         }
 
-        //TODO update when reading class updated
+        //call this function whenever saving a modified project file, saves everything within
+        public static Boolean updateProject(Project project)
+        {
+            foreach(Reading r in project.readings)
+            {
+                if(r.readingId <= 0) //if true, reading is new
+                {
+                    Reading tempReading = createReading(r.projectId, r.title, "", r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, r.city, r.yearPublished);
+                    r.readingId = tempReading.readingId;
+                }
+                else if(r.modified)
+                {
+                    updateReading(r.readingId, r.title, r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, "", r.yearPublished);
+                }
+                //Authors
+                deleteAuthors(r.readingId);
+                foreach (Author author in r.authors)
+                {
+                    Author tempAuthor = createAuthor(r.readingId, author.first, author.middle, author.last);
+                    author.authorId = tempAuthor.authorId;
+                }
+                //ReadingTags
+                deleteReadingTagLinks(r.readingId);
+                foreach (ReadingTag tag in r.readingTags)
+                {
+                    ReadingTag tempRTag = createReadingTag(r.readingId, tag.tag);
+                    tag.tagId = tempRTag.tagId;
+                }
+                //Highlights and HighlightTags
+                foreach (Highlight highlight in r.highlights)
+                {
+                    deleteHighlightTagLinks(highlight.highlightId);
+                }
+                deleteHighlights(r.readingId);
+                foreach (Highlight highlight in r.highlights)
+                {
+                    Highlight tempHighlight = createHighlight(r.readingId, highlight.isQuote, highlight.charNum, highlight.charCount);
+                    foreach(HighlightTag tag in highlight.highlightTags)
+                    {
+                        HighlightTag tempHTag = createHighlightTag(tempHighlight.highlightId, tag.tag);
+                        tag.tagId = tempHTag.tagId;
+                    }
+                    highlight.highlightId = tempHighlight.highlightId;
+                }
+
+                r.modified = false;
+            }
+            foreach(Writing w in project.writings)
+            {
+                if (w.writingId <= 0)
+                {
+                    Writing tempWriting = createWriting(w.projectId,w.text);
+                    w.writingId = tempWriting.writingId;
+                }
+                else if (w.modified)
+                {
+                    updateWriting(w);
+                }
+            }
+            return true;
+        }
+
+        //requires fully loaded project object
+        public static Boolean deleteProject(Project project)
+        {
+            foreach(Reading reading in project.readings)
+            {
+                deleteReading(reading);
+            }
+            foreach(Writing writing in project.writings)
+            {
+                deleteWriting(writing);
+            }
+
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Projects WHERE ProjectId = " + project.projectId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         public static Reading createReading(int projectId, String title, String author, String text, String style, DateTime date, String publisher, String city, int yearPublished)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
@@ -85,6 +180,142 @@ namespace Quotidian
             }
         }
 
+        public static Boolean updateReading(int readingId, String title, String text, String style, DateTime date, String publisher, String city, int yearPublished)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE Readings SET [Title]=@Title, [Text]=@Text, [Style]=@Style, [Date]=@Date, [Publisher]=@Publisher, [City]=@City, [YearPublished]=@YearPublished " + 
+                    "WHERE ReadingId = " + readingId.ToString());
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Title", title);
+                cmd.Parameters.AddWithValue("@Text", text);
+                cmd.Parameters.AddWithValue("@Style", style);
+                cmd.Parameters.AddWithValue("@Date", date);
+                cmd.Parameters.AddWithValue("@Publisher", publisher);
+                cmd.Parameters.AddWithValue("@City", city);
+                cmd.Parameters.AddWithValue("@YearPublished", yearPublished);
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
+        public static Boolean deleteReading(Reading reading)
+        {
+            deleteAuthors(reading.readingId);
+            foreach(Highlight highlight in reading.highlights) //must delete children tags first to prevent FK contrainst issue
+            {
+                deleteHighlightTagLinks(highlight.highlightId);
+            }
+            deleteHighlights(reading.readingId);
+            deleteReadingTagLinks(reading.readingId);
+
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Readings WHERE ReadingId = " + reading.readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
+        public static Writing createWriting(int projectId, String text)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("INSERT INTO Writings (ProjectId, Text) output INSERTED.WritingId VALUES (@ProjectId, @Text)");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                cmd.Parameters.AddWithValue("@Text", text);
+                int writingId = -1;
+                try
+                {
+                    writingId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return null;
+                }
+                con.Close();
+                return new Writing(writingId, projectId, text); //TODO update reading db and this
+            }
+        }
+        
+        public static Boolean updateWriting(Writing writing)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("UPDATE Writings SET [Text]=@Text " +
+                    "WHERE WritingId = " + writing.writingId.ToString());
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                cmd.Parameters.AddWithValue("@Text", writing.text);
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
+        public static Boolean deleteWriting(Writing writing)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Writings WHERE WritingId = " + writing.writingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         public static Author createAuthor(int readingId, String first, String middle, String last)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
@@ -113,6 +344,29 @@ namespace Quotidian
             }
         }
 
+        public static Boolean deleteAuthors(int readingId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Authors WHERE ReadingId = " + readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         public static Highlight createHighlight(int readingId, Boolean isQuote, int charNum, int charCount)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
@@ -138,6 +392,30 @@ namespace Quotidian
                 }
                 con.Close();
                 return new Highlight(highlightId, readingId, isQuote, charNum, charCount);
+            }
+        }
+
+        //this function requires the highlight tags be deleted first
+        public static Boolean deleteHighlights(int readingId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM Highlights WHERE ReadingId = " + readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
             }
         }
 
@@ -203,6 +481,30 @@ namespace Quotidian
             return true;
         }
 
+        public static Boolean deleteReadingTagLinks(int readingId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM ReadingTags "
+                    + "WHERE ReadingId = " + readingId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
+        }
+
         private static Boolean addHighlightTagLinkToDB(int highlightId, int tagId, SqlConnection con)
         {
             SqlCommand cmd = new SqlCommand("INSERT INTO HighlightTags (HighlightId, TagId) output INSERTED.HighlightTagId VALUES (@HighlightId, @TagId)", con);
@@ -212,7 +514,6 @@ namespace Quotidian
             cmd.Parameters.AddWithValue("@TagId", tagId);
             try
             {
-                //TODO enforce unique project name
                 tagId = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception e)
@@ -221,6 +522,30 @@ namespace Quotidian
                 return false;
             }
             return true;
+        }
+
+        public static Boolean deleteHighlightTagLinks(int highlightId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("DELETE FROM HighlightTags "
+                    + "WHERE HighlightId = " + highlightId.ToString() + ";");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = con;
+                try
+                {
+                    cmd.ExecuteScalar();
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                    con.Close();
+                    return false;
+                }
+                con.Close();
+                return true;
+            }
         }
 
         //assumes open connection
@@ -234,7 +559,6 @@ namespace Quotidian
             int? tagId = null;
             try
             {
-                //TODO enforce unique project name
                 tagId = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception e)
@@ -292,8 +616,6 @@ namespace Quotidian
 
         public static Project loadProject(Project project)
         {
-            //first load readings
-
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
@@ -315,6 +637,8 @@ namespace Quotidian
                         }
                     }
                 }
+
+                project.writings = getWritings(project.projectId, con, true);
 
                 con.Close();
             }
@@ -442,7 +766,7 @@ namespace Quotidian
                 {
                     String text = (String)reader["Text"];
                     // Writing writing = new Writing(writingId, null, projectId, title, "", "", author, text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
-                    Writing writing = new Writing();
+                    Writing writing = new Writing(writingId,projectId,text);
                     writings.Add(writing);
                 }
             }
@@ -454,17 +778,21 @@ namespace Quotidian
             return writings;
         }
 
-        public static List<ReadingTag> getReadingTags(int readingId, SqlConnection con, Boolean conOpen)
+        public static List<ReadingTag> getReadingTags(int? readingId, SqlConnection con, Boolean conOpen, int? projectId = null)
         {
             List<ReadingTag> readingTags = new List<ReadingTag>();
 
-            SqlCommand read = new SqlCommand("SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
+            String sqlStr = "SELECT Readings.ProjectId, Tags.TagId AS TagId, Tags.Tag AS Tag " +
                 "FROM Readings " +
                 "LEFT JOIN ReadingTags " +
                     "ON Readings.ReadingId = ReadingTags.ReadingId " +
                 "LEFT JOIN Tags " +
-                    "ON ReadingTags.TagId = Tags.TagId " +
-                "WHERE Readings.ReadingId = " + readingId.ToString());
+                    "ON ReadingTags.TagId = Tags.TagId";
+            if(readingId != null)
+                sqlStr = sqlStr + " WHERE Readings.ReadingId = " + readingId.ToString();
+            else if (projectId != null)
+                sqlStr = sqlStr + " WHERE Readings.ProjectId = " + projectId.ToString();
+            SqlCommand read = new SqlCommand(sqlStr);
             read.CommandType = CommandType.Text;
             read.Connection = con;
 
@@ -480,7 +808,7 @@ namespace Quotidian
                 if(tagId > 0)
                 {
                     String tagText = (String)reader["Tag"];
-                    readingTags.Add(new ReadingTag((int)tagId, readingId, tagText));
+                    readingTags.Add(new ReadingTag((int)tagId, (int)readingId, tagText));
                 }
             }
 
@@ -493,17 +821,23 @@ namespace Quotidian
             return readingTags;
         }
 
-        public static List<HighlightTag> getHighlightTags(int highlightId, SqlConnection con, Boolean conOpen)
+        public static List<HighlightTag> getHighlightTags(int? highlightId, SqlConnection con, Boolean conOpen, int? projectId = null)
         {
             List<HighlightTag> highlightTags = new List<HighlightTag>();
 
-            SqlCommand read = new SqlCommand("SELECT Tags.TagId AS TagId, Tags.Tag AS Tag " +
+            String sqlStr = "SELECT Tags.TagId AS TagId, Tags.Tag AS Tag, Readings.ProjectId, Highlights.HighlightId AS HighlightId " +
                 "FROM Highlights " +
+                "LEFT JOIN Readings " +
+                    "ON Highlights.ReadingId = Readings.ReadingId " +
                 "LEFT JOIN HighlightTags " +
                     "ON Highlights.HighlightId = HighlightTags.HighlightId " +
                 "LEFT JOIN Tags " +
-                    "ON HighlightTags.TagId = Tags.TagId " +
-                "WHERE Highlights.HighlightId = " + highlightId.ToString());
+                    "ON HighlightTags.TagId = Tags.TagId";
+            if(highlightId != null)
+                sqlStr = sqlStr + " WHERE Highlights.HighlightId = " + highlightId.ToString();
+            else if(projectId != null)
+                sqlStr = sqlStr + " WHERE Readings.ProjectId = " + projectId.ToString();
+            SqlCommand read = new SqlCommand(sqlStr);
             read.CommandType = CommandType.Text;
             read.Connection = con;
 
@@ -520,7 +854,8 @@ namespace Quotidian
                     //int tagId = (int)reader["TagId"] as int? ?? default(int);
                     int tagId = (int)reader["TagId"];
                     String tagText = (String)reader["Tag"];
-                    highlightTags.Add(new HighlightTag(tagId, highlightId, tagText));
+                    int highlightId2 = (int)reader["HighlightId"];
+                    highlightTags.Add(new HighlightTag(tagId, highlightId2, tagText));
                 }
             }
 
@@ -531,6 +866,17 @@ namespace Quotidian
             }
 
             return highlightTags;
+        }
+
+        public static void getTags(int projectId)
+        {
+            using (SqlConnection con = new SqlConnection(databaseConnectionStr))
+            {
+                List<ReadingTag> readingTags = getReadingTags(null, con, false, projectId);
+                List<HighlightTag> highlightTags = getHighlightTags(null, con, false, projectId);
+
+
+            }
         }
 
         //if readingId is null, simply returns all readings for this project
@@ -575,6 +921,96 @@ namespace Quotidian
             }
 
             return highlights;
+        }
+
+        //Begin tag map creation
+        public static List<TagLink> getReadingLinks(SqlConnection con, Boolean conOpen)
+        {
+            List<TagLink> tagLinks = new List<TagLink>();
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
+            SqlCommand read = new SqlCommand("SELECT T1, T2, RId1 AS RId "+
+                "FROM (SELECT TagId AS T1, ReadingId AS RId1 "+
+                "FROM ReadingTags) AS Table1 "+
+                "INNER JOIN "+
+                "(SELECT TagId AS T2, ReadingId AS RId2 "+
+                "FROM ReadingTags) AS Table2 "+
+                "ON RId1 = RId2 AND T1 != T2 AND T1<T2;");
+
+            read.CommandType = CommandType.Text;
+            read.Connection = con;
+
+            SqlDataReader reader = read.ExecuteReader();
+            while (reader.Read())
+            {
+                int tagId1 = (int)reader["T1"];
+                int tagId2 = (int)reader["T2"];
+                int readingId = (int)reader["RId"];
+                tagLinks.Add(new TagLink(tagId1, tagId2, readingId));
+            }
+
+            if (conOpen == false)
+            {
+                con.Close();
+            }
+
+            return tagLinks;
+        }
+
+        public static WeightedGraph<ReadingTag> createWeightedGraph(int projectId, bool includeReadingTags, bool includeHighlightTags)
+        {
+            string str = DatabaseInterface.databaseConnectionStr;
+            using (SqlConnection con = new SqlConnection(str))
+            {
+                WeightedGraph<ReadingTag> graph;
+                List<Vertex<ReadingTag>> vertices = new List<Vertex<ReadingTag>>();
+                List<WeightedEdge<ReadingTag>> edges = new List<WeightedEdge<ReadingTag>>();
+                DatabaseInterface.getReadingLinks(con, false);
+                List<ReadingTag> tags = DatabaseInterface.getReadingTags(null, con, false);
+                List<HighlightTag> hTags = DatabaseInterface.getHighlightTags(null, con, false);
+                int numTags = tags.Count();
+                List<TagLink> tagLinks = DatabaseInterface.getReadingLinks(con, false);
+                //List<List<List<int>>> table = new List<List<List<int>>>();
+                List<int>[,] table = new List<int>[numTags, numTags];
+
+                foreach (TagLink l in tagLinks)
+                {
+                    if (table[l.t1, l.t2] == null)
+                    {
+                        table[l.t1, l.t2] = new List<int>();
+                    }
+                    table[l.t1, l.t2].Add(l.rId);
+                }
+
+                Dictionary<string, Vertex<ReadingTag>> dick = new Dictionary<string, Vertex<ReadingTag>>();
+
+                foreach (ReadingTag t in tags)
+                {
+                    Vertex<ReadingTag> v = new Vertex<ReadingTag>(t);
+                    dick.Add(t.tagId.ToString(), v);
+                    vertices.Add(v);
+                }
+
+                for (int i = 0; i < tags.Count(); i++)
+                {
+                    for (int j = 0; j < tags.Count(); j++)
+                    {
+                        if (table[i, j] != null && table[i, j].Count() > 0)
+                        {
+                            WeightedEdge<ReadingTag> edge = new WeightedEdge<ReadingTag>(dick[i.ToString()], dick[j.ToString()], table[i, j].Count());
+                            edge.ReadingIds = table[i, j];
+                            edges.Add(edge);
+
+                        }
+                    }
+                }
+                graph = new WeightedGraph<ReadingTag>(vertices, edges);
+                return graph;
+            }
         }
     }
 }

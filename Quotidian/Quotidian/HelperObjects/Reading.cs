@@ -33,7 +33,9 @@ namespace Quotidian.HelperObjects
         public List<Highlight> highlights { get; set; }
         public List<ReadingTag> readingTags { get; set; }
 
-        public Reading(int rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String style)
+        public bool modified { get; set; }
+
+        public Reading(int rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String s)
         {
             readingId = rId;
             projectId = pId;
@@ -45,9 +47,10 @@ namespace Quotidian.HelperObjects
             dateYear = year;
             publisherName = publisher;
             linesPerPage = LPP;
-            //style = DatabaseInterface.getProject(pId);
-			
-			highlights = new List<Highlight>();
+            style = s;
+            modified = false;
+
+            highlights = new List<Highlight>();		
             readingTags = new List<ReadingTag>();
             editors = new List<String>();
         }
@@ -56,13 +59,17 @@ namespace Quotidian.HelperObjects
         {
             String c = "";
 
-            switch(style) {
-                case "MLA":
-                    c = getMLACitation();
-                    break;
-                default:
-                    c = "No style found";
-                    break;
+            if (style.Contains("MLA"))
+            {
+                c = getMLACitation();
+            }
+            else if (style.Contains("Chicago"))
+            {
+                c = "Chicago style not yet implemented";
+            }
+            else
+            {
+                c = "No Style Found";
             }
 
             return c;

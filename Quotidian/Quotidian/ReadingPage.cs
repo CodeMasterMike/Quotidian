@@ -18,13 +18,10 @@ namespace Quotidian
         {
             InitializeComponent();
             project = p;
-            reading = r;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
+            reading = r;
             reading.style = p.getStyle();
             readingDoc.Text = reading.text;
-            string str = DatabaseInterface.databaseConnectionStr;
-            SqlConnection con = new SqlConnection(str);
-            con.Open();
-            highlights = DatabaseInterface.getHighlights(project.projectId, reading.readingId, con, true);
+            highlights = reading.highlights;
             for (int i = 0; i < highlights.Count(); i++)
             {
                 int start = highlights[i].charNum;
@@ -62,13 +59,21 @@ namespace Quotidian
                 richTextBox2.AppendText(Environment.NewLine);
             }
             richTextBox2.AppendText("\"" + readingDoc.SelectedText + "\" " + authorPage);
-            highlight1 = DatabaseInterface.createHighlight((int)reading.readingId, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
+            highlight1 = new Highlight(-1,(int)reading.readingId, true, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
+            reading.highlights.Add(highlight1);
+            reading.modified = true;
         }
 
         public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReadingInfo info = new Quotidian.ReadingInfo(project, reading, false);
             info.Show();
+            this.Hide();
+        }
+
+        public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseInterface.updateProject(project);
         }
 
         //this function returns a formatted string [Author, pageNum] to be appended onto quote
@@ -112,6 +117,7 @@ namespace Quotidian
                     tagsListBox.DataSource = highlight.highlightTags;
                     tagsListBox.DisplayMember = "tag";
                     tagsListBox.ValueMember = "tagId";
+                    tagsListBox.Refresh();
                     found = true;
                     tagListLabel.Text = "Highlight Tags:";
                     break;
@@ -119,7 +125,6 @@ namespace Quotidian
             }
             if (!found)
                 selectReadingTagsListBox();
-
         }
 
         private void textBtn_Click(object sender, EventArgs e)
@@ -130,7 +135,8 @@ namespace Quotidian
                 richTextBox3.AppendText(Environment.NewLine);
             }
             richTextBox3.AppendText(readingDoc.SelectedText);
-            highlight1 = DatabaseInterface.createHighlight((int)reading.readingId, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
+            highlight1 = new Highlight(-1, (int)reading.readingId, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
+            reading.highlights.Add(highlight1);
         }
 
         public void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -166,6 +172,7 @@ namespace Quotidian
             tagsListBox.DataSource = reading.readingTags;
             tagsListBox.DisplayMember = "tag";
             tagsListBox.ValueMember = "tagId";
+            tagsListBox.Refresh();
             tagListLabel.Text = "Reading Tags:";
             selectedHighlight = null;
         }
@@ -185,16 +192,17 @@ namespace Quotidian
                 System.Windows.Forms.MessageBox.Show("No text entered!");
             else if (selectedHighlight == null)
             {
-                reading.readingTags.Add(DatabaseInterface.createReadingTag(reading.readingId, newTagTextBox.Text));
+                reading.readingTags.Add(new ReadingTag(-1, reading.readingId, newTagTextBox.Text));
                 newTagTextBox.Text = "";
                 readingTextBox_Click(null, null);
             }
             else
             {
-                selectedHighlight.highlightTags.Add(DatabaseInterface.createHighlightTag(selectedHighlight.highlightId, newTagTextBox.Text));
+                selectedHighlight.highlightTags.Add(new HighlightTag(-1, selectedHighlight.highlightId, newTagTextBox.Text, reading.readingId));
                 newTagTextBox.Text = "";
                 readingTextBox_Click(null, null);
             }
+            reading.modified = true;
         }
 
         private void tagsListBox_SelectedIndexChanged(object sender, EventArgs e)

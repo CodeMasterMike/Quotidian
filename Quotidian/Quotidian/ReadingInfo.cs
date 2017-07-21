@@ -27,15 +27,14 @@ namespace Quotidian
                 selectedReading = r;
                 InitializeComponent();
                 generatedCitation.Hide();
-                nxtButton.Visible = false;
-                updateTextBoxes(r);
+                updateTextBoxes(selectedReading);
             }
             else
             {
                 InitializeComponent();
                 generatedCitation.Hide();
-                citationBtn.Visible = false;
                 selectedReading = new Reading(-1, p.projectId, "Title", new List<Author>(), "", "", -1,9999, "", "", "MLA");
+                updateTextBoxes(selectedReading);
             }
             selectedReading.style = p.getStyle();
         }
@@ -49,7 +48,6 @@ namespace Quotidian
             {
                 authorList1.Items.Add(new ListViewItem(a.first + " " + a.middle + " " + a.last));
             }
-            List<ReadingTag> readingTags = r.getReadingTags();
         }
 
         private void docTitleBox_TextChanged(object sender, EventArgs e)
@@ -57,12 +55,9 @@ namespace Quotidian
 
         }
 
-        private void nxtButton_Click(object sender, EventArgs e)
+        private void updateReadingObject()
         {
             String docTitle = docTitleBox.Text;
-            String authorFirst = firstBox.Text;
-            String authorMiddle = middleBox.Text;
-            String authorLast = lastBox.Text;
             String publisher = publisherBox.Text;
             DateTime datePublished = new DateTime();
             try
@@ -73,34 +68,36 @@ namespace Quotidian
             {
                 Console.WriteLine(ex);
             }
-            List<ReadingTag> tags = parseTags();
             String month = datePublished.ToString("MMMM");
             int day = datePublished.Day;
             int year = datePublished.Year;
-            var nextPage = new ReadingTextPage(docTitle, selectedReading, this);
-            this.Hide();
-            nextPage.Show();
-            // Regex dateRegex = new Regex();
+
             selectedReading.title = docTitle;
             selectedReading.publisherName = publisher;
             selectedReading.dateDay = datePublished.Day;
             selectedReading.dateMonth = month;
             selectedReading.dateYear = datePublished.Year;
             selectedReading.authors = auths;
-            selectedReading.readingTags = tags;
-            selectedReading.style = "MLA";
-            selectedReading.city = "";
+            selectedReading.style = selectedProject.style;
+            selectedReading.city = "";//TODO - add input on readingInfo page
         }
 
-        private List<ReadingTag> parseTags()
+        private void nxtButton_Click(object sender, EventArgs e)
         {
-            String[] tags = tagsBox.Text.Split(',');
-            List<ReadingTag> readingTags = new List<ReadingTag>();
-            for (int i = 0; i < tags.Length; i++)
+            updateReadingObject();
+
+            if(selectedReading.readingId > 0)
             {
-                readingTags.Add(new ReadingTag(-1, -1, tags[i]));
+                ReadingPage nextPage = new ReadingPage(selectedProject, selectedReading);
+                this.Hide();
+                nextPage.Show();
             }
-            return readingTags;
+            else
+            {
+                var nextPage = new ReadingTextPage(selectedReading.title, selectedReading, this);
+                this.Hide();
+                nextPage.Show();
+            }
         }
 
         [STAThread]
@@ -153,8 +150,9 @@ namespace Quotidian
 
         }
 
-        private void citationBtn_Click(object sender, EventArgs e)
+        private void generateCitation_Click(object sender, EventArgs e)
         {
+            updateReadingObject();
             generatedCitation.Show();
             generatedCitation.DocumentText = selectedReading.createCitation();
         }

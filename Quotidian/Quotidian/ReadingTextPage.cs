@@ -26,23 +26,11 @@ namespace Quotidian
         public int dateYear { get; set; }
         public String publisherName { get; set; }
         private ReadingInfo form;
-        Reading reading1;
 
         public ReadingTextPage(String docTitle, Reading r, ReadingInfo f)
-        //public ReadingTextPage(String docTitle, String firstName, String middleName, String lastName, String month, int day, int year, String publisher, ReadingInfo f)
         {
             currentProject = f.selectedProject;
-            reading1 = r;
-
-            //title = docTitle;
-            //first = firstName;
-            //middle = middleName;
-            //last = lastName;
-            //dateMonth = month;
-            //dateDay = day;
-            //dateYear = year;
-            //publisherName = publisher;
-            //form = f;
+            currentReading = r;
             InitializeComponent();
         }
 
@@ -51,21 +39,23 @@ namespace Quotidian
             readingText.Text = Clipboard.GetText(System.Windows.Forms.TextDataFormat.Text);
         }
 
-        private void citationBtn_Click(object sender, EventArgs e)
-        {
-            String text = readingText.Text;
-            //reading1 = new Reading(-1, -1, -1, title, new List<Author>(), text, dateMonth, dateDay, dateYear, publisherName);
-            reading1.text = text;
-            currentProject.readings.Add(reading1);
-            int dateMonth = DateTime.ParseExact(reading1.dateMonth, "MMMM", CultureInfo.CurrentCulture).Month;
-            var newReading = DatabaseInterface.createReading(currentProject.projectId, reading1.title, "Last needs changed", reading1.text, reading1.style, new DateTime(reading1.dateYear,dateMonth,reading1.dateDay), reading1.publisherName, reading1.city, reading1.yearPublished);
-            List<ReadingTag> readingTags = reading1.getReadingTags();
-            for (int i=0; i < readingTags.Count; i++)
-            {
-                DatabaseInterface.createReadingTag(newReading.readingId, readingTags[i].tag);
-            }
-            reading1 = newReading;
-        }
+        //TODO combine this and open button
+        // private void citationBtn_Click(object sender, EventArgs e)
+        // {
+            // String text = readingText.Text;
+            // //reading1 = new Reading(-1, -1, -1, title, new List<Author>(), text, dateMonth, dateDay, dateYear, publisherName);
+            // reading1.text = text;
+            // currentProject.readings.Add(reading1);
+            // int dateMonth = DateTime.ParseExact(reading1.dateMonth, "MMMM", CultureInfo.CurrentCulture).Month;
+            // var newReading = DatabaseInterface.createReading(currentProject.projectId, reading1.title, "Last needs changed", reading1.text, reading1.style, new DateTime(reading1.dateYear,dateMonth,reading1.dateDay), reading1.publisherName, reading1.city, reading1.yearPublished);
+            // List<ReadingTag> readingTags = reading1.getReadingTags();
+            // for (int i=0; i < readingTags.Count; i++)
+            // {
+                // DatabaseInterface.createReadingTag(newReading.readingId, readingTags[i].tag);
+            // }
+            // reading1 = newReading;
+            // generatedLabel.Text = currentReading.createCitation();
+        // }
 
         private void generatedLabel_Click(object sender, EventArgs e)
         {
@@ -79,8 +69,13 @@ namespace Quotidian
 
         private void openButton_Click(object sender, EventArgs e)
         {
-            citationBtn_Click(sender, e);
-            var readingPage = new ReadingPage(currentProject, reading1);
+            currentReading.text = readingText.Text;
+            if (currentReading.readingId < 0)
+            {
+                currentProject.readings.Add(currentReading);
+            }
+            var readingPage = new ReadingPage(currentProject, currentReading);
+            DatabaseInterface.updateProject(currentProject);
             this.Hide();
             readingPage.Show();
         }

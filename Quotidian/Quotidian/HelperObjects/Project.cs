@@ -10,6 +10,7 @@ namespace Quotidian.HelperObjects
     {
         public int projectId { get; set; }
         public String name { get; set; }
+        public bool modified { get; set; }
         public String style { get; set; }
 
         public List<Reading> readings;
@@ -22,6 +23,7 @@ namespace Quotidian.HelperObjects
 
             projectId = id;
             name = n;
+            modified = false;
             style = s;
         }
 
