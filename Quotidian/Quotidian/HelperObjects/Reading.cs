@@ -33,6 +33,8 @@ namespace Quotidian.HelperObjects
         public List<Highlight> highlights { get; set; }
         public List<ReadingTag> readingTags { get; set; }
 
+        public bool modified { get; set; }
+
         public Reading(int rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String style)
         {
             readingId = rId;
@@ -45,9 +47,10 @@ namespace Quotidian.HelperObjects
             dateYear = year;
             publisherName = publisher;
             linesPerPage = LPP;
-            //style = DatabaseInterface.getProject(pId);
-			
-			highlights = new List<Highlight>();
+            style = "MLA";
+            modified = false;
+
+            highlights = new List<Highlight>();		
             readingTags = new List<ReadingTag>();
             editors = new List<String>();
         }

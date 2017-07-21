@@ -13,6 +13,7 @@ namespace Quotidian.HelperObjects
         public Boolean isQuote { get; set; }
         public int charNum { get; set; }
         public int charCount { get; set; }
+        public bool modified { get; set; }
 
         public List<HighlightTag> highlightTags;
 
@@ -23,6 +24,7 @@ namespace Quotidian.HelperObjects
             isQuote = isQ;
             charNum = cNum;
             charCount = cCount;
+            modified = false;
 
             highlightTags = new List<HighlightTag>();
         }

@@ -95,6 +95,7 @@
             this.readingDoc.Location = new System.Drawing.Point(360, 16);
             this.readingDoc.Margin = new System.Windows.Forms.Padding(4);
             this.readingDoc.Name = "readingDoc";
+            this.readingDoc.ReadOnly = true;
             this.readingDoc.Size = new System.Drawing.Size(1248, 861);
             this.readingDoc.TabIndex = 5;
             this.readingDoc.Text = "";

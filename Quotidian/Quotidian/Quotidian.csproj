@@ -52,10 +52,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ComponentFactory.Krypton.Design">
-      <HintPath>..\..\..\Krypton\Bin\ComponentFactory.Krypton.Design.dll</HintPath>
+      <HintPath>..\..\..\Krypton UI\Krypton\Bin\ComponentFactory.Krypton.Design.dll</HintPath>
     </Reference>
     <Reference Include="ComponentFactory.Krypton.Toolkit">
-      <HintPath>..\..\..\Krypton\Bin\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+      <HintPath>..\..\..\Krypton UI\Krypton\Bin\ComponentFactory.Krypton.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -77,9 +77,17 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewSearchResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewSearchResult.Designer.cs">
+      <DependentUpon>ViewSearchResult.cs</DependentUpon>
+    </Compile>
     <Compile Include="HelperObjects\Author.cs" />
+    <Compile Include="HelperObjects\Tag.cs" />
+    <Compile Include="HelperObjects\TagLink.cs" />
     <Compile Include="HelperObjects\WeightedGraph.cs" />
-    <Compile Include="StringSearchTest.cs" />
+    <Compile Include="StringSearch.cs" />
     <Compile Include="DatabaseInterface.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -146,6 +154,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewSearchResult.resx">
+      <DependentUpon>ViewSearchResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectSummary.resx">
       <DependentUpon>ProjectSummary.cs</DependentUpon>

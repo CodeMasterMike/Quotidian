@@ -53,7 +53,8 @@ namespace Quotidian
         public void initializeWritingsListBox()
         {
             writingsList.DataSource = writings;
-            writingsList.DisplayMember = "ProjectId";
+            writingsList.DisplayMember = "text";
+            selectedWriting = (Writing)writingsList.SelectedItem;
         }
 
 
@@ -85,12 +86,12 @@ namespace Quotidian
 
         private void readingsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedWriting = (Writing)((ListBox)sender).SelectedItem;
+            selectedReading = (Reading)((ListBox)sender).SelectedItem;
         }
 
         private void writingsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            selectedReading = (Reading)((ListBox)sender).SelectedItem;
+            selectedWriting = (Writing)((ListBox)sender).SelectedItem;
         }
 
         private void newReadingBtn_Click(object sender, EventArgs e)
@@ -115,6 +116,7 @@ namespace Quotidian
             }
             else
             {
+                selectedReading = (Reading)readingsList.SelectedItem;
                 var nextPage = new ReadingPage(currentProject, selectedReading);
                 this.Hide();
                 nextPage.Show();
@@ -125,7 +127,9 @@ namespace Quotidian
         {
             if (isNew == true)
             {
-                var nextPage = new WritingPage(currentProject, new Writing());
+                Writing newWriting = new Writing(-1, currentProject.projectId, "Type here!");
+                currentProject.writings.Add(newWriting);
+                var nextPage = new WritingPage(currentProject, newWriting);
                 this.Hide();
                 nextPage.Show();
             }
