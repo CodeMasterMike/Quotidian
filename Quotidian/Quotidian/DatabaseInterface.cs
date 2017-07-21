@@ -54,6 +54,8 @@ namespace Quotidian
         //call this function whenever saving a modified project file, saves everything within
         public static Boolean updateProject(Project project)
         {
+            int updatedReadings = 0;
+            int updatedWritings = 0;
             foreach(Reading r in project.readings)
             {
                 if(r.readingId <= 0) //if true, reading is new
@@ -64,6 +66,7 @@ namespace Quotidian
                 else if(r.modified)
                 {
                     updateReading(r.readingId, r.title, r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, "", r.yearPublished);
+                    updatedReadings++;
                 }
                 //Authors
                 deleteAuthors(r.readingId);
@@ -108,7 +111,26 @@ namespace Quotidian
                 else if (w.modified)
                 {
                     updateWriting(w);
+                    updatedWritings++;
                 }
+            }
+            String message = "";
+            if (updatedReadings == 0 && updatedWritings != 0)
+            {
+                message = updatedWritings + " Writings Updated.";
+            }
+            else if (updatedWritings == 0 && updatedReadings != 0)
+            {
+                message = updatedReadings + " Readings Updated.";
+            }
+            else if (updatedWritings != 0 && updatedReadings != 0)
+            {
+                message = updatedReadings + " Readings Updated and " + updatedWritings + " Writings Updated.";
+            }
+            if (updatedWritings != 0 || updatedReadings != 0)
+            {
+                PopupForm popup = new PopupForm(message);
+                popup.Show();
             }
             return true;
         }

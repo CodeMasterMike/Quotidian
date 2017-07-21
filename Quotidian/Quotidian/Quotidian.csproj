@@ -82,7 +82,13 @@
     </Compile>
     <Compile Include="BibliographyPage.Designer.cs">
       <DependentUpon>BibliographyPage.cs</DependentUpon>
-	  </Compile>
+    </Compile>
+    <Compile Include="PopupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PopupForm.Designer.cs">
+      <DependentUpon>PopupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewSearchResult.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,7 +169,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BibliographyPage.resx">
       <DependentUpon>BibliographyPage.cs</DependentUpon>
-	  </EmbeddedResource>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PopupForm.resx">
+      <DependentUpon>PopupForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewSearchResult.resx">
       <DependentUpon>ViewSearchResult.cs</DependentUpon>
     </EmbeddedResource>

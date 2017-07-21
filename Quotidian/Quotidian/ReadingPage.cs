@@ -167,6 +167,13 @@ namespace Quotidian
             OpenProject openProject = new OpenProject();
         }
 
+        public override void viewProjectSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProjectSummary projectSummary = new ProjectSummary(project, this);
+        }
+
+
         public void selectReadingTagsListBox()
         {
             tagsListBox.DataSource = reading.readingTags;
