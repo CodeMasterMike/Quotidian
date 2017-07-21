@@ -63,7 +63,7 @@ namespace Quotidian
                 }
                 else if(r.modified)
                 {
-                    updateReading(r.readingId, r.title, r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, r.city, r.yearPublished);
+                    updateReading(r.readingId, r.title, r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, "", r.yearPublished);
                 }
                 //Authors
                 deleteAuthors(r.readingId);
@@ -128,7 +128,7 @@ namespace Quotidian
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("DELETE FROM Highlights WHERE HighlightId = " + highlight.highlightId.ToString() + ";");
+                SqlCommand cmd = new SqlCommand("DELETE FROM Projects WHERE ProjectId = " + project.projectId.ToString() + ";");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 try
@@ -247,7 +247,7 @@ namespace Quotidian
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Readings (ProjectId, Text) output INSERTED.WritingId VALUES (@ProjectId, @Text)");
+                SqlCommand cmd = new SqlCommand("INSERT INTO Writings (ProjectId, Text) output INSERTED.WritingId VALUES (@ProjectId, @Text)");
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = con;
                 cmd.Parameters.AddWithValue("@ProjectId", projectId);
@@ -638,6 +638,8 @@ namespace Quotidian
                     }
                 }
 
+                project.writings = getWritings(project.projectId, con, true);
+
                 con.Close();
             }
             //now load writings
@@ -764,7 +766,7 @@ namespace Quotidian
                 {
                     String text = (String)reader["Text"];
                     // Writing writing = new Writing(writingId, null, projectId, title, "", "", author, text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
-                    Writing writing = new Writing();
+                    Writing writing = new Writing(writingId,projectId,text);
                     writings.Add(writing);
                 }
             }

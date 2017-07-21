@@ -68,6 +68,7 @@ namespace Quotidian
         {
             ReadingInfo info = new Quotidian.ReadingInfo(project, reading, false);
             info.Show();
+            this.Hide();
         }
 
         public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -116,6 +117,7 @@ namespace Quotidian
                     tagsListBox.DataSource = highlight.highlightTags;
                     tagsListBox.DisplayMember = "tag";
                     tagsListBox.ValueMember = "tagId";
+                    tagsListBox.Refresh();
                     found = true;
                     tagListLabel.Text = "Highlight Tags:";
                     break;
@@ -170,6 +172,7 @@ namespace Quotidian
             tagsListBox.DataSource = reading.readingTags;
             tagsListBox.DisplayMember = "tag";
             tagsListBox.ValueMember = "tagId";
+            tagsListBox.Refresh();
             tagListLabel.Text = "Reading Tags:";
             selectedHighlight = null;
         }

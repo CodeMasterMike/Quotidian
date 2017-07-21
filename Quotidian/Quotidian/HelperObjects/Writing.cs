@@ -15,7 +15,7 @@ namespace Quotidian.HelperObjects
 
         public Writing(int id, int pId, String txt)
         {
-            writingId = writingId;
+            writingId = id;
             projectId = pId;
             text = txt;
         }

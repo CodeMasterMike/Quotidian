@@ -30,18 +30,23 @@
         {
             this.writingDoc = new System.Windows.Forms.RichTextBox();
             this.searchBox = new System.Windows.Forms.RichTextBox();
-            this.searchBtn = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textSearchResultsListBox = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.ViewResultButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.generateBibliography = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.viewFoundResultButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.kryptonPanel3 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.searchBtn = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
+            this.textSearchResultsListBox = new ComponentFactory.Krypton.Toolkit.KryptonListBox();
+            this.viewSelectedSearchResultButton = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel3)).BeginInit();
+            this.kryptonPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).BeginInit();
+            this.kryptonSplitContainer1.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).BeginInit();
+            this.kryptonSplitContainer1.Panel2.SuspendLayout();
+            this.kryptonSplitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // writingDoc
@@ -49,152 +54,156 @@
             this.writingDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.writingDoc.Location = new System.Drawing.Point(488, 30);
-            this.writingDoc.Margin = new System.Windows.Forms.Padding(2);
+            this.writingDoc.Location = new System.Drawing.Point(523, 16);
+            this.writingDoc.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.writingDoc.Name = "writingDoc";
-            this.writingDoc.Size = new System.Drawing.Size(479, 542);
+            this.writingDoc.Size = new System.Drawing.Size(489, 609);
             this.writingDoc.TabIndex = 6;
             this.writingDoc.Text = "";
             this.writingDoc.TextChanged += new System.EventHandler(this.writingDoc_TextChanged);
             // 
             // searchBox
             // 
-            this.searchBox.Location = new System.Drawing.Point(22, 38);
-            this.searchBox.Margin = new System.Windows.Forms.Padding(2);
+            this.searchBox.Location = new System.Drawing.Point(8, 16);
+            this.searchBox.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(295, 36);
+            this.searchBox.Size = new System.Drawing.Size(270, 36);
             this.searchBox.TabIndex = 7;
             this.searchBox.Text = "";
             // 
-            // searchBtn
-            // 
-            this.searchBtn.Location = new System.Drawing.Point(334, 38);
-            this.searchBtn.Margin = new System.Windows.Forms.Padding(2);
-            this.searchBtn.Name = "searchBtn";
-            this.searchBtn.Size = new System.Drawing.Size(78, 34);
-            this.searchBtn.TabIndex = 8;
-            this.searchBtn.Text = "Search";
-            this.searchBtn.UseVisualStyleBackColor = true;
-            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.textSearchResultsListBox);
-            this.panel1.Location = new System.Drawing.Point(22, 125);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(390, 182);
-            this.panel1.TabIndex = 9;
-            // 
-            // textSearchResultsListBox
-            // 
-            this.textSearchResultsListBox.Location = new System.Drawing.Point(4, 3);
-            this.textSearchResultsListBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textSearchResultsListBox.Name = "textSearchResultsListBox";
-            this.textSearchResultsListBox.Size = new System.Drawing.Size(340, 140);
-            this.textSearchResultsListBox.TabIndex = 0;
-            this.textSearchResultsListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.searchResultSelected);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.richTextBox2);
-            this.panel2.Location = new System.Drawing.Point(22, 389);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(390, 182);
-            this.panel2.TabIndex = 10;
-            // 
             // richTextBox2
             // 
-            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox2.Location = new System.Drawing.Point(0, 11);
-            this.richTextBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.richTextBox2.Location = new System.Drawing.Point(8, 61);
+            this.richTextBox2.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(386, 162);
+            this.richTextBox2.Size = new System.Drawing.Size(486, 165);
             this.richTextBox2.TabIndex = 12;
             this.richTextBox2.Text = "";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 100);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 17);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "Search Results";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 291);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(151, 17);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Suggested Documents";
-            // 
-            // ViewResultButton
-            // 
-            this.ViewResultButton.Location = new System.Drawing.Point(233, 91);
-            this.ViewResultButton.Name = "ViewResultButton";
-            this.ViewResultButton.Size = new System.Drawing.Size(175, 25);
-            this.ViewResultButton.TabIndex = 13;
-            this.ViewResultButton.Values.Text = "View Selected Reading\r\n";
-            this.ViewResultButton.Click += new System.EventHandler(this.searchResultSelected);
-            // 
             // generateBibliography
             // 
-            this.generateBibliography.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.generateBibliography.Location = new System.Drawing.Point(201, 330);
-            this.generateBibliography.Margin = new System.Windows.Forms.Padding(2);
+            this.generateBibliography.Location = new System.Drawing.Point(147, 276);
+            this.generateBibliography.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.generateBibliography.Name = "generateBibliography";
-            this.generateBibliography.Size = new System.Drawing.Size(176, 40);
+            this.generateBibliography.Size = new System.Drawing.Size(209, 35);
             this.generateBibliography.TabIndex = 13;
             this.generateBibliography.Values.Text = "Generate Bibliography";
             this.generateBibliography.Click += new System.EventHandler(this.generateBibliography_Click);
             // 
-            // viewFoundResultButton
+            // kryptonPanel3
             // 
-            this.viewFoundResultButton.Location = new System.Drawing.Point(297, 79);
-            this.viewFoundResultButton.Name = "viewFoundResultButton";
-            this.viewFoundResultButton.Size = new System.Drawing.Size(114, 37);
-            this.viewFoundResultButton.TabIndex = 14;
-            this.viewFoundResultButton.Values.Text = "View Selected";
-            this.viewFoundResultButton.Click += new System.EventHandler(this.viewFoundResultButton_Click);
+            this.kryptonPanel3.Controls.Add(this.writingDoc);
+            this.kryptonPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonPanel3.Location = new System.Drawing.Point(0, 28);
+            this.kryptonPanel3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.kryptonPanel3.Name = "kryptonPanel3";
+            this.kryptonPanel3.Size = new System.Drawing.Size(1027, 641);
+            this.kryptonPanel3.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.kryptonPanel3.StateCommon.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.kryptonPanel3.TabIndex = 16;
+            // 
+            // searchBtn
+            // 
+            this.searchBtn.Location = new System.Drawing.Point(305, 17);
+            this.searchBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchBtn.Name = "searchBtn";
+            this.searchBtn.Size = new System.Drawing.Size(189, 35);
+            this.searchBtn.TabIndex = 17;
+            this.searchBtn.Values.Text = "Search";
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(8, 99);
+            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(109, 24);
+            this.kryptonLabel1.TabIndex = 18;
+            this.kryptonLabel1.Values.Text = "Search Results";
+            // 
+            // kryptonLabel2
+            // 
+            this.kryptonLabel2.Location = new System.Drawing.Point(8, 34);
+            this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.kryptonLabel2.Name = "kryptonLabel2";
+            this.kryptonLabel2.Size = new System.Drawing.Size(166, 24);
+            this.kryptonLabel2.TabIndex = 19;
+            this.kryptonLabel2.Values.Text = "Suggested Documents";
+            // 
+            // kryptonSplitContainer1
+            // 
+            this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 28);
+            this.kryptonSplitContainer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.kryptonSplitContainer1.Name = "kryptonSplitContainer1";
+            this.kryptonSplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // kryptonSplitContainer1.Panel1
+            // 
+            this.kryptonSplitContainer1.Panel1.Controls.Add(this.viewSelectedSearchResultButton);
+            this.kryptonSplitContainer1.Panel1.Controls.Add(this.textSearchResultsListBox);
+            this.kryptonSplitContainer1.Panel1.Controls.Add(this.searchBox);
+            this.kryptonSplitContainer1.Panel1.Controls.Add(this.kryptonLabel1);
+            this.kryptonSplitContainer1.Panel1.Controls.Add(this.searchBtn);
+            this.kryptonSplitContainer1.Panel1.StateCommon.Color1 = System.Drawing.Color.LightSteelBlue;
+            this.kryptonSplitContainer1.Panel1.StateCommon.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            // 
+            // kryptonSplitContainer1.Panel2
+            // 
+            this.kryptonSplitContainer1.Panel2.Controls.Add(this.richTextBox2);
+            this.kryptonSplitContainer1.Panel2.Controls.Add(this.kryptonLabel2);
+            this.kryptonSplitContainer1.Panel2.Controls.Add(this.generateBibliography);
+            this.kryptonSplitContainer1.Panel2.StateCommon.Color1 = System.Drawing.Color.LightSteelBlue;
+            this.kryptonSplitContainer1.Panel2.StateCommon.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.kryptonSplitContainer1.Size = new System.Drawing.Size(507, 641);
+            this.kryptonSplitContainer1.SplitterDistance = 342;
+            this.kryptonSplitContainer1.StateCommon.Back.Color1 = System.Drawing.Color.LightSteelBlue;
+            this.kryptonSplitContainer1.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.kryptonSplitContainer1.TabIndex = 20;
+            // 
+            // textSearchResultsListBox
+            // 
+            this.textSearchResultsListBox.Location = new System.Drawing.Point(12, 128);
+            this.textSearchResultsListBox.Name = "textSearchResultsListBox";
+            this.textSearchResultsListBox.Size = new System.Drawing.Size(482, 200);
+            this.textSearchResultsListBox.TabIndex = 19;
+            // 
+            // viewSelectedSearchResultButton
+            // 
+            this.viewSelectedSearchResultButton.Location = new System.Drawing.Point(305, 88);
+            this.viewSelectedSearchResultButton.Name = "viewSelectedSearchResultButton";
+            this.viewSelectedSearchResultButton.Size = new System.Drawing.Size(189, 34);
+            this.viewSelectedSearchResultButton.TabIndex = 20;
+            this.viewSelectedSearchResultButton.Values.Text = "View Selected Result";
+            this.viewSelectedSearchResultButton.Click += new System.EventHandler(this.searchResultSelected);
             // 
             // WritingPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1027, 598);
-            this.Controls.Add(this.viewFoundResultButton);
-            this.Controls.Add(this.generateBibliography);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.searchBtn);
-            this.Controls.Add(this.searchBox);
-            this.Controls.Add(this.writingDoc);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.ClientSize = new System.Drawing.Size(1027, 669);
+            this.Controls.Add(this.kryptonSplitContainer1);
+            this.Controls.Add(this.kryptonPanel3);
+            this.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.Name = "WritingPage";
-            this.Text = "Form2";
+            this.StateCommon.Back.Color1 = System.Drawing.SystemColors.GradientActiveCaption;
+            this.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.Text = "Writing Page";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Controls.SetChildIndex(this.writingDoc, 0);
-            this.Controls.SetChildIndex(this.searchBox, 0);
-            this.Controls.SetChildIndex(this.searchBtn, 0);
-            this.Controls.SetChildIndex(this.panel1, 0);
-            this.Controls.SetChildIndex(this.panel2, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.generateBibliography, 0);
-            this.Controls.SetChildIndex(this.viewFoundResultButton, 0);
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.Controls.SetChildIndex(this.kryptonPanel3, 0);
+            this.Controls.SetChildIndex(this.kryptonSplitContainer1, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel3)).EndInit();
+            this.kryptonPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel1)).EndInit();
+            this.kryptonSplitContainer1.Panel1.ResumeLayout(false);
+            this.kryptonSplitContainer1.Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).EndInit();
+            this.kryptonSplitContainer1.Panel2.ResumeLayout(false);
+            this.kryptonSplitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
+            this.kryptonSplitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,15 +213,14 @@
 
         private System.Windows.Forms.RichTextBox writingDoc;
         private System.Windows.Forms.RichTextBox searchBox;
-        private System.Windows.Forms.Button searchBtn;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private ComponentFactory.Krypton.Toolkit.KryptonListBox textSearchResultsListBox;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton ViewResultButton;
         private ComponentFactory.Krypton.Toolkit.KryptonButton generateBibliography;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton viewFoundResultButton;
+        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel3;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton searchBtn;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
+        private ComponentFactory.Krypton.Toolkit.KryptonListBox textSearchResultsListBox;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton viewSelectedSearchResultButton;
     }
 }

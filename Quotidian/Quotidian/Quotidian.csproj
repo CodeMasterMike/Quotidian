@@ -164,6 +164,9 @@
     <EmbeddedResource Include="ReadingPage.resx">
       <DependentUpon>ReadingPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubBaseForm.resx">
+      <DependentUpon>SubBaseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WritingPage.resx">
       <DependentUpon>WritingPage.cs</DependentUpon>
     </EmbeddedResource>
