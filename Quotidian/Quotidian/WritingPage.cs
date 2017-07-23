@@ -71,6 +71,12 @@ namespace Quotidian
             DatabaseInterface.updateProject(project);
         }
 
+        public override void viewProjectSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ProjectSummary projectSummary = new ProjectSummary(project, this);
+        }
+
         private void writingDoc_TextChanged(object sender, EventArgs e)
         {
             writing.modified = true;

@@ -38,6 +38,7 @@ namespace Quotidian
             this.openReadingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewProjectSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@ namespace Quotidian
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
-            this.menuStrip1.Size = new System.Drawing.Size(1556, 42);
+            this.menuStrip1.Size = new System.Drawing.Size(1556, 44);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -63,7 +64,8 @@ namespace Quotidian
             this.openProjectToolStripMenuItem,
             this.saveProjectToolStripMenuItem,
             this.newReadingToolStripMenuItem,
-            this.openReadingToolStripMenuItem});
+            this.openReadingToolStripMenuItem,
+            this.viewProjectSummaryToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(64, 38);
             this.fileToolStripMenuItem.Text = "File";
@@ -71,28 +73,28 @@ namespace Quotidian
             // openProjectToolStripMenuItem
             // 
             this.openProjectToolStripMenuItem.Name = "openProjectToolStripMenuItem";
-            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(311, 38);
+            this.openProjectToolStripMenuItem.Size = new System.Drawing.Size(354, 38);
             this.openProjectToolStripMenuItem.Text = "New/Open Project";
             this.openProjectToolStripMenuItem.Click += new System.EventHandler(this.openProjectToolStripMenuItem_Click);
             // 
             // saveProjectToolStripMenuItem
             // 
             this.saveProjectToolStripMenuItem.Name = "saveProjectToolStripMenuItem";
-            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(311, 38);
+            this.saveProjectToolStripMenuItem.Size = new System.Drawing.Size(354, 38);
             this.saveProjectToolStripMenuItem.Text = "Save Project";
             this.saveProjectToolStripMenuItem.Click += new System.EventHandler(this.saveProjectToolStripMenuItem_Click);
             // 
             // newReadingToolStripMenuItem
             // 
             this.newReadingToolStripMenuItem.Name = "newReadingToolStripMenuItem";
-            this.newReadingToolStripMenuItem.Size = new System.Drawing.Size(311, 38);
+            this.newReadingToolStripMenuItem.Size = new System.Drawing.Size(354, 38);
             this.newReadingToolStripMenuItem.Text = "New Reading";
             this.newReadingToolStripMenuItem.Click += new System.EventHandler(this.newReadingToolStripMenuItem_Click);
             // 
             // openReadingToolStripMenuItem
             // 
             this.openReadingToolStripMenuItem.Name = "openReadingToolStripMenuItem";
-            this.openReadingToolStripMenuItem.Size = new System.Drawing.Size(311, 38);
+            this.openReadingToolStripMenuItem.Size = new System.Drawing.Size(354, 38);
             this.openReadingToolStripMenuItem.Text = "Open Reading";
             this.openReadingToolStripMenuItem.Click += new System.EventHandler(this.openReadingToolStripMenuItem_Click);
             // 
@@ -110,6 +112,13 @@ namespace Quotidian
             this.addDetailsToolStripMenuItem.Size = new System.Drawing.Size(234, 38);
             this.addDetailsToolStripMenuItem.Text = "Edit Details";
             this.addDetailsToolStripMenuItem.Click += new System.EventHandler(this.addDetailsToolStripMenuItem_Click);
+            // 
+            // viewProjectSummaryToolStripMenuItem
+            // 
+            this.viewProjectSummaryToolStripMenuItem.Name = "viewProjectSummaryToolStripMenuItem";
+            this.viewProjectSummaryToolStripMenuItem.Size = new System.Drawing.Size(354, 38);
+            this.viewProjectSummaryToolStripMenuItem.Text = "View Project Summary";
+            this.viewProjectSummaryToolStripMenuItem.Click += new System.EventHandler(this.viewProjectSummaryToolStripMenuItem_Click);
             // 
             // BaseForm
             // 
@@ -141,5 +150,6 @@ namespace Quotidian
         private System.Windows.Forms.ToolStripMenuItem openReadingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addDetailsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewProjectSummaryToolStripMenuItem;
     }
 }
