@@ -201,12 +201,14 @@ namespace Quotidian
             {
                 reading.readingTags.Add(new ReadingTag(-1, reading.readingId, newTagTextBox.Text));
                 newTagTextBox.Text = "";
+                tagsListBox.Refresh();
                 readingTextBox_Click(null, null);
             }
             else
             {
                 selectedHighlight.highlightTags.Add(new HighlightTag(-1, selectedHighlight.highlightId, newTagTextBox.Text, reading.readingId));
                 newTagTextBox.Text = "";
+                tagsListBox.Refresh();
                 readingTextBox_Click(null, null);
             }
             reading.modified = true;
