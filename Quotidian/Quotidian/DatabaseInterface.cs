@@ -669,14 +669,17 @@ namespace Quotidian
             return project;
         }
 
-        public static List<Reading> getReadings(int projectId_input, SqlConnection con, Boolean conOpen)
+        public static List<Reading> getReadings(int projectId_input, SqlConnection con, Boolean conOpen, int? rId = null)
         {
             List<Reading> readings = new List<Reading>();
             //first load readings
             String projectIdStr = projectId_input.ToString();
-            SqlCommand read = new SqlCommand("SELECT * " +
+            String sqlStr = "SELECT * " +
                 "FROM Readings " +
-                "WHERE Readings.ProjectId = " + projectId_input.ToString());
+                "WHERE Readings.ProjectId = " + projectId_input.ToString();
+            if (rId != null)
+                sqlStr += " AND Readings.ReadingId = " + rId.ToString();
+            SqlCommand read = new SqlCommand(sqlStr);
             read.CommandType = CommandType.Text;
             read.Connection = con;
 
@@ -830,7 +833,10 @@ namespace Quotidian
                 if(tagId > 0)
                 {
                     String tagText = (String)reader["Tag"];
-                    readingTags.Add(new ReadingTag((int)tagId, (int)readingId, tagText));
+                    if(readingId != null)
+                        readingTags.Add(new ReadingTag((int)tagId, (int)readingId, tagText));
+                    else
+                        readingTags.Add(new ReadingTag((int)tagId, -1, tagText));
                 }
             }
 
@@ -890,14 +896,14 @@ namespace Quotidian
             return highlightTags;
         }
 
-        public static void getTags(int projectId)
+        public static List<ReadingTag> getTags(int projectId)
         {
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 List<ReadingTag> readingTags = getReadingTags(null, con, false, projectId);
                 List<HighlightTag> highlightTags = getHighlightTags(null, con, false, projectId);
 
-
+                return readingTags;
             }
         }
 

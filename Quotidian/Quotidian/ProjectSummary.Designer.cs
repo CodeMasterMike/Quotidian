@@ -37,62 +37,60 @@
             this.citeStyleType = new System.Windows.Forms.ComboBox();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.localDatabaseDataSet1 = new Quotidian.LocalDatabaseDataSet();
+            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
             // openReadingBtn
             // 
-            this.openReadingBtn.Location = new System.Drawing.Point(11, 982);
-            this.openReadingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.openReadingBtn.Location = new System.Drawing.Point(8, 786);
+            this.openReadingBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openReadingBtn.Name = "openReadingBtn";
-            this.openReadingBtn.Size = new System.Drawing.Size(248, 99);
+            this.openReadingBtn.Size = new System.Drawing.Size(186, 79);
             this.openReadingBtn.TabIndex = 19;
             this.openReadingBtn.Values.Text = "Open Reading";
             this.openReadingBtn.Click += new System.EventHandler(this.openReadingBtn_Click);
             // 
             // newReadingBtn
             // 
-            this.newReadingBtn.Location = new System.Drawing.Point(317, 982);
-            this.newReadingBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.newReadingBtn.Location = new System.Drawing.Point(238, 786);
             this.newReadingBtn.Name = "newReadingBtn";
-            this.newReadingBtn.Size = new System.Drawing.Size(248, 99);
+            this.newReadingBtn.Size = new System.Drawing.Size(186, 79);
             this.newReadingBtn.TabIndex = 20;
             this.newReadingBtn.Values.Text = "New Reading";
             this.newReadingBtn.Click += new System.EventHandler(this.newReadingBtn_Click);
             // 
             // openWritingBtn
             // 
-            this.openWritingBtn.Location = new System.Drawing.Point(714, 982);
-            this.openWritingBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.openWritingBtn.Location = new System.Drawing.Point(536, 786);
+            this.openWritingBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.openWritingBtn.Name = "openWritingBtn";
-            this.openWritingBtn.Size = new System.Drawing.Size(248, 99);
+            this.openWritingBtn.Size = new System.Drawing.Size(186, 79);
             this.openWritingBtn.TabIndex = 21;
             this.openWritingBtn.Values.Text = "Open Writing";
             this.openWritingBtn.Click += new System.EventHandler(this.openWritingBtn_Click);
             // 
             // newWritingBtn
             // 
-            this.newWritingBtn.Location = new System.Drawing.Point(1019, 982);
-            this.newWritingBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.newWritingBtn.Location = new System.Drawing.Point(764, 786);
             this.newWritingBtn.Name = "newWritingBtn";
-            this.newWritingBtn.Size = new System.Drawing.Size(248, 99);
+            this.newWritingBtn.Size = new System.Drawing.Size(186, 79);
             this.newWritingBtn.TabIndex = 22;
             this.newWritingBtn.Values.Text = "New Writing";
             this.newWritingBtn.Click += new System.EventHandler(this.newWritingBtn_Click);
             // 
             // readingsList
             // 
-            this.readingsList.Location = new System.Drawing.Point(13, 114);
-            this.readingsList.Margin = new System.Windows.Forms.Padding(4);
+            this.readingsList.Location = new System.Drawing.Point(10, 91);
             this.readingsList.Name = "readingsList";
-            this.readingsList.Size = new System.Drawing.Size(552, 849);
+            this.readingsList.Size = new System.Drawing.Size(414, 679);
             this.readingsList.TabIndex = 23;
             // 
             // writingsList
             // 
-            this.writingsList.Location = new System.Drawing.Point(715, 114);
-            this.writingsList.Margin = new System.Windows.Forms.Padding(4);
+            this.writingsList.Location = new System.Drawing.Point(536, 91);
             this.writingsList.Name = "writingsList";
-            this.writingsList.Size = new System.Drawing.Size(552, 849);
+            this.writingsList.Size = new System.Drawing.Size(414, 679);
             this.writingsList.TabIndex = 24;
             // 
             // citeStyleType
@@ -101,36 +99,42 @@
             this.citeStyleType.Items.AddRange(new object[] {
             "MLA",
             "Chicago"});
-            this.citeStyleType.Location = new System.Drawing.Point(553, 1119);
-            this.citeStyleType.Margin = new System.Windows.Forms.Padding(4);
+            this.citeStyleType.Location = new System.Drawing.Point(415, 895);
             this.citeStyleType.Name = "citeStyleType";
-            this.citeStyleType.Size = new System.Drawing.Size(175, 33);
+            this.citeStyleType.Size = new System.Drawing.Size(132, 28);
             this.citeStyleType.TabIndex = 25;
             this.citeStyleType.Text = "Citation Style";
             this.citeStyleType.SelectedIndexChanged += new System.EventHandler(this.citeStyleType_SelectedIndexChanged);
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(13, 70);
+            this.kryptonLabel1.Location = new System.Drawing.Point(10, 56);
+            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(114, 37);
+            this.kryptonLabel1.Size = new System.Drawing.Size(87, 29);
             this.kryptonLabel1.TabIndex = 26;
             this.kryptonLabel1.Values.Text = "Readings";
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(715, 70);
+            this.kryptonLabel2.Location = new System.Drawing.Point(536, 56);
+            this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(106, 37);
+            this.kryptonLabel2.Size = new System.Drawing.Size(81, 29);
             this.kryptonLabel2.TabIndex = 27;
             this.kryptonLabel2.Values.Text = "Writings";
             // 
+            // localDatabaseDataSet1
+            // 
+            this.localDatabaseDataSet1.DataSetName = "LocalDatabaseDataSet";
+            this.localDatabaseDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // ProjectSummary
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1280, 1190);
+            this.ClientSize = new System.Drawing.Size(960, 952);
             this.Controls.Add(this.kryptonLabel2);
             this.Controls.Add(this.kryptonLabel1);
             this.Controls.Add(this.citeStyleType);
@@ -140,10 +144,11 @@
             this.Controls.Add(this.openWritingBtn);
             this.Controls.Add(this.newReadingBtn);
             this.Controls.Add(this.openReadingBtn);
-            this.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.Name = "ProjectSummary";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StateCommon.Back.Color1 = System.Drawing.SystemColors.GradientActiveCaption;
             this.Text = "Project Summary";
             this.Controls.SetChildIndex(this.openReadingBtn, 0);
             this.Controls.SetChildIndex(this.newReadingBtn, 0);
@@ -154,6 +159,7 @@
             this.Controls.SetChildIndex(this.citeStyleType, 0);
             this.Controls.SetChildIndex(this.kryptonLabel1, 0);
             this.Controls.SetChildIndex(this.kryptonLabel2, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.localDatabaseDataSet1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,5 +175,6 @@
         private System.Windows.Forms.ComboBox citeStyleType;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private LocalDatabaseDataSet localDatabaseDataSet1;
     }
 }
