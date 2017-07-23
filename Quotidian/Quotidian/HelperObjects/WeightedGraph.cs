@@ -32,7 +32,7 @@ namespace Quotidian.HelperObjects
         {
             //Start with new queue. We start with new one each time because sortedNeighbors will just be transformed to queue and that persists across function calls
             Queue<WeightedEdge<T>> queue = new Queue<WeightedEdge<T>>();
-            Console.WriteLine("At Node: " + start.Value);
+            //Console.WriteLine("At Node: " + start.Value);
             //need visited node list
             //start at start list
             //add neighbors to queue of nodes to visit next based on their weight
@@ -54,7 +54,7 @@ namespace Quotidian.HelperObjects
             sortedNeighbors.Sort(); //default sort is based on link
 
             //print out sortedNeighbors for debug purposes
-            Console.WriteLine("sortedNeighbors length:" + sortedNeighbors.Count());
+            //Console.WriteLine("sortedNeighbors length:" + sortedNeighbors.Count());
             foreach (WeightedEdge<T> e in sortedNeighbors)
             {
                 Console.WriteLine(e.ToString());
@@ -237,25 +237,27 @@ namespace Quotidian.HelperObjects
     {
         public List<Vertex<T>> neighbors;
         public List<WeightedEdge<T>> edges;
-        T value;
+        ReadingTag value;
 
         public List<Vertex<T>> Neighbors { get { return neighbors; } }
         public List<WeightedEdge<T>> Edges { get { return edges; } }
         //public Location Location { get; set; }
-        public T Value { get { return value; } set { this.value = value; } }
+        public ReadingTag Value { get { return value; } set { this.value = value; } }
         public bool IsVisited { get; set; }
         public int NeighborsCount { get { return neighbors.Count; } }
         public double Cost { get; set; }
+        public int tagId { get; set; }
 
-        public Vertex(T value)
+        public Vertex(ReadingTag value)
         {
             this.value = value;
+            this.tagId = value.tagId;
             IsVisited = false;
             neighbors = new List<Vertex<T>>();
             edges = new List<WeightedEdge<T>>();
         }
 
-        public Vertex(T value, List<Vertex<T>> neighbors)
+        public Vertex(ReadingTag value, List<Vertex<T>> neighbors)
         {
             this.value = value;
             IsVisited = false;
