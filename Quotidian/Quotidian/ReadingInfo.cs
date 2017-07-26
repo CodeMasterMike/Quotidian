@@ -46,7 +46,7 @@ namespace Quotidian
             dateBox.Text = r.getDateString();
             foreach(Author a in r.authors)
             {
-                authorList1.Items.Add(new ListViewItem(a.first + " " + a.middle + " " + a.last));
+                authorList1.Items.Add(new KryptonListItem(a.first + " " + a.middle + " " + a.last));
             }
         }
 

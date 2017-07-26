@@ -42,5 +42,10 @@ namespace Quotidian
         {
             throw new NotImplementedException();
         }
+
+        public virtual void viewProjectSummaryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
