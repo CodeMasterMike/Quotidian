@@ -190,17 +190,20 @@ namespace Quotidian
 
         //private void addTagButton_Click(object sender, EventArgs e)
         //{
-            
+
         //}
 
         private void addTagButton_Click_1(object sender, EventArgs e)
         {
             if (newTagTextBox.Text.Equals(""))
                 System.Windows.Forms.MessageBox.Show("No text entered!");
+            
             else if (selectedHighlight == null)
             {
                 reading.readingTags.Add(new ReadingTag(-1, reading.readingId, newTagTextBox.Text));
                 newTagTextBox.Text = "";
+                tagsListBox.DataSource = null;
+                tagsListBox.DataSource = reading.readingTags;
                 tagsListBox.Refresh();
                 readingTextBox_Click(null, null);
             }
@@ -208,6 +211,8 @@ namespace Quotidian
             {
                 selectedHighlight.highlightTags.Add(new HighlightTag(-1, selectedHighlight.highlightId, newTagTextBox.Text, reading.readingId));
                 newTagTextBox.Text = "";
+                tagsListBox.DataSource = null;
+                tagsListBox.DataSource = selectedHighlight.highlightTags;
                 tagsListBox.Refresh();
                 readingTextBox_Click(null, null);
             }
