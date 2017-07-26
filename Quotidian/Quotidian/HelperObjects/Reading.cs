@@ -34,6 +34,7 @@ namespace Quotidian.HelperObjects
         public List<ReadingTag> readingTags { get; set; }
 
         public bool modified { get; set; }
+        public bool deleted { get; set; }
 
         public Reading(int rId, int pId, String t, List<Author> auths, String txt, String month, int day, int year, String publisher, String city, String s)
         {
@@ -49,6 +50,7 @@ namespace Quotidian.HelperObjects
             linesPerPage = LPP;
             style = s;
             modified = false;
+            deleted = false;
 
             highlights = new List<Highlight>();		
             readingTags = new List<ReadingTag>();
