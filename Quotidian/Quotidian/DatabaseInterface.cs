@@ -58,7 +58,11 @@ namespace Quotidian
             int updatedWritings = 0;
             foreach(Reading r in project.readings)
             {
-                if(r.readingId <= 0) //if true, reading is new
+                if(r.deleted)
+                {
+                    deleteReading(r);
+                }
+                else if(r.readingId <= 0) //if true, reading is new
                 {
                     Reading tempReading = createReading(r.projectId, r.title, "", r.text, "", new DateTime(r.dateYear, getMonthNum(r.dateMonth), r.dateDay), r.publisherName, r.city, r.yearPublished);
                     r.readingId = tempReading.readingId;
@@ -98,14 +102,23 @@ namespace Quotidian
                     }
                     highlight.highlightId = tempHighlight.highlightId;
                 }
-
                 r.modified = false;
             }
-            foreach(Writing w in project.writings)
+            for (int i = project.readings.Count - 1; i >= 0; i++) //loop through backwards and delete as encountered
             {
-                if (w.writingId <= 0)
+                if (project.readings.ElementAt(i).modified)
+                    project.readings.RemoveAt(i);
+            }
+
+            foreach (Writing w in project.writings)
+            {
+                if (w.deleted)
                 {
-                    Writing tempWriting = createWriting(w.projectId,w.text);
+                    deleteWriting(w);
+                }
+                else if (w.writingId <= 0)
+                {
+                    Writing tempWriting = createWriting(w.projectId, w.text);
                     w.writingId = tempWriting.writingId;
                 }
                 else if (w.modified)
@@ -113,6 +126,12 @@ namespace Quotidian
                     updateWriting(w);
                     updatedWritings++;
                 }
+                w.modified = false;
+            }
+            for(int i = project.writings.Count-1; i >= 0; i++)
+            {
+                if (project.writings.ElementAt(i).modified)
+                    project.writings.RemoveAt(i);
             }
             String message = "";
             if (updatedReadings == 0 && updatedWritings != 0)
