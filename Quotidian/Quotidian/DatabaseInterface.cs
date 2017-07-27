@@ -104,9 +104,9 @@ namespace Quotidian
                 }
                 r.modified = false;
             }
-            for (int i = project.readings.Count - 1; i >= 0; i++) //loop through backwards and delete as encountered
+            for (int i = project.readings.Count - 1; i >= 0; i--) //loop through backwards and delete as encountered
             {
-                if (project.readings.ElementAt(i).modified)
+               if (project.readings.ElementAt(i).modified)
                     project.readings.RemoveAt(i);
             }
 
