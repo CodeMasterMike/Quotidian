@@ -128,7 +128,7 @@ namespace Quotidian
                 }
                 w.modified = false;
             }
-            for(int i = project.writings.Count-1; i >= 0; i++)
+            for(int i = project.writings.Count-1; i >= 0; i--)
             {
                 if (project.writings.ElementAt(i).modified)
                     project.writings.RemoveAt(i);

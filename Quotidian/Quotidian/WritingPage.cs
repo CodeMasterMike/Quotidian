@@ -16,7 +16,7 @@ namespace Quotidian
     {
         public WritingPage(Project p, Writing w)
         {
-            InitializeComponent();
+            InitializeComponent();0
             project = p;
             writing = w;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
             writingDoc.Text = writing.text;
@@ -46,7 +46,6 @@ namespace Quotidian
                 }
             }
 
-
             textSearchResultsListBox.DataSource = resultsBoxData;
             textSearchResultsListBox.DisplayMember = "displayString";
             textSearchResultsListBox.ValueMember = "readingId";
@@ -54,8 +53,6 @@ namespace Quotidian
             highlightResults.DataSource = highlightBoxData;
             highlightResults.DisplayMember = "displayString";
             highlightResults.ValueMember = "readingId";
-
-
         }
 
         private void searchResultSelected(object sender, EventArgs e)
