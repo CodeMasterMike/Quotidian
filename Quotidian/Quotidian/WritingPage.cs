@@ -29,16 +29,33 @@ namespace Quotidian
         private void searchBtn_Click(object sender, EventArgs e)
         {
             List<int[]> searchResults = StringSearch.searchReadings(project.readings, searchBox.Text);
+            List<int[]> highlightResults1 = StringSearch.searchHighlights(project.readings, searchBox.Text);
             //project.readings list items in corresponding index to searchResults indexes
             List<SearchResult> resultsBoxData = new List<SearchResult>();
+            List<HighlightResult> highlightBoxData = new List<HighlightResult>();
+            List<String> highlightsText = StringSearch.getHighlightsText();
             for (int i = 0; i < searchResults.Count; i++)
             {
                 resultsBoxData.Add(new SearchResult(project.readings.ElementAt(i), searchResults.ElementAt(i), searchBox.Text));
+                for (int j = 0; j < highlightResults1.Count; j++)
+                {
+                    if (highlightResults1.ElementAt(j).Count() != 0 && searchResults.ElementAt(i).Count() != 0)
+                    {
+                        highlightBoxData.Add(new HighlightResult(project.readings.ElementAt(i), highlightsText.ElementAt(j), highlightResults1.ElementAt(j), searchBox.Text));
+                    }
+                }
             }
+
 
             textSearchResultsListBox.DataSource = resultsBoxData;
             textSearchResultsListBox.DisplayMember = "displayString";
             textSearchResultsListBox.ValueMember = "readingId";
+
+            highlightResults.DataSource = highlightBoxData;
+            highlightResults.DisplayMember = "displayString";
+            highlightResults.ValueMember = "readingId";
+
+
         }
 
         private void searchResultSelected(object sender, EventArgs e)
@@ -46,6 +63,17 @@ namespace Quotidian
             if (textSearchResultsListBox.SelectedItem != null)
             {
                 ViewSearchResult searchResult = new ViewSearchResult((SearchResult)textSearchResultsListBox.SelectedItem);
+            }
+            else
+                System.Windows.Forms.MessageBox.Show("Nothing Selected!");
+        }
+
+        private void insertHighlightButton_Click(object sender, EventArgs e)
+        {
+            if (highlightResults.SelectedItem != null)
+            {
+                HighlightResult result1 = highlightResults.SelectedItem as HighlightResult;
+                writingDoc.AppendText(result1.highlight);
             }
             else
                 System.Windows.Forms.MessageBox.Show("Nothing Selected!");
@@ -66,6 +94,7 @@ namespace Quotidian
             else
                 System.Windows.Forms.MessageBox.Show("Nothing Selected!");
         }
+
 
         public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -206,6 +235,28 @@ namespace Quotidian
             resultCount = rArray.Length;
             resultArray = rArray;
             displayString = reading.title + ": " + resultCount.ToString() + " results";
+            searchTerm = term;
+        }
+    }
+
+    public class HighlightResult
+    {
+        public Reading reading { get; set; }
+        public int readingId { get; set; }
+        public int resultCount { get; set; }
+        public int[] resultArray { get; set; }
+        public String displayString { get; set; }
+        public String searchTerm { get; set; }
+        public String highlight { get; set; }
+
+        public HighlightResult(Reading r, String text, int[] rArray, String term)
+        {
+            reading = r;
+            readingId = reading.readingId;
+            resultCount = rArray.Length;
+            resultArray = rArray;
+            highlight = text;
+            displayString = "'" + highlight + "'; " + reading.title; 
             searchTerm = term;
         }
     }

@@ -148,6 +148,16 @@ namespace Quotidian
             Console.WriteLine(style);
             currentProject.style = style;
         }
+
+        private void deleteReadingBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteWritingBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
  }

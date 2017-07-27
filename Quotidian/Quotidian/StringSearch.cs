@@ -14,6 +14,7 @@ namespace Quotidian
         //containsSearch was selft written
         static String str = "TestText";
         static String pat = "TestKey";
+        static List<String> highlightsText = new List<String>();
 
         public static List<int[]> searchReadings(List<Reading> readings, string pattern)
         {
@@ -26,6 +27,28 @@ namespace Quotidian
                 searchResults.Add(currReadingResults);
             }
             return searchResults;
+        }
+
+        public static List<int[]> searchHighlights(List<Reading> readings, string pattern)
+        {
+            List<int[]> searchResults2 = new List<int[]>();
+            foreach(Reading r in readings)
+            {
+                foreach(Highlight h in r.highlights)
+                {
+                    str = r.text.Substring(h.charNum, h.charCount);
+                    highlightsText.Add(str);
+                    pat = pattern;
+                    int[] currHighlightResults = BoyerMooreSearch();
+                    searchResults2.Add(currHighlightResults);
+                }
+            }
+            return searchResults2;
+        }
+
+        public static List<String> getHighlightsText()
+        {
+            return highlightsText;
         }
 
         public static double Test(int alg, String s, String p)
