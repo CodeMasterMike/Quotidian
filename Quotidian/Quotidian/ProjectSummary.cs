@@ -151,14 +151,24 @@ namespace Quotidian
 
         private void deleteReadingBtn_Click(object sender, EventArgs e)
         {
-
+            Reading toDelete = readingsList.SelectedItem as Reading;
+            toDelete.deleted  = DatabaseInterface.deleteReading(toDelete);
+            readingsList.Refresh();
         }
 
         private void deleteWritingBtn_Click(object sender, EventArgs e)
         {
+            Writing toDelete = writingsList.SelectedItem as Writing;
+            toDelete.deleted = DatabaseInterface.deleteWriting(toDelete);
+            writingsList.Refresh();
+        }
 
+        public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DatabaseInterface.updateProject(currentProject);
         }
     }
+
 
  }
 
