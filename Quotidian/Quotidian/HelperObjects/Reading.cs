@@ -67,7 +67,7 @@ namespace Quotidian.HelperObjects
             }
             else if (s.Contains("Chicago"))
             {
-                c = "Chicago style not yet implemented";
+                c = getChicagoCitation();
             }
             else
             {
@@ -123,13 +123,25 @@ namespace Quotidian.HelperObjects
                     c += e;
                 }
             }
-            if(city != null)
-            {
-                c += city + ": ";
-            }
-            c += publisherName + ", " + yearPublished + ".";
+            c += " " + publisherName + ", " + dateYear + ".";
             c += "Print.";
             return c;
+        }
+
+        public String getChicagoCitation()
+        {
+            String c = "";
+            c += getAuthors();
+            if (sectionTitle != null)
+            {
+                c += "\"" + sectionTitle + ",\" ";
+            }
+            c += "<em>" + title + "</em>, ";
+
+            c += "(" + publisherName + ", " + dateYear + ")";
+
+            return c;
+
         }
 
         //MLA styling standard is currently 
