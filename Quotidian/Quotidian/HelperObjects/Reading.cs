@@ -135,6 +135,34 @@ namespace Quotidian.HelperObjects
         //MLA styling standard is currently 
         //in line: [Author, pageNum]
         //full citation: Last, First M. "Section Title." Book/Anthology. Ed. First M. Last. City: Publisher, Year Published. Page(s). Print.
+        //this function returns a formatted string [Author, pageNum] to be appended onto quote
+        public String getMLAInline(int charNum)
+        {
+            String s;
+
+            if (authors.Count() == 1)
+            {
+                s = "[" + authors.First().last + ", " + (int)(charNum / linesPerPage + 1) + "]";
+            }
+            else if (authors.Count() > 1)
+            {
+                s = "[" + authors.First().last + " et al, " + (int)(charNum / linesPerPage + 1) + "]";
+            }
+            else
+            {
+                s = "No Authors Found.";
+            }
+            return s;
+        }
+
+        public String getChicagoInline(int charNum)
+        {
+            String s;
+
+            s = "[" + readingId + "]";
+
+            return s;
+        }
 
         public String getDateString()
         {

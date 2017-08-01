@@ -71,13 +71,15 @@ namespace Quotidian
             {
                 HighlightResult result1 = highlightResults.SelectedItem as HighlightResult;
                 String insertStr = "\"" + result1.highlight + "\"";
+                //insertStr = result1.reading.
+                //TODO: need way of getting start character num to send to these functions
                 if (project.style == "MLA")
                 {
-                    insertStr += " (" + result1.authors + "LineNum) ";
+                    //insertStr += result1.reading.getMLAInline(result1.);
                 }
                 else if (project.style == "Chicago")
                 {
-                    //TODO
+                    //insertStr += result1.reading.getChicagoInline(result1.);
                 }
                 writingDoc.AppendText(insertStr);
             }
