@@ -29,14 +29,14 @@ namespace Quotidian
         private void searchBtn_Click(object sender, EventArgs e)
         {
             List<int[]> searchResults = StringSearch.searchReadings(project.readings, searchBox.Text);
-            List<int[]> highlightResults1 = StringSearch.searchHighlights(project.readings, searchBox.Text);
             //project.readings list items in corresponding index to searchResults indexes
             List<SearchResult> resultsBoxData = new List<SearchResult>();
             List<HighlightResult> highlightBoxData = new List<HighlightResult>();
-            List<String> highlightsText = StringSearch.getHighlightsText();
             for (int i = 0; i < searchResults.Count; i++)
             {
                 resultsBoxData.Add(new SearchResult(project.readings.ElementAt(i), searchResults.ElementAt(i), searchBox.Text));
+                List<int[]> highlightResults1 = StringSearch.searchHighlights(project.readings.ElementAt(i), searchBox.Text);
+                List<String> highlightsText = StringSearch.getHighlightsText(); //works since searchHighlights() was just called which updates the current highlightsText object in StringSearch
                 for (int j = 0; j < highlightResults1.Count; j++)
                 {
                     if (highlightResults1.ElementAt(j).Count() != 0 && searchResults.ElementAt(i).Count() != 0)
@@ -102,7 +102,6 @@ namespace Quotidian
             else
                 System.Windows.Forms.MessageBox.Show("Nothing Selected!");
         }
-
 
         public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -241,6 +240,7 @@ namespace Quotidian
         public int[] resultArray { get; set; }
         public String displayString { get; set; }
         public String searchTerm { get; set; }
+        public List<HighlightResult> hResults { get; set; }
 
         public SearchResult(Reading r, int[] rArray, String term)
         {
@@ -250,12 +250,14 @@ namespace Quotidian
             resultArray = rArray;
             displayString = reading.title + ": " + resultCount.ToString() + " results";
             searchTerm = term;
+            hResults = new List<HighlightResult>();
         }
     }
 
     public class HighlightResult
     {
         public Reading reading { get; set; }
+        public Highlight selectedHighlight { get; set; }
         public int readingId { get; set; }
         public int resultCount { get; set; }
         public int[] resultArray { get; set; }
