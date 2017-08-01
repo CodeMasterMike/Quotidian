@@ -41,6 +41,7 @@ namespace Quotidian
             initializeWritingsListBox();
             citeStyleType.Text = p.style;
             currentProject.style = p.style;
+            citeStyleType.Text = p.style.Trim();
         }
 
         public void initializeReadingsListBox()
@@ -112,15 +113,20 @@ namespace Quotidian
             if (isNew == true)
             {
                 var nextPage = new ReadingInfo(currentProject, null, isNew);
-                this.Hide();
+                //this.Hide();
                 nextPage.Show();
+                this.WindowState = FormWindowState.Minimized;
             }
             else
             {
                 selectedReading = (Reading)readingsList.SelectedItem;
                 var nextPage = new ReadingPage(currentProject, selectedReading);
-                this.Hide();
+                //this.Hide();
+                //this.WindowState = FormWindowState.Minimized;
+                //nextPage.Show();
+                //nextPage.WindowState = FormWindowState.Normal;
                 nextPage.Show();
+                this.WindowState = FormWindowState.Minimized;
             }
         }
 
@@ -131,14 +137,16 @@ namespace Quotidian
                 Writing newWriting = new Writing(-1, currentProject.projectId, "Type here!");
                 currentProject.writings.Add(newWriting);
                 var nextPage = new WritingPage(currentProject, newWriting);
-                this.Hide();
+                //this.Hide();
                 nextPage.Show();
+                this.WindowState = FormWindowState.Minimized;
             }
             else
             {
                 var nextPage = new WritingPage(currentProject, selectedWriting);
-                this.Hide();
+                //this.Hide();
                 nextPage.Show();
+                this.WindowState = FormWindowState.Minimized;
             }
         }
 
@@ -151,16 +159,30 @@ namespace Quotidian
 
         private void deleteReadingBtn_Click(object sender, EventArgs e)
         {
-            Reading toDelete = readingsList.SelectedItem as Reading;
-            toDelete.deleted  = DatabaseInterface.deleteReading(toDelete);
-            readingsList.Refresh();
+            try
+            {
+                Reading toDelete = readingsList.SelectedItem as Reading;
+                toDelete.deleted = DatabaseInterface.deleteReading(toDelete);
+                readingsList.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private void deleteWritingBtn_Click(object sender, EventArgs e)
         {
-            Writing toDelete = writingsList.SelectedItem as Writing;
-            toDelete.deleted = DatabaseInterface.deleteWriting(toDelete);
-            writingsList.Refresh();
+            try
+            {
+                Writing toDelete = writingsList.SelectedItem as Writing;
+                toDelete.deleted = DatabaseInterface.deleteWriting(toDelete);
+                writingsList.Refresh();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
