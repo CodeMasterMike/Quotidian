@@ -877,7 +877,7 @@ namespace Quotidian
         {
             List<HighlightTag> highlightTags = new List<HighlightTag>();
 
-            String sqlStr = "SELECT Tags.TagId AS TagId, Tags.Tag AS Tag, Readings.ProjectId, Highlights.HighlightId AS HighlightId " +
+            String sqlStr = "SELECT Tags.TagId AS TagId, Tags.Tag AS Tag, Readings.ProjectId, Highlights.HighlightId AS HighlightId, Readings.ReadingId AS ReadingId " +
                 "FROM Highlights " +
                 "LEFT JOIN Readings " +
                     "ON Highlights.ReadingId = Readings.ReadingId " +
@@ -907,6 +907,7 @@ namespace Quotidian
                     int tagId = (int)reader["TagId"];
                     String tagText = (String)reader["Tag"];
                     int highlightId2 = (int)reader["HighlightId"];
+                    int readingId = (int)reader["ReadingId"];
                     highlightTags.Add(new HighlightTag(tagId, highlightId2, tagText));
                 }
             }

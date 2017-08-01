@@ -29,19 +29,17 @@ namespace Quotidian
             return searchResults;
         }
 
-        public static List<int[]> searchHighlights(List<Reading> readings, string pattern)
+        public static List<int[]> searchHighlights(Reading r, string pattern)
         {
             List<int[]> searchResults2 = new List<int[]>();
-            foreach(Reading r in readings)
+            highlightsText = new List<string>();
+            foreach(Highlight h in r.highlights)
             {
-                foreach(Highlight h in r.highlights)
-                {
-                    str = r.text.Substring(h.charNum, h.charCount);
-                    highlightsText.Add(str);
-                    pat = pattern;
-                    int[] currHighlightResults = BoyerMooreSearch();
-                    searchResults2.Add(currHighlightResults);
-                }
+                str = r.text.Substring(h.charNum, h.charCount);
+                highlightsText.Add(str);
+                pat = pattern;
+                int[] currHighlightResults = BoyerMooreSearch();
+                searchResults2.Add(currHighlightResults);
             }
             return searchResults2;
         }
