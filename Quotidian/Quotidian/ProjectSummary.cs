@@ -41,6 +41,7 @@ namespace Quotidian
             initializeWritingsListBox();
             citeStyleType.Text = p.style;
             currentProject.style = p.style;
+            citeStyleType.Text = p.style.Trim();
         }
 
         public void initializeReadingsListBox()
@@ -158,16 +159,30 @@ namespace Quotidian
 
         private void deleteReadingBtn_Click(object sender, EventArgs e)
         {
-            Reading toDelete = readingsList.SelectedItem as Reading;
-            toDelete.deleted  = DatabaseInterface.deleteReading(toDelete);
-            readingsList.Refresh();
+            try
+            {
+                Reading toDelete = readingsList.SelectedItem as Reading;
+                toDelete.deleted = DatabaseInterface.deleteReading(toDelete);
+                readingsList.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private void deleteWritingBtn_Click(object sender, EventArgs e)
         {
-            Writing toDelete = writingsList.SelectedItem as Writing;
-            toDelete.deleted = DatabaseInterface.deleteWriting(toDelete);
-            writingsList.Refresh();
+            try
+            {
+                Writing toDelete = writingsList.SelectedItem as Writing;
+                toDelete.deleted = DatabaseInterface.deleteWriting(toDelete);
+                writingsList.Refresh();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)

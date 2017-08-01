@@ -253,6 +253,10 @@ namespace Quotidian
 
         public static Boolean deleteReading(Reading reading)
         {
+            if(reading == null)
+            {
+                return false;
+            }
             deleteAuthors(reading.readingId);
             foreach(Highlight highlight in reading.highlights) //must delete children tags first to prevent FK contrainst issue
             {
@@ -335,6 +339,10 @@ namespace Quotidian
 
         public static Boolean deleteWriting(Writing writing)
         {
+            if(writing == null)
+            {
+                return false;
+            }
             using (SqlConnection con = new SqlConnection(databaseConnectionStr))
             {
                 con.Open();
