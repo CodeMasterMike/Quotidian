@@ -16,7 +16,7 @@ namespace Quotidian
     {
         public WritingPage(Project p, Writing w)
         {
-            InitializeComponent();0
+            InitializeComponent();
             project = p;
             writing = w;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
             writingDoc.Text = writing.text;
@@ -70,7 +70,16 @@ namespace Quotidian
             if (highlightResults.SelectedItem != null)
             {
                 HighlightResult result1 = highlightResults.SelectedItem as HighlightResult;
-                writingDoc.AppendText(result1.highlight);
+                String insertStr = "\"" + result1.highlight + "\"";
+                if (project.style == "MLA")
+                {
+                    insertStr += " (" + result1.authors + "LineNum) ";
+                }
+                else if (project.style == "Chicago")
+                {
+                    //TODO
+                }
+                writingDoc.AppendText(insertStr);
             }
             else
                 System.Windows.Forms.MessageBox.Show("Nothing Selected!");
@@ -114,6 +123,12 @@ namespace Quotidian
         //{
         //    throw new NotImplementedException();
         //}
+
+        private List<ReadingTag> getAllTags(SqlConnection con, int projectId)
+        {
+            return null;
+        }
+
         private WeightedGraph<ReadingTag> createTagGraph(int startTagId)
         {
             string str = DatabaseInterface.databaseConnectionStr;
@@ -245,6 +260,7 @@ namespace Quotidian
         public String displayString { get; set; }
         public String searchTerm { get; set; }
         public String highlight { get; set; }
+        public String authors { get; set; }
 
         public HighlightResult(Reading r, String text, int[] rArray, String term)
         {
@@ -255,6 +271,12 @@ namespace Quotidian
             highlight = text;
             displayString = "'" + highlight + "'; " + reading.title; 
             searchTerm = term;
+            String str = "";
+            foreach(Author a in r.authors)
+            {
+                str = a.last + ", ";
+            }
+            authors = str.Substring(0, str.Length - 2); //gets rid of ending space and comma
         }
     }
 }

@@ -36,7 +36,6 @@ namespace Quotidian
                 int projectId = -1;
                 try
                 {
-                    //TODO enforce unique project name
                     projectId = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 catch (Exception e)
@@ -217,7 +216,7 @@ namespace Quotidian
                 }
                 con.Close();
                 String monthInt = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(date.Month);
-                return new Reading(readingId, projectId, title, new List<Author>(), text, monthInt, date.Day, date.Year, publisher, city, style); //TODO update reading db and this
+                return new Reading(readingId, projectId, title, new List<Author>(), text, monthInt, date.Day, date.Year, publisher, city, style);
             }
         }
 
@@ -305,7 +304,7 @@ namespace Quotidian
                     return null;
                 }
                 con.Close();
-                return new Writing(writingId, projectId, text); //TODO update reading db and this
+                return new Writing(writingId, projectId, text);
             }
         }
         
@@ -511,7 +510,6 @@ namespace Quotidian
             cmd.Parameters.AddWithValue("@TagId", tagId);
             try
             {
-                //TODO enforce unique project name
                 tagId = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception e)
@@ -724,7 +722,7 @@ namespace Quotidian
                     int yearPublished = (int)reader["YearPublished"];
                     String strMonthName = getMonthName(date.Month);
 
-                    Reading reading = new Reading(readingId, projectId, title, new List<Author>(), text, strMonthName, date.Day, date.Year, publisher, city, style); //TODO update reading db and this
+                    Reading reading = new Reading(readingId, projectId, title, new List<Author>(), text, strMonthName, date.Day, date.Year, publisher, city, style);
                     readings.Add(reading);
                 }
             }
@@ -809,7 +807,6 @@ namespace Quotidian
                 if (projectId == projectId_input)
                 {
                     String text = (String)reader["Text"];
-                    // Writing writing = new Writing(writingId, null, projectId, title, "", "", author, text, "January", 1, 2000, "Pubby"); //TODO update reading db and this
                     Writing writing = new Writing(writingId,projectId,text);
                     writings.Add(writing);
                 }
