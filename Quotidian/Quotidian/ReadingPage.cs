@@ -50,7 +50,7 @@ namespace Quotidian
 
         private void quoteBtn_Click(object sender, EventArgs e)
         {
-            String authorPage = getAuthorPage(readingDoc.SelectionStart);
+            String authorPage = getInline(readingDoc.SelectionStart);
             readingDoc.SelectionBackColor = Color.Yellow;
             int numLines = readingDoc.Lines.Count();
 
@@ -64,6 +64,22 @@ namespace Quotidian
             reading.modified = true;
         }
 
+        private String getInline(int start)
+        {
+            String s = "";
+
+            if (reading.style == "MLA")
+            {
+                s = reading.getMLAInline(start);
+            }
+            else
+            {
+                s = reading.getChicagoInline(start);
+            }
+
+            return s;
+        }
+
         public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReadingInfo info = new Quotidian.ReadingInfo(project, reading, false);
@@ -74,26 +90,6 @@ namespace Quotidian
         public override void saveProjectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DatabaseInterface.updateProject(project);
-        }
-
-        //this function returns a formatted string [Author, pageNum] to be appended onto quote
-        private String getAuthorPage(int charNum)
-        {
-            String s;
-
-            if (reading.authors.Count() == 1)
-            {
-                s = "[" + reading.authors.First().last + ", " + (int)(charNum / reading.linesPerPage + 1) + "]";
-            }
-            else if (reading.authors.Count() > 1)
-            {
-                s = "[" + reading.authors.First().last + " et al, " + (int)(charNum / reading.linesPerPage + 1) + "]";
-            }
-            else
-            {
-                s = "No Authors Found.";
-            }
-            return s;
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
