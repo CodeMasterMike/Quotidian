@@ -35,13 +35,13 @@ namespace Quotidian
             for (int i = 0; i < searchResults.Count; i++)
             {
                 resultsBoxData.Add(new SearchResult(project.readings.ElementAt(i), searchResults.ElementAt(i), searchBox.Text));
-                List<int[]> highlightResults1 = StringSearch.searchHighlights(project.readings.ElementAt(i), searchBox.Text);
+                List<int[]> highlightResults1 = StringSearch.searchHighlights(project.readings.ElementAt(i), searchBox.Text); //in same order as r.highlights (correspond)
                 List<String> highlightsText = StringSearch.getHighlightsText(); //works since searchHighlights() was just called which updates the current highlightsText object in StringSearch
                 for (int j = 0; j < highlightResults1.Count; j++)
                 {
                     if (highlightResults1.ElementAt(j).Count() != 0 && searchResults.ElementAt(i).Count() != 0)
                     {
-                        highlightBoxData.Add(new HighlightResult(project.readings.ElementAt(i), highlightsText.ElementAt(j), highlightResults1.ElementAt(j), searchBox.Text));
+                        highlightBoxData.Add(new HighlightResult(project.readings.ElementAt(i), highlightsText.ElementAt(j), highlightResults1.ElementAt(j), searchBox.Text, project.readings.ElementAt(i).highlights.ElementAt(j)));
                     }
                 }
             }
@@ -266,7 +266,7 @@ namespace Quotidian
         public String highlight { get; set; }
         public String authors { get; set; }
 
-        public HighlightResult(Reading r, String text, int[] rArray, String term)
+        public HighlightResult(Reading r, String text, int[] rArray, String term, Highlight h)
         {
             reading = r;
             readingId = reading.readingId;
@@ -275,6 +275,7 @@ namespace Quotidian
             highlight = text;
             displayString = "'" + highlight + "'; " + reading.title; 
             searchTerm = term;
+            selectedHighlight = h;
             String str = "";
             foreach(Author a in r.authors)
             {
