@@ -99,8 +99,6 @@ namespace Quotidian
 
         private void readingTextBox_Click(object sender, EventArgs e)
         {
-            readingDoc.SelectionBackColor = Color.White;
-
             //need to loop through the highlight tags to display the proper selection, and if no highlight selected just display readingTags
             //TODO if multiple highlights overlap, way to cycle between these
             bool found = false;
