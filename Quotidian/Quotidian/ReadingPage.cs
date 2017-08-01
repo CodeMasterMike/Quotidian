@@ -96,7 +96,6 @@ namespace Quotidian
             return s;
         }
 
-        //TODO: This should probably bring up a new reading screen??
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
 
