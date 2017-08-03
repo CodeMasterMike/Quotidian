@@ -75,11 +75,11 @@ namespace Quotidian
                 //TODO: need way of getting start character num to send to these functions
                 if (project.style == "MLA")
                 {
-                    //insertStr += result1.reading.getMLAInline(result1.);
+                    insertStr += result1.reading.getMLAInline(result1.selectedHighlight.charNum);
                 }
                 else if (project.style == "Chicago")
                 {
-                    //insertStr += result1.reading.getChicagoInline(result1.);
+                    insertStr += result1.reading.getChicagoInline(result1.selectedHighlight.charNum);
                 }
                 writingDoc.AppendText(insertStr);
             }
@@ -227,8 +227,16 @@ namespace Quotidian
 
         private void startTagSearch_Click(object sender, EventArgs e)
         {
-            ReadingTag startTag = (ReadingTag) beginningTag.SelectedItem;
-            createTagGraph(startTag.tagId);
+            try
+            {
+                ReadingTag startTag = (ReadingTag)beginningTag.SelectedItem;
+                createTagGraph(startTag.tagId);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
         }
     }
 
@@ -277,11 +285,20 @@ namespace Quotidian
             searchTerm = term;
             selectedHighlight = h;
             String str = "";
-            foreach(Author a in r.authors)
+            
+            try
             {
-                str = a.last + ", ";
+                foreach (Author a in r.authors)
+                {
+                    str = a.last + ", ";
+                }
+                authors = str.Substring(0, str.Length - 2); //gets rid of ending space and comma
             }
-            authors = str.Substring(0, str.Length - 2); //gets rid of ending space and comma
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
         }
     }
 }
