@@ -21,10 +21,12 @@ namespace Quotidian
             writing = w;//new Reading(-1, -1, -1, "No Title", "First", "M.", "Last", "", "Jan.", 1, 1999, "Publisher");
             writingDoc.Text = writing.text;
             beginningTag.DataSource = DatabaseInterface.getTags(p.projectId);
+            mainGraph = createTagGraph();
         }
 
         public Project project;
         public Writing writing;
+        private WeightedGraph<ReadingTag> mainGraph;
 
         private void searchBtn_Click(object sender, EventArgs e)
         {
@@ -120,24 +122,19 @@ namespace Quotidian
             writing.modified = true;
         }
 
-        //public override void addDetailsToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         private List<ReadingTag> getAllTags(SqlConnection con, int projectId)
         {
             return null;
         }
 
-        private WeightedGraph<ReadingTag> createTagGraph(int startTagId)
+        private WeightedGraph<ReadingTag> createTagGraph()
         {
             string str = DatabaseInterface.databaseConnectionStr;
             WeightedGraph<ReadingTag> graph;
 
             using (SqlConnection con = new SqlConnection(str))
             {
-                Vertex<ReadingTag> startTag = null;
+               // Vertex<ReadingTag> startTag = null;
                 List<Vertex<ReadingTag>> vertices = new List<Vertex<ReadingTag>>();
                 List<WeightedEdge<ReadingTag>> edges = new List<WeightedEdge<ReadingTag>>();
                 List<ReadingTag> tags = DatabaseInterface.getReadingTags(null, con, false);
@@ -157,14 +154,14 @@ namespace Quotidian
                     table[l.t1, l.t2].Add(l.rId);
                 }
 
-                Dictionary<string, Vertex<ReadingTag>> dick = new Dictionary<string, Vertex<ReadingTag>>();
+                Dictionary<string, Vertex<ReadingTag>> dict = new Dictionary<string, Vertex<ReadingTag>>();
 
                 foreach (ReadingTag t in tags)
                 {
                     Vertex<ReadingTag> v = new Vertex<ReadingTag>(t);
-                    if(!dick.ContainsKey(t.tagId.ToString()))
+                    if (!dict.ContainsKey(t.tagId.ToString()))
                     {
-                        dick.Add(t.tagId.ToString(), v);
+                        dict.Add(t.tagId.ToString(), v);
                         vertices.Add(v);
                     }
                 }
@@ -176,37 +173,46 @@ namespace Quotidian
                         if (table[i, j] != null && table[i, j].Count() > 0)
                         {
                             //TODO: might have error here with readingIds array
-                            WeightedEdge<ReadingTag> edge = new WeightedEdge<ReadingTag>(dick[i.ToString()], dick[j.ToString()], table[i, j].Count());
-                            WeightedEdge<ReadingTag> edge2 = new WeightedEdge<ReadingTag>(dick[j.ToString()], dick[i.ToString()], table[i, j].Count());
+                            WeightedEdge<ReadingTag> edge = new WeightedEdge<ReadingTag>(dict[i.ToString()], dict[j.ToString()], table[i, j].Count());
+                            WeightedEdge<ReadingTag> edge2 = new WeightedEdge<ReadingTag>(dict[j.ToString()], dict[i.ToString()], table[i, j].Count());
                             edge.ReadingIds = table[i, j];
                             edge2.ReadingIds = table[i, j];
                             edges.Add(edge2);
                             edges.Add(edge);
-                            dick[i.ToString()].AddEdge(edge);
-                            dick[j.ToString()].AddEdge(edge2);
+                            dict[i.ToString()].AddEdge(edge);
+                            dict[j.ToString()].AddEdge(edge2);
                         }
                     }
                 }
-
-                foreach(Vertex<ReadingTag> v in vertices)
-                {
-                    if(v.tagId == startTagId)
-                    {
-                        startTag = v;
-                    }
-                }
+                
 
                 graph = new WeightedGraph<ReadingTag>(vertices, edges);
-                if(startTag != null)
+                beginningTag.DataSource = graph.vertices;
+                beginningTag.DisplayMember = "Value";
+
+                return graph;
+            }
+        }
+
+        private void startTagSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Vertex<ReadingTag> startTag = (Vertex<ReadingTag>) beginningTag.SelectedItem;
+                //mainGraph.TagFinder(startTag);
+                //createTagGraph(startTag.tagId);
+                List<WeightedEdge<ReadingTag>> list = mainGraph.TagFinder(startTag, new List<WeightedEdge<ReadingTag>>(), new List<Vertex<ReadingTag>>(), new List<Vertex<ReadingTag>>(), new List<WeightedEdge<ReadingTag>>());
+                Console.WriteLine(list.Count());
+                Console.WriteLine(list);
+                List<Reading> suggestedReadings = new List<Reading>();
+                string str = DatabaseInterface.databaseConnectionStr;
+
+                using (SqlConnection con = new SqlConnection(str))
                 {
-                    List<WeightedEdge<ReadingTag>> list = graph.TagFinder(startTag, new List<WeightedEdge<ReadingTag>>(), new List<Vertex<ReadingTag>>(), new List<Vertex<ReadingTag>>(), new List<WeightedEdge<ReadingTag>>());
-                    Console.WriteLine(list.Count());
-                    Console.WriteLine(list);
-                    List<Reading> suggestedReadings = new List<Reading>();
-                    foreach (WeightedEdge<ReadingTag> e in list)
+                    foreach (WeightedEdge<ReadingTag> edge in list)
                     {
-                        Console.WriteLine(e.ToString());
-                        foreach (int id in e.ReadingIds)
+                        Console.WriteLine(edge.ToString());
+                        foreach (int id in edge.ReadingIds)
                         {
                             Reading r = DatabaseInterface.getReadings(project.projectId, con, false, id).First();
                             if (r != null && suggestedReadings.Find(x => x.readingId == id) == null)
@@ -215,25 +221,11 @@ namespace Quotidian
                             }
                         }
                     }
-                    suggestedReadingsList.DataSource = suggestedReadings;
-                    suggestedReadingsList.DisplayMember = "title";
                 }
-                else
-                {
-                    System.Windows.Forms.MessageBox.Show("Start tag not found");
-                }
+                suggestedReadingsList.DataSource = suggestedReadings;
+                suggestedReadingsList.DisplayMember = "title";
             }
-            return graph;
-        }
-
-        private void startTagSearch_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ReadingTag startTag = (ReadingTag)beginningTag.SelectedItem;
-                createTagGraph(startTag.tagId);
-            }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
