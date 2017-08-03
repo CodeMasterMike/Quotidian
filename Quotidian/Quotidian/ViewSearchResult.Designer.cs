@@ -46,7 +46,7 @@
             this.ClientSize = new System.Drawing.Size(607, 428);
             this.Controls.Add(this.readingTextBox);
             this.Name = "ViewSearchResult";
-            this.Text = "Form1";
+            this.Text = "Text Search Results";
             this.Load += new System.EventHandler(this.ViewSearchResult_Load);
             this.ResumeLayout(false);
 
