@@ -15,7 +15,7 @@ namespace Quotidian.HelperObjects
 
         public int? highlightId { get; set; } //for when highlighttags are used as reading tags
 
-        public ReadingTag(int id, int rId, String t)
+        public ReadingTag(int id, int rId, String t, int? highlightId = null)
         {
             tagId = id;
             readingId = rId;

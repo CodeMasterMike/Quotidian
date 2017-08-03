@@ -908,7 +908,7 @@ namespace Quotidian
                     String tagText = (String)reader["Tag"];
                     int highlightId2 = (int)reader["HighlightId"];
                     int readingId = (int)reader["ReadingId"];
-                    highlightTags.Add(new HighlightTag(tagId, highlightId2, tagText));
+                    highlightTags.Add(new HighlightTag(tagId, highlightId2, tagText, readingId));
                 }
             }
 
@@ -919,6 +919,19 @@ namespace Quotidian
             }
 
             return highlightTags;
+        }
+
+        public static List<ReadingTag> getHighlight_ReadingTags(List<ReadingTag> rTags, int? highlightId, SqlConnection con, Boolean conOpen, int? projectId = null)
+        {
+            List<HighlightTag> hTags = getHighlightTags(highlightId, con, conOpen, projectId);
+            foreach (HighlightTag tag in hTags)
+            {
+                if(tag.readingId != null)
+                {
+                    rTags.Add(new ReadingTag(tag.tagId,(int)tag.readingId,tag.tag,tag.highlightId));
+                }
+            }
+            return rTags;
         }
 
         public static List<ReadingTag> getTags(int projectId)
@@ -993,6 +1006,54 @@ namespace Quotidian
                 "(SELECT TagId AS T2, ReadingId AS RId2 "+
                 "FROM ReadingTags) AS Table2 "+
                 "ON RId1 = RId2 AND T1 != T2 AND T1<T2;");
+
+            read.CommandType = CommandType.Text;
+            read.Connection = con;
+
+            SqlDataReader reader = read.ExecuteReader();
+            while (reader.Read())
+            {
+                int tagId1 = (int)reader["T1"];
+                int tagId2 = (int)reader["T2"];
+                int readingId = (int)reader["RId"];
+                tagLinks.Add(new TagLink(tagId1, tagId2, readingId));
+            }
+
+            if (conOpen == false)
+            {
+                con.Close();
+            }
+
+            return tagLinks;
+        }
+
+        //Begin tag map creation
+        public static List<TagLink> getHighlightLinks(SqlConnection con, Boolean conOpen)
+        {
+            List<TagLink> tagLinks = new List<TagLink>();
+
+            if (conOpen == false)
+            {
+                con.Open();
+            }
+
+            SqlCommand read = new SqlCommand(
+                "SELECT htTable1.TagId AS T1, htTable2.TagId AS T2, hTable1.ReadingId AS RId " +
+                "FROM " +
+                    "((SELECT ReadingId, HighlightId " +
+                    "FROM Highlights) AS hTable1 " +
+                    "INNER JOIN " +
+                    "(SELECT HighlightId, TagId " +
+                    "FROM HighlightTags) AS htTable1 " +
+                    "ON hTable1.HighlightId = htTable1.HighlightId) " +
+                "INNER JOIN " +
+                    "((SELECT ReadingId, HighlightId " +
+                    "FROM Highlights) AS hTable2 " +
+                    "INNER JOIN " +
+                    "(SELECT HighlightId, TagId " +
+                    "FROM HighlightTags) AS htTable2 " +
+                    "ON hTable2.HighlightId = htTable2.HighlightId) " +
+                "ON htable1.ReadingId = hTable2.ReadingId AND htTable1.TagId != htTable2.TagId AND htTable1.TagId < htTable2.TagId;");
 
             read.CommandType = CommandType.Text;
             read.Connection = con;
