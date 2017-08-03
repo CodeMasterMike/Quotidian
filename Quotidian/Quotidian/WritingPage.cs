@@ -140,10 +140,11 @@ namespace Quotidian
                 Vertex<ReadingTag> startTag = null;
                 List<Vertex<ReadingTag>> vertices = new List<Vertex<ReadingTag>>();
                 List<WeightedEdge<ReadingTag>> edges = new List<WeightedEdge<ReadingTag>>();
-                DatabaseInterface.getReadingLinks(con, false);
                 List<ReadingTag> tags = DatabaseInterface.getReadingTags(null, con, false);
+                tags = DatabaseInterface.getHighlight_ReadingTags(tags, null, con, false);
                 int numTags = tags.Count();
                 List<TagLink> tagLinks = DatabaseInterface.getReadingLinks(con, false);
+                tagLinks.AddRange(DatabaseInterface.getHighlightLinks(con, false));
                 //List<List<List<int>>> table = new List<List<List<int>>>();
                 List<int>[,] table = new List<int>[numTags, numTags];
 
