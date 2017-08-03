@@ -28,14 +28,19 @@ namespace Quotidian
                 int length = highlights[i].charCount;
                 readingDoc.SelectionStart = start;
                 readingDoc.SelectionLength = length;
+                String highlightText = readingDoc.Text.Substring(start, length);
                 if (highlights[i].isQuote == true)
                 {
                     readingDoc.SelectionBackColor = Color.Yellow;
+                    richTextBox2.AppendText("\"" + highlightText + "\" " + getInline(start));
+                    richTextBox2.AppendText(Environment.NewLine);
                 }
                 
                 else
                 {
                     readingDoc.SelectionBackColor = Color.LightSkyBlue;
+                    richTextBox3.AppendText(highlightText);
+                    richTextBox3.AppendText(Environment.NewLine);
                 }
             }
             selectReadingTagsListBox(); //initialize this ListBox
@@ -130,6 +135,7 @@ namespace Quotidian
             richTextBox3.AppendText(readingDoc.SelectedText);
             highlight1 = new Highlight(-1, (int)reading.readingId, false, readingDoc.SelectionStart, readingDoc.SelectedText.Length);
             reading.highlights.Add(highlight1);
+            reading.modified = true;
         }
 
         public void newProjectToolStripMenuItem_Click(object sender, EventArgs e)
