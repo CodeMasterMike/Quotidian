@@ -247,10 +247,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LocalDatabase.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="LocalDatabase_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>LocalDatabase.mdf</DependentUpon>
     </Content>
   </ItemGroup>

@@ -11,6 +11,7 @@ namespace Quotidian.HelperObjects
         public int readingId { get; set; }
         //public int? highlightId { get; set; }
         private readonly int LPP = 60;
+        private readonly int width = 100;
         public int projectId { get; set; }
         public int linesPerPage { get; set; }
         public String style { get; set; }
@@ -154,11 +155,11 @@ namespace Quotidian.HelperObjects
 
             if (authors.Count() == 1)
             {
-                s = "[" + authors.First().last + ", " + (int)(charNum / linesPerPage + 1) + "]";
+                s = "[" + authors.First().last + ", " + (int)(charNum / (linesPerPage*width) + 1) + "]";
             }
             else if (authors.Count() > 1)
             {
-                s = "[" + authors.First().last + " et al, " + (int)(charNum / linesPerPage + 1) + "]";
+                s = "[" + authors.First().last + " et al, " + (int)(charNum / (linesPerPage * width) + 1) + "]";
             }
             else
             {
